@@ -18,7 +18,7 @@ export default function Highlight({ ...props }) {
           </h3>
 
           <div className="border-gold border border-solid rounded-full p-4 shadow-primary">
-            {props.cardImg}
+            <img src={props.cardImg} alt={props.cardImgAlt} />
           </div>
 
           <p className="font-subtext text-txt2 text-lg text-center">
