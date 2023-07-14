@@ -2,13 +2,18 @@ const Recipe = require("../models/recipe");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
+exports.recipe_list = asyncHandler(async (req, res, next) => {
+  const allRecipes = await Recipe.find().exec();
+  res.send(allRecipes);
+});
+
 exports.recipe_create_post = [
   // validate & sanitize
   body("title", "Title must be specified.").trim().escape(),
   body("ingredients").optional({ values: "falsy" }).trim().escape(),
   body("steps").optional({ values: "falsy" }).trim().escape(),
   body("notes").optional({ values: "falsy" }).trim().escape(),
-  body("source").optional({ values: "falsy" }).trim().escape(),
+  body("source").optional({ values: "falsy" }).trim(),
   // process request, return errors in response if they exist or a success message (for now)
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -18,7 +23,7 @@ exports.recipe_create_post = [
       ingredients: req.body.ingredients,
       steps: req.body.steps,
       notes: req.body.notes,
-      source: req.body.notes,
+      source: req.body.source,
     });
 
     if (!errors.isEmpty()) {

@@ -7,7 +7,6 @@ export default function CreateRecipe({ ...props }) {
   const [steps, setSteps] = useState("");
   const [notes, setNotes] = useState("");
   const [source, setSource] = useState("");
-  const [recipes, setRecipes] = useState([{}]);
 
   return (
     <div className="absolute w-screen flex flex-col items-center bg-logoBg">
@@ -18,17 +17,30 @@ export default function CreateRecipe({ ...props }) {
         onSubmit={async (e) => {
           e.preventDefault();
 
-          axios
-            .post("http://localhost:3000/", {
+          try {
+            const response = await axios.post("http://localhost:3000/", {
               // must use the explicit server endpoint here - "/" refers to the client endpoint
               title,
               ingredients,
               steps,
               notes,
               source,
-            })
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err.response, "ERROR"));
+            });
+
+            if (response) {
+              console.log(response);
+              // if there is indeed a response, we should update state
+              // in order to update state, we need to pass the data returned from the response to the state setter
+              props.setRecipes([...props.recipes, response.data]);
+            }
+          } catch (err) {
+            if (err instanceof Error) {
+              // comply with strict type checking for errors in a catch block
+              console.log(err);
+            }
+          }
+
+          props.setAddRecipeActive(false);
         }}
         className="flex flex-col items-center gap-5"
       >
@@ -39,6 +51,7 @@ export default function CreateRecipe({ ...props }) {
             name="title"
             id="title"
             type="text"
+            placeholder="Enter a title for the recipe"
             className="text-main"
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -49,6 +62,7 @@ export default function CreateRecipe({ ...props }) {
           <textarea
             name="ingredients"
             id="ingredients"
+            placeholder="Copy and paste the ingredients list"
             className="text-main"
             onChange={(e) => setIngredients(e.target.value)}
           ></textarea>
@@ -59,6 +73,7 @@ export default function CreateRecipe({ ...props }) {
           <textarea
             name="steps"
             id="steps"
+            placeholder="Copy and paste the instructions"
             className="text-main"
             onChange={(e) => setSteps(e.target.value)}
           ></textarea>
@@ -69,17 +84,19 @@ export default function CreateRecipe({ ...props }) {
           <textarea
             name="notes"
             id="notes"
+            placeholder="Enter some recipe notes"
             className="text-main"
             onChange={(e) => setNotes(e.target.value)}
           ></textarea>
         </label>
 
         <label htmlFor="source">
-          Link to recipe
+          Source
           <input
             name="source"
             id="source"
             type="text"
+            placeholder="Enter a valid URL to the recipe"
             className="text-main"
             onChange={(e) => setSource(e.target.value)}
           />
