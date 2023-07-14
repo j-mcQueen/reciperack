@@ -10,7 +10,7 @@ export default function Header() {
                  border
                  rounded-lg
                  shadow-sky-600 
-                 font-logotext 
+                 font-logo 
                  leading-none
                  px-4
                  py-3
@@ -22,7 +22,7 @@ export default function Header() {
 
       <nav>
         <ul className="flex gap-5 font-subtext">
-          <li className="font-subtext ">
+          <li className="font-body ">
             <a
               href=""
               className="hover:text-gold transition-colors hover:transition-colors"

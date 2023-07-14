@@ -11,9 +11,9 @@ export default {
       txt2: "#CECECE",
     },
     fontFamily: {
-      logotext: ["Zen Kurenaido", "sans-serif"],
-      subtext: ["Amiri", "serif"],
-      headingtext: ["Marcellus", "serif"],
+      logo: ["Zen Kurenaido", "sans-serif"],
+      body: ["Amiri", "serif"],
+      heading: ["Marcellus", "serif"],
     },
     extend: {
       gridTemplateColumns: {
