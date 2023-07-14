@@ -1,11 +1,11 @@
-import './App.css'
-import Landing from './components/landing/Landing'
+import "./App.css";
+import Dashboard from "./components/dashboard/Dashboard";
+// import Landing from './components/landing/Landing'
 
 export default function App() {
-
   return (
     <>
-      <Landing/>
+      <Dashboard />
     </>
-  )
+  );
 }
