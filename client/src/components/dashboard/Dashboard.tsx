@@ -34,7 +34,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      <div className="flex">
+      <div className="flex gap-5">
         {addRecipeActive ? (
           <CreateRecipe
             addRecipeActive={addRecipeActive}

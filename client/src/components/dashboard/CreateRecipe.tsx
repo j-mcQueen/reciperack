@@ -93,6 +93,7 @@ export default function CreateRecipe({ ...props }) {
         <label htmlFor="source">
           Source
           <input
+            required
             name="source"
             id="source"
             type="text"

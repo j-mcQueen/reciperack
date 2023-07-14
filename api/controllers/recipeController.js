@@ -13,7 +13,12 @@ exports.recipe_create_post = [
   body("ingredients").optional({ values: "falsy" }).trim().escape(),
   body("steps").optional({ values: "falsy" }).trim().escape(),
   body("notes").optional({ values: "falsy" }).trim().escape(),
-  body("source").optional({ values: "falsy" }).trim(),
+  body("source")
+    .isLength({ min: 1 })
+    .withMessage("URL must be specified")
+    .isURL()
+    .withMessage("Please enter a valid URL")
+    .trim(),
   // process request, return errors in response if they exist or a success message (for now)
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -37,3 +42,7 @@ exports.recipe_create_post = [
     }
   }),
 ];
+
+exports.recipe_detail = asyncHandler(async (req, res, next) => {
+  console.log("All in order so far!");
+});
