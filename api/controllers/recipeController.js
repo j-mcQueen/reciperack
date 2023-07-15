@@ -9,11 +9,12 @@ exports.recipe_list = asyncHandler(async (req, res, next) => {
 
 exports.recipe_create_post = [
   // validate & sanitize
-  body("title", "Title must be specified.").trim().escape(),
-  body("ingredients").optional({ values: "falsy" }).trim().escape(),
-  body("steps").optional({ values: "falsy" }).trim().escape(),
-  body("notes").optional({ values: "falsy" }).trim().escape(),
+  body("title", "Title must be specified.").trim(),
+  body("ingredients").optional({ values: "falsy" }).trim(),
+  body("steps").optional({ values: "falsy" }).trim(),
+  body("notes").optional({ values: "falsy" }).trim(),
   body("source")
+    .optional({ values: "falsy" })
     .isLength({ min: 1 })
     .withMessage("URL must be specified")
     .isURL()
@@ -44,5 +45,13 @@ exports.recipe_create_post = [
 ];
 
 exports.recipe_detail = asyncHandler(async (req, res, next) => {
-  console.log("All in order so far!");
+  const recipe = await Recipe.findById(req.params.id).exec();
+
+  if (recipe === null) {
+    const error = new Error("Recipe not found");
+    error.status = 404;
+    next(error);
+  }
+
+  res.send(recipe);
 });

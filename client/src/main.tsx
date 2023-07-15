@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    // TODO supply path with id
+    // TODO figure out how to pass the url as props to RecipeDetail -> maybe with the useParams() hook?
     path: "/recipes/:id",
     element: <RecipeDetail />,
   },
