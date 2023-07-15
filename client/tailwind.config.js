@@ -14,6 +14,8 @@ export default {
       logo: ["Zen Kurenaido", "sans-serif"],
       body: ["Amiri", "serif"],
       heading: ["Marcellus", "serif"],
+      manrope: ["Manrope", "sans-serif"],
+      inter: ["Inter", "sans-serif"],
     },
     extend: {
       gridTemplateColumns: {
