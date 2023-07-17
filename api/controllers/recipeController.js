@@ -7,6 +7,18 @@ exports.recipe_list = asyncHandler(async (req, res, next) => {
   res.send(allRecipes);
 });
 
+exports.recipe_detail = asyncHandler(async (req, res, next) => {
+  const recipe = await Recipe.findById(req.params.id).exec();
+
+  if (recipe === null) {
+    const error = new Error("Recipe not found");
+    error.status = 404;
+    next(error);
+  }
+
+  res.send(recipe);
+});
+
 exports.recipe_create_post = [
   // validate & sanitize
   body("title", "Title must be specified.").trim(),
@@ -34,7 +46,7 @@ exports.recipe_create_post = [
 
     if (!errors.isEmpty()) {
       // There are validation errors - send them in the response and return
-      res.send({ recipe, errors });
+      res.send({ recipe, errors: errors.array() });
       return;
     } else {
       // save the recipe to the database and send the response
@@ -44,14 +56,43 @@ exports.recipe_create_post = [
   }),
 ];
 
-exports.recipe_detail = asyncHandler(async (req, res, next) => {
-  const recipe = await Recipe.findById(req.params.id).exec();
+exports.recipe_update_post = [
+  // validate & sanitize
+  body("title", "Title must be specified.").trim(),
+  body("ingredients").optional({ values: "falsy" }).trim(),
+  body("steps").optional({ values: "falsy" }).trim(),
+  body("notes").optional({ values: "falsy" }).trim(),
+  body("source")
+    .optional({ values: "falsy" })
+    .isLength({ min: 1 })
+    .withMessage("URL must be specified")
+    .isURL()
+    .withMessage("Please enter a valid URL")
+    .trim(),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
 
-  if (recipe === null) {
-    const error = new Error("Recipe not found");
-    error.status = 404;
-    next(error);
-  }
+    const recipe = new Recipe({
+      title: req.body.title,
+      ingredients: req.body.ingredients,
+      steps: req.body.steps,
+      notes: req.body.notes,
+      source: req.body.source,
+      _id: req.params.id,
+    });
 
-  res.send(recipe);
-});
+    if (!errors.isEmpty()) {
+      res.send({ recipe, errors: errors.array() });
+      return;
+    } else {
+      const updatedRecipe = await Recipe.findByIdAndUpdate(
+        req.params.id,
+        recipe,
+        {}
+      );
+
+      res.send(updatedRecipe);
+    }
+  }),
+];
+exports.recipe_delete_post = [];

@@ -6,7 +6,6 @@ const RecipeSchema = new Schema({
   ingredients: String,
   steps: String,
   notes: String,
-  url: String,
   source: String,
 });
 
