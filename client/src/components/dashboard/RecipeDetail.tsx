@@ -2,8 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import editIcon from "../../assets/icons/edit.svg";
 import deleteIcon from "../../assets/icons/delete.svg";
+import UpdateRecipe from "./UpdateRecipe";
 
 export default function RecipeDetail() {
+  const [updateRecipeActive, setUpdateRecipeActive] = useState(false);
   const [recipe, setRecipe] = useState({
     title: "",
     ingredients: [],
@@ -23,9 +25,15 @@ export default function RecipeDetail() {
 
         setRecipe({
           title: response.data.title,
-          ingredients: response.data.ingredients.split("\n"),
-          steps: response.data.steps.split("\n"),
-          notes: response.data.notes.split("\n"),
+          ingredients: response.data.ingredients
+            .split("\n")
+            .filter((ing: string) => ing !== ""),
+          steps: response.data.steps
+            .split("\n")
+            .filter((step: string) => step !== ""),
+          notes: response.data.notes
+            .split("\n")
+            .filter((note: string) => note !== ""),
           source: response.data.source,
           id: response.data._id,
         });
@@ -40,6 +48,13 @@ export default function RecipeDetail() {
 
   return (
     <main>
+      {updateRecipeActive ? (
+        <UpdateRecipe
+          setUpdateRecipeActive={setUpdateRecipeActive}
+          recipe={recipe}
+        />
+      ) : null}
+
       <div className="flex justify-between items-center p-10">
         <h1 className="font-manrope font-bold tracking-tighter text-6xl">
           {recipe.title}
@@ -49,6 +64,7 @@ export default function RecipeDetail() {
           <button
             className="rounded border-solid border border-offmain p-2"
             type="button"
+            onClick={() => setUpdateRecipeActive(true)}
           >
             <img src={editIcon} alt="A pencil icon" />
           </button>
@@ -95,13 +111,13 @@ export default function RecipeDetail() {
           <h2 className="font-manrope font-bold tracking-tighter text-4xl">
             Instructions
           </h2>
-          <ul>
+          <ol className="list-decimal list-inside">
             {recipe.steps.map((step, i) => (
               <li className="font-body text-lg leading-5 py-2" key={i}>
                 {step}
               </li>
             ))}
-          </ul>
+          </ol>
         </section>
       </div>
 

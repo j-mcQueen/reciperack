@@ -8,37 +8,41 @@ export default function CreateRecipe({ ...props }) {
   const [notes, setNotes] = useState("");
   const [source, setSource] = useState("");
 
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/", {
+        // must use the explicit server endpoint here - "/" refers to the client endpoint
+        title,
+        ingredients,
+        steps,
+        notes,
+        source,
+      });
+
+      if (response) {
+        console.log(response);
+        // if there is indeed a response, we should update state
+        // in order to update state, we need to pass the data returned from the response to the state setter
+        props.setRecipes([...props.recipes, response.data]);
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        // comply with strict type checking for errors in a catch block
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <div className="absolute w-screen flex flex-col items-center bg-logoBg">
       <h2>Create a new recipe</h2>
       <form
         method="POST"
         action=""
-        onSubmit={async (e) => {
+        onSubmit={(e) => {
           e.preventDefault();
 
-          try {
-            const response = await axios.post("http://localhost:3000/", {
-              // must use the explicit server endpoint here - "/" refers to the client endpoint
-              title,
-              ingredients,
-              steps,
-              notes,
-              source,
-            });
-
-            if (response) {
-              console.log(response);
-              // if there is indeed a response, we should update state
-              // in order to update state, we need to pass the data returned from the response to the state setter
-              props.setRecipes([...props.recipes, response.data]);
-            }
-          } catch (err) {
-            if (err instanceof Error) {
-              // comply with strict type checking for errors in a catch block
-              console.log(err);
-            }
-          }
+          handleSubmit();
 
           props.setAddRecipeActive(false);
         }}
@@ -97,7 +101,7 @@ export default function CreateRecipe({ ...props }) {
             name="source"
             id="source"
             type="text"
-            placeholder="Enter a valid URL to the recipe"
+            placeholder="Enter a valid URL for the recipe"
             className="text-main"
             onChange={(e) => setSource(e.target.value)}
           />
