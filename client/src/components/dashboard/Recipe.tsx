@@ -8,14 +8,16 @@ export default function Recipe({ ...props }) {
       key={props.key}
     >
       <div className="text-center border-solid border-b border-gold p-3">
-        <h2 className="font-heading text-3xl">{props.recipe.title}</h2>
+        <h2 className="font-manrope tracking-tighter font-bold text-3xl">
+          {props.recipe.title}
+        </h2>
       </div>
 
       <div className="flex justify-evenly gap-5 p-5">
         <div>
           <Link to={`/recipes/${props.recipe._id}`}>
             <button
-              className="border-solid border-2 border-txt2 rounded-lg px-3 py-1"
+              className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1"
               type="button"
             >
               View
@@ -26,7 +28,7 @@ export default function Recipe({ ...props }) {
         <div>
           <a href={props.recipe.source} target="_blank" rel="noreferrer">
             <button
-              className="border-solid border-2 border-txt2 rounded-lg px-3 py-1"
+              className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1"
               type="button"
             >
               Source

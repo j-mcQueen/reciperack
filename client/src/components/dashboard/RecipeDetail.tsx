@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import editIcon from "../../assets/icons/edit.svg";
+import deleteIcon from "../../assets/icons/delete.svg";
 
 export default function RecipeDetail() {
   const [recipe, setRecipe] = useState({
@@ -37,44 +39,76 @@ export default function RecipeDetail() {
   }, []);
 
   return (
-    <main className="px-72">
-      <div className="flex flex-col items-center p-10">
-        <h1 className="font-heading text-6xl">{recipe.title}</h1>
-        <a
-          className="text-gold"
-          href={recipe.source}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Source
-        </a>
+    <main>
+      <div className="flex justify-between items-center p-10">
+        <h1 className="font-manrope font-bold tracking-tighter text-6xl">
+          {recipe.title}
+        </h1>
+
+        <div className="flex gap-5">
+          <button
+            className="rounded border-solid border border-offmain p-2"
+            type="button"
+          >
+            <img src={editIcon} alt="A pencil icon" />
+          </button>
+
+          <button
+            className="rounded border-solid border border-offmain p-2"
+            type="button"
+          >
+            <img src={deleteIcon} alt="A bin icon" />
+          </button>
+
+          <button
+            className="font-manrope font-bold rounded text-main bg-gold px-3 py-2"
+            type="button"
+          >
+            <a
+              className=""
+              href={recipe.source}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Source
+            </a>
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-recipeDetails">
+        <section className="flex flex-col">
+          <h2 className="font-manrope font-bold tracking-tighter text-4xl">
+            Ingredients
+          </h2>
+          <ul className="py-5">
+            {recipe.ingredients.map((ingredient, i) => (
+              // using indexes not ideal as noted by React, but ingredients do not have an associated id, and using the recipe id throws warnings because of multiple list items using the same id. Tried using uuidv4() but for whatever reason it caused errors
+              <li className="font-body text-lg" key={i}>
+                {ingredient}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="flex flex-col">
+          <h2 className="font-manrope font-bold tracking-tighter text-4xl">
+            Instructions
+          </h2>
+          <ul>
+            {recipe.steps.map((step, i) => (
+              <li className="font-body text-lg leading-5 py-2" key={i}>
+                {step}
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
 
       <section className="flex flex-col items-center">
-        <h2 className="font-heading text-4xl">Ingredients</h2>
-        <ul className="grid grid-cols-3 gap-x-5 py-5">
-          {recipe.ingredients.map((ingredient, i) => (
-            // using indexes not ideal as noted by React, but ingredients do not have an associated id, and using the recipe id throws warnings because of multiple list items using the same id. Tried using uuidv4() but for whatever reason it caused errors
-            <li className="font-body text-lg text-center" key={i}>
-              {ingredient}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="flex flex-col items-center">
-        <h2 className="font-heading text-4xl">Instructions</h2>
-        <ul>
-          {recipe.steps.map((step, i) => (
-            <li className="font-body text-lg leading-5 py-2" key={i}>
-              {step}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="flex flex-col items-center">
-        <h2 className="font-heading text-4xl">Notes</h2>
+        <h2 className="font-manrope font-bold tracking-tighter text-4xl">
+          Notes
+        </h2>
         <ul>
           {recipe.notes.map((note, i) => (
             <li className="font-body text-lg" key={i}>

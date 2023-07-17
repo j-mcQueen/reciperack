@@ -5,6 +5,7 @@ export default {
     colors: {
       logoBg: "#2F2F2F",
       main: "#282828",
+      offmain: "#3E3E3E",
       gold: "#FDC959",
       green: "#3AB454",
       txt1: "#FFFFFF",
@@ -20,6 +21,7 @@ export default {
     extend: {
       gridTemplateColumns: {
         features: "40% 30%",
+        recipeDetails: "30% 60%",
       },
       boxShadow: {
         primary: "4px 4px 9px rgba(0,0,0, 0.25)",

@@ -27,11 +27,29 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div>
-      <div>
-        <button type="button" onClick={() => setAddRecipeActive(true)}>
-          <img src={addIcon} alt="A magnifying glass icon" />
-        </button>
+    <div className="p-5">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="font-manrope font-bold tracking-tighter text-5xl">
+            Recipe Dashboard
+          </h1>
+          <p className="font-manrope text-xl text-txt2 py-2">Welcome!</p>
+        </div>
+
+        <div>
+          <button
+            className="font-manrope font-bold tracking-tighter text-main bg-gold rounded flex gap-1 items-center px-3 py-3"
+            type="button"
+            onClick={() => setAddRecipeActive(true)}
+          >
+            <img
+              className="w-5 h-5"
+              src={addIcon}
+              alt="A magnifying glass icon"
+            />{" "}
+            Add Recipe
+          </button>
+        </div>
       </div>
 
       <div className="flex gap-5">
