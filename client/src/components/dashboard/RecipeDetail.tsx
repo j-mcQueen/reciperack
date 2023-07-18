@@ -5,9 +5,11 @@ import backIcon from "../../assets/icons/back.svg";
 import editIcon from "../../assets/icons/edit.svg";
 import deleteIcon from "../../assets/icons/delete.svg";
 import UpdateRecipe from "./UpdateRecipe";
+import DeleteRecipe from "./DeleteRecipe";
 
 export default function RecipeDetail() {
   const [updateRecipeActive, setUpdateRecipeActive] = useState(false);
+  const [deleteRecipeActive, setDeleteRecipeActive] = useState(false);
   const [recipe, setRecipe] = useState({
     title: "",
     ingredients: [],
@@ -57,14 +59,34 @@ export default function RecipeDetail() {
         />
       ) : null}
 
-      <div className="flex justify-between items-center p-6">
-        <Link to="/">
-          <img
-            className="border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
-            src={backIcon}
-            alt="A left-facing arrow icon"
+      {deleteRecipeActive ? (
+        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-blur-md">
+          <DeleteRecipe
+            setDeleteRecipeActive={setDeleteRecipeActive}
+            recipe={recipe}
           />
-        </Link>
+        </div>
+      ) : null}
+
+      <div className="flex justify-between items-center p-6">
+        <div className="flex gap-5">
+          <Link to="/">
+            <img
+              className="border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
+              src={backIcon}
+              alt="A left-facing arrow icon"
+            />
+          </Link>
+
+          <a
+            className="font-manrope font-bold rounded text-main bg-gold px-3 py-2"
+            href={recipe.source}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Source
+          </a>
+        </div>
 
         <h1 className="font-manrope font-bold tracking-tighter text-6xl">
           {recipe.title}
@@ -82,18 +104,10 @@ export default function RecipeDetail() {
           <button
             className="rounded border-solid border border-offmain p-2"
             type="button"
+            onClick={() => setDeleteRecipeActive(true)}
           >
             <img src={deleteIcon} alt="A bin icon" />
           </button>
-
-          <a
-            className="font-manrope font-bold rounded text-main bg-gold px-3 py-2"
-            href={recipe.source}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Source
-          </a>
         </div>
       </div>
 

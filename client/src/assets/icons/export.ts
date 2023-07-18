@@ -4,6 +4,7 @@ import search from "./search.svg";
 import edit from "./edit.svg";
 import del from "./delete.svg";
 import back from "./back.svg";
+import close from "./close.svg";
 
 interface Icons {
   add: string;
@@ -12,6 +13,7 @@ interface Icons {
   edit: string;
   del: string;
   back: string;
+  close: string;
 }
 
 const icons: Icons = {
@@ -21,6 +23,7 @@ const icons: Icons = {
   edit,
   del,
   back,
+  close,
 };
 
 export default icons;
