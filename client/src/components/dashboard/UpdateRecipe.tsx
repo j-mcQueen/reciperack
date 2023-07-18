@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 export default function UpdateRecipe({ ...props }) {
   const format = (arr: string[]) => {
-    // helper to present the recipe details in the form field in a manner that is easy to edit
+    // helper to present the recipe details in the form field in a manner that is easier to edit
     let str = "";
     for (const item of arr) {
       str += item + "\n";
@@ -18,8 +18,6 @@ export default function UpdateRecipe({ ...props }) {
   const [notes, setNotes] = useState(format(props.recipe.notes));
   const [source, setSource] = useState(props.recipe.source);
 
-  // when the update recipe form loads, we want the current recipe information to be entered in the form in a formatted manner
-
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
@@ -34,7 +32,7 @@ export default function UpdateRecipe({ ...props }) {
       );
 
       console.log(response);
-      location.reload();
+      location.reload(); // opted for this instead of permitting the default behaviour of form submission so that the post request could execute first
     } catch (err) {
       if (err instanceof Error) {
         console.log(err);

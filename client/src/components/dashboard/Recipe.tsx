@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 export default function Recipe({ ...props }) {
-  // each recipe UI acts as an overview for each recipe and should be concise
-  // the UI for each recipe should contain the recipe title, source, and a button which links to a separate page containing its details (for now)
   return (
     <div
       className="text-lg border border-gold border-solid rounded-md"
@@ -16,23 +14,17 @@ export default function Recipe({ ...props }) {
       <div className="flex justify-evenly gap-5 p-5">
         <div>
           <Link to={`/recipes/${props.recipe._id}`}>
-            <button
-              className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1"
-              type="button"
-            >
+            <span className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1">
               View
-            </button>
+            </span>
           </Link>
         </div>
 
         <div>
           <a href={props.recipe.source} target="_blank" rel="noreferrer">
-            <button
-              className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1"
-              type="button"
-            >
+            <span className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1">
               Source
-            </button>
+            </span>
           </a>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import backIcon from "../../assets/icons/back.svg";
 import editIcon from "../../assets/icons/edit.svg";
 import deleteIcon from "../../assets/icons/delete.svg";
 import UpdateRecipe from "./UpdateRecipe";
@@ -55,7 +57,15 @@ export default function RecipeDetail() {
         />
       ) : null}
 
-      <div className="flex justify-between items-center p-10">
+      <div className="flex justify-between items-center p-6">
+        <Link to="/">
+          <img
+            className="border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
+            src={backIcon}
+            alt="A left-facing arrow icon"
+          />
+        </Link>
+
         <h1 className="font-manrope font-bold tracking-tighter text-6xl">
           {recipe.title}
         </h1>
@@ -76,45 +86,40 @@ export default function RecipeDetail() {
             <img src={deleteIcon} alt="A bin icon" />
           </button>
 
-          <button
+          <a
             className="font-manrope font-bold rounded text-main bg-gold px-3 py-2"
-            type="button"
+            href={recipe.source}
+            target="_blank"
+            rel="noreferrer"
           >
-            <a
-              className=""
-              href={recipe.source}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Source
-            </a>
-          </button>
+            Source
+          </a>
         </div>
       </div>
 
-      <div className="grid grid-cols-recipeDetails">
-        <section className="flex flex-col">
+      <div className="grid grid-cols-recipeDetails justify-center items-center gap-10 px-10 m-10">
+        <section className="flex self-start flex-col bg-offgold rounded-lg p-10">
           <h2 className="font-manrope font-bold tracking-tighter text-4xl">
             Ingredients
           </h2>
           <ul className="py-5">
-            {recipe.ingredients.map((ingredient, i) => (
+            {recipe.ingredients.map((ingredient: string, i) => (
               // using indexes not ideal as noted by React, but ingredients do not have an associated id, and using the recipe id throws warnings because of multiple list items using the same id. Tried using uuidv4() but for whatever reason it caused errors
-              <li className="font-body text-lg" key={i}>
-                {ingredient}
+              <li className="font-body text-xl list-disc list-inside" key={i}>
+                {ingredient.trimStart()}
               </li>
             ))}
           </ul>
         </section>
 
-        <section className="flex flex-col">
+        <section className="flex flex-col rounded-lg bg-offgreen p-10">
           <h2 className="font-manrope font-bold tracking-tighter text-4xl">
             Instructions
           </h2>
           <ol className="list-decimal list-inside">
-            {recipe.steps.map((step, i) => (
-              <li className="font-body text-lg leading-5 py-2" key={i}>
-                {step}
+            {recipe.steps.map((step: string, i) => (
+              <li className="font-body text-xl py-2" key={i}>
+                {step.trimStart()}
               </li>
             ))}
           </ol>
@@ -126,9 +131,9 @@ export default function RecipeDetail() {
           Notes
         </h2>
         <ul>
-          {recipe.notes.map((note, i) => (
+          {recipe.notes.map((note: string, i) => (
             <li className="font-body text-lg" key={i}>
-              {note}
+              {note.trimStart()}
             </li>
           ))}
         </ul>
