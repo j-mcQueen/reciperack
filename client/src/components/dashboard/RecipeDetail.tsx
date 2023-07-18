@@ -25,7 +25,6 @@ export default function RecipeDetail() {
       const id = urlArr[urlArr.length - 1];
       try {
         const response = await axios.get(`http://localhost:3000/recipes/${id}`);
-        console.log(response);
 
         setRecipe({
           title: response.data.title,
@@ -60,7 +59,7 @@ export default function RecipeDetail() {
       ) : null}
 
       {deleteRecipeActive ? (
-        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-blur-md">
+        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
           <DeleteRecipe
             setDeleteRecipeActive={setDeleteRecipeActive}
             recipe={recipe}

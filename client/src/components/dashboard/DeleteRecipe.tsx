@@ -1,7 +1,18 @@
+import axios from "axios";
 import closeIcon from "../../assets/icons/close.svg";
 export default function DeleteRecipe({ ...props }) {
   const handleDelete = async () => {
-    //
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/recipes/${props.recipe.id}/delete`
+      );
+
+      if (response.status === 200) location.replace("http://localhost:5173/");
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err);
+      }
+    }
   };
   return (
     <div className="flex flex-col gap-10 bg-main border-solid border rounded-lg border-gold p-5 w-1/4">
@@ -28,6 +39,7 @@ export default function DeleteRecipe({ ...props }) {
       </div>
 
       <button
+        type="button"
         className="font-manrope bg-red p-3 w-full rounded-lg"
         onClick={() => handleDelete()}
       >
