@@ -4,7 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./components/Error.tsx";
-import RecipeDetail from "./components/dashboard/RecipeDetail.tsx";
+import RecipeDetail from "./components/dashboard/recipes/RecipeDetail.tsx";
 
 const router = createBrowserRouter([
   {

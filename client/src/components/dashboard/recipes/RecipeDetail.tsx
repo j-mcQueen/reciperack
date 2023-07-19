@@ -1,9 +1,9 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import backIcon from "../../assets/icons/back.svg";
-import editIcon from "../../assets/icons/edit.svg";
-import deleteIcon from "../../assets/icons/delete.svg";
+import backIcon from "../../../assets/icons/back.svg";
+import editIcon from "../../../assets/icons/edit.svg";
+import deleteIcon from "../../../assets/icons/delete.svg";
 import UpdateRecipe from "./UpdateRecipe";
 import DeleteRecipe from "./DeleteRecipe";
 

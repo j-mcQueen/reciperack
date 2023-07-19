@@ -1,5 +1,6 @@
 import axios from "axios";
-import closeIcon from "../../assets/icons/close.svg";
+import closeIcon from "../../../assets/icons/close.svg";
+
 export default function DeleteRecipe({ ...props }) {
   const handleDelete = async () => {
     try {
