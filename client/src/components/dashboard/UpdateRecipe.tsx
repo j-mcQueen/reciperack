@@ -52,12 +52,11 @@ export default function UpdateRecipe({ ...props }) {
           handleSubmit();
         }}
       >
-        <label htmlFor="title">
+        <label>
           Title
           <input
             required
             name="title"
-            id="title"
             type="text"
             placeholder="Enter a title for the recipe"
             className="block text-main w-96"
@@ -66,11 +65,10 @@ export default function UpdateRecipe({ ...props }) {
           />
         </label>
 
-        <label htmlFor="ingredients">
+        <label>
           Ingredients
           <textarea
             name="ingredients"
-            id="ingredients"
             placeholder="Copy and paste the ingredients list"
             className="block text-main w-96 h-48"
             value={ingredients}
@@ -78,11 +76,10 @@ export default function UpdateRecipe({ ...props }) {
           ></textarea>
         </label>
 
-        <label htmlFor="steps">
+        <label>
           Instructions
           <textarea
             name="steps"
-            id="steps"
             placeholder="Copy and paste the instructions"
             className="block text-main w-96 h-48"
             value={steps}
@@ -90,11 +87,10 @@ export default function UpdateRecipe({ ...props }) {
           ></textarea>
         </label>
 
-        <label htmlFor="notes">
+        <label>
           Notes
           <textarea
             name="notes"
-            id="notes"
             placeholder="Enter some recipe notes"
             className="block text-main w-96 h-24"
             value={notes}
@@ -102,12 +98,11 @@ export default function UpdateRecipe({ ...props }) {
           ></textarea>
         </label>
 
-        <label htmlFor="source">
+        <label>
           Source
           <input
             required
             name="source"
-            id="source"
             type="text"
             placeholder="Enter a valid URL for the recipe"
             className="block text-main w-96"

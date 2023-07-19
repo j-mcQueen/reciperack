@@ -67,8 +67,8 @@ export default function RecipeDetail() {
         </div>
       ) : null}
 
-      <div className="flex justify-between items-center p-6">
-        <div className="flex gap-5">
+      <header className="flex justify-between items-center p-6">
+        <nav className="flex gap-5">
           <Link to="/">
             <img
               className="border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
@@ -85,7 +85,7 @@ export default function RecipeDetail() {
           >
             Source
           </a>
-        </div>
+        </nav>
 
         <h1 className="font-manrope font-bold tracking-tighter text-6xl">
           {recipe.title}
@@ -108,7 +108,7 @@ export default function RecipeDetail() {
             <img src={deleteIcon} alt="A bin icon" />
           </button>
         </div>
-      </div>
+      </header>
 
       <div className="grid grid-cols-recipeDetails justify-center items-center gap-10 px-10 m-10">
         <section className="flex self-start flex-col bg-offgold rounded-lg p-10">

@@ -5,28 +5,26 @@ export default function Recipe({ ...props }) {
       className="text-lg border border-gold border-solid rounded-md"
       key={props.key}
     >
-      <div className="text-center border-solid border-b border-gold p-3">
-        <h2 className="font-manrope tracking-tighter font-bold text-3xl">
-          {props.recipe.title}
-        </h2>
-      </div>
+      <h2 className="font-manrope text-center border-solid border-b border-gold p-3 tracking-tighter font-bold text-3xl">
+        {props.recipe.title}
+      </h2>
 
       <div className="flex justify-evenly gap-5 p-5">
-        <div>
-          <Link to={`/recipes/${props.recipe._id}`}>
-            <span className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1">
-              View
-            </span>
-          </Link>
-        </div>
+        <Link
+          className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1"
+          to={`/recipes/${props.recipe._id}`}
+        >
+          View
+        </Link>
 
-        <div>
-          <a href={props.recipe.source} target="_blank" rel="noreferrer">
-            <span className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1">
-              Source
-            </span>
-          </a>
-        </div>
+        <a
+          className="font-manrope border-solid border-2 border-txt2 rounded-lg px-3 py-1"
+          href={props.recipe.source}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Source
+        </a>
       </div>
     </div>
   );
