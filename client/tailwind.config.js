@@ -25,6 +25,7 @@ export default {
       gridTemplateColumns: {
         features: "40% 30%",
         recipeDetails: "repeat(auto-fit, minmax(0, 600px))",
+        dashboard: "10% 90%",
       },
       boxShadow: {
         primary: "4px 4px 9px rgba(0,0,0, 0.25)",
