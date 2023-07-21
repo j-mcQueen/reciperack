@@ -16,11 +16,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     // retrieve recipes from the database on page load and update recipes state accordingly
-    const getRecipes = async () => {
+    const getItems = async (path: string, setItems: any) => {
       try {
-        const response = await axios.get("http://localhost:3000/recipes");
+        const response = await axios.get(path);
         if (response) {
-          setRecipes(response.data);
+          setItems(response.data);
         }
       } catch (err) {
         if (err instanceof Error) {
@@ -28,7 +28,13 @@ export default function Dashboard() {
         }
       }
     };
-    getRecipes();
+
+    // conditionally call the function based on the active nav item
+    activeNavItem === 0
+      ? getItems("http://localhost:3000/recipes", setRecipes)
+      : activeNavItem === 1
+      ? getItems("http://localhost:3000/menus", setMenus)
+      : null;
   }, []);
 
   return (
