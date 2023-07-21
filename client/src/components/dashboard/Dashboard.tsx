@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 
 import Nav from "./sidebar/Nav";
 import Header from "./Header";
@@ -13,29 +12,6 @@ export default function Dashboard() {
 
   const [recipes, setRecipes] = useState([]);
   const [menus, setMenus] = useState([]);
-
-  useEffect(() => {
-    // retrieve recipes from the database on page load and update recipes state accordingly
-    const getItems = async (path: string, setItems: any) => {
-      try {
-        const response = await axios.get(path);
-        if (response) {
-          setItems(response.data);
-        }
-      } catch (err) {
-        if (err instanceof Error) {
-          console.log(err);
-        }
-      }
-    };
-
-    // conditionally call the function based on the active nav item
-    activeNavItem === 0
-      ? getItems("http://localhost:3000/recipes", setRecipes)
-      : activeNavItem === 1
-      ? getItems("http://localhost:3000/menus", setMenus)
-      : null;
-  }, []);
 
   return (
     <div className="grid grid-cols-dashboard p-5">

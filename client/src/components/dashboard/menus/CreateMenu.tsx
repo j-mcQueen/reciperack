@@ -50,7 +50,7 @@ export default function CreateMenu({ ...props }) {
         <label>
           Title
           <input
-            className="text-main"
+            className="block mt-2 bg-logoBg border border-solid rounded-lg border-offmain p-3 focus:border-gold focus:outline-none"
             onChange={(e) => setTitle(e.target.value)}
             required
             type="text"

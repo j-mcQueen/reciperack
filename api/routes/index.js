@@ -9,6 +9,7 @@ router.get("/recipes/:id", recipeController.recipe_detail);
 router.post("/recipes/:id", recipeController.recipe_update_post);
 router.post("/recipes/:id/delete", recipeController.recipe_delete_post);
 
+router.get("/menus", menuController.menu_list);
 router.post("/menus", menuController.menu_create_post);
 
 module.exports = router;

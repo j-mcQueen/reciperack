@@ -2,6 +2,11 @@ const Menu = require("../models/menu");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
+exports.menu_list = asyncHandler(async (req, res, next) => {
+  const allMenus = await Menu.find().exec();
+  res.send(allMenus);
+});
+
 exports.menu_create_post = [
   body("title", "Title must not be empty").isLength({ min: 1 }).trim().escape(),
   asyncHandler(async (req, res, next) => {
