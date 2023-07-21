@@ -1,5 +1,5 @@
 import axios from "axios";
-import closeIcon from "../../../assets/icons/close.svg";
+import CloseIcon from "../../../assets/icons/Close";
 
 export default function DeleteRecipe({ ...props }) {
   const handleDelete = async () => {
@@ -35,7 +35,7 @@ export default function DeleteRecipe({ ...props }) {
           className="self-start border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
           onClick={() => props.setDeleteRecipeActive(false)}
         >
-          <img src={closeIcon} alt="A cross icon" />
+          <CloseIcon className="w-5 h-5 fill-txt2" />
         </button>
       </div>
 

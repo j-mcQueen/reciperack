@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
-import icons from "../../../assets/icons/export";
+import RecipeIcon from "../../../assets/icons/Recipe";
+import MenuIcon from "../../../assets/icons/Menu";
+import SearchIcon from "../../../assets/icons/Search";
+import SettingsIcon from "../../../assets/icons/Settings";
+import LogoutIcon from "../../../assets/icons/Logout";
 
 export default function Nav({ ...props }) {
   return (
@@ -11,16 +15,11 @@ export default function Nav({ ...props }) {
           <li
             className={
               props.activeNavItem === 0
-                ? "bg-offgreen rounded-lg flex gap-2 items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
-                : "flex gap-2 rounded-lg items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
+                ? "bg-offgreen border-green border border-solid rounded-lg flex gap-2 items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
+                : "border-main border border-solid flex gap-2 rounded-lg items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
             }
           >
-            <img
-              className="w-5 h-5"
-              src={icons.recipe}
-              alt="A knife and fork icon"
-            />
-
+            <RecipeIcon className="w-5 h-5 fill-txt2" />
             <button onClick={() => props.setActiveNavItem(0)} type="button">
               Recipes
             </button>
@@ -29,11 +28,11 @@ export default function Nav({ ...props }) {
           <li
             className={
               props.activeNavItem === 1
-                ? "bg-offgreen rounded-lg flex gap-2 items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
-                : "flex gap-2 rounded-lg items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
+                ? "bg-offgreen border-green border border-solid rounded-lg flex gap-2 items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
+                : " border-main border border-solid flex gap-2 rounded-lg items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
             }
           >
-            <img className="w-5 h-5" src={icons.menu} alt="A list icon" />
+            <MenuIcon className="w-5 h-5 fill-txt2" />
             <button onClick={() => props.setActiveNavItem(1)} type="button">
               Menus
             </button>
@@ -42,15 +41,11 @@ export default function Nav({ ...props }) {
           <li
             className={
               props.activeNavItem === 2
-                ? "bg-offgreen rounded-lg flex gap-2 items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
-                : "flex gap-2 rounded-lg items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
+                ? "bg-offgreen border-green border border-solid rounded-lg flex gap-2 items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
+                : "border-main border border-solid flex gap-2 rounded-lg items-center font-manrope font-semibold tracking-tighter px-3 py-2 hover:transition-colors transition-colors"
             }
           >
-            <img
-              className="w-5 h-5"
-              src={icons.search}
-              alt="A magnifying glass icon"
-            />
+            <SearchIcon className="w-5 h-5 fill-txt2" />
             <button onClick={() => props.setActiveNavItem(2)} type="button">
               Browse
             </button>
@@ -59,19 +54,11 @@ export default function Nav({ ...props }) {
 
         <div className="flex justify-center gap-3">
           <Link to="">
-            <img
-              className="border-offmain border-solid border rounded-lg p-2 hover:border-offgreen hover:transition-colors transition-colors"
-              src={icons.settings}
-              alt="A cogwheel icon"
-            />
+            <SettingsIcon className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors" />
           </Link>
 
           <Link to="">
-            <img
-              className="border-offmain border-solid border rounded-lg p-2 hover:border-offgreen hover:transition-colors transition-colors"
-              src={icons.logout}
-              alt="A logout icon"
-            />
+            <LogoutIcon className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors" />
           </Link>
         </div>
       </nav>

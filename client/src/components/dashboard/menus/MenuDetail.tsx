@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DetailHeader from "../DetailHeader";
+import AddIcon from "../../../assets/icons/Add";
 
 export default function MenuDetail() {
   const [updateMenuActive, setUpdateMenuActive] = useState(false);
@@ -31,6 +32,12 @@ export default function MenuDetail() {
         setUpdateItemActive={setUpdateMenuActive}
         setDeletItemActive={setDeleteMenuActive}
       />
+
+      <section>
+        <div>
+          <AddIcon className="fill-txt2 w-5 h-5" />
+        </div>
+      </section>
     </main>
   );
 }

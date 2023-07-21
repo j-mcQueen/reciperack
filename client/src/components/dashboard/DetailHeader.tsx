@@ -1,16 +1,14 @@
 import { Link } from "react-router-dom";
-import icons from "../../assets/icons/export";
+import BackIcon from "../../assets/icons/Back";
+import EditIcon from "../../assets/icons/Edit";
+import DeleteIcon from "../../assets/icons/Delete";
 
 export default function DetailHeader({ ...props }) {
   return (
     <header className="flex justify-between items-center p-6">
       <nav className="flex gap-5">
         <Link to="/">
-          <img
-            className="border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
-            src={icons.back}
-            alt="A left-facing arrow icon"
-          />
+          <BackIcon className="border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors" />
         </Link>
 
         {props.item.source ? (
@@ -31,19 +29,19 @@ export default function DetailHeader({ ...props }) {
 
       <div className="flex gap-5">
         <button
-          className="rounded border-solid border border-offmain p-2"
+          className="rounded border-solid border border-offmain p-2 hover:border-offgold hover:transition-colors transition-colors"
           type="button"
           onClick={() => props.setUpdateItemActive(true)}
         >
-          <img src={icons.edit} alt="A pencil icon" />
+          <EditIcon className="w-5 h-5 fill-[#3b7fc4]" />
         </button>
 
         <button
-          className="rounded border-solid border border-offmain p-2"
+          className="rounded border-solid border border-offmain p-2 hover:border-offgold hover:transition-colors transition-colors"
           type="button"
           onClick={() => props.setDeleteItemActive(true)}
         >
-          <img src={icons.del} alt="A bin icon" />
+          <DeleteIcon className="w-5 h-5 fill-red" />
         </button>
       </div>
     </header>

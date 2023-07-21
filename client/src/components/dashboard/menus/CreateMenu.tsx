@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import closeIcon from "../../../assets/icons/close.svg";
+import CloseIcon from "../../../assets/icons/Close";
 
 export default function CreateMenu({ ...props }) {
   const [title, setTitle] = useState("");
@@ -35,7 +35,7 @@ export default function CreateMenu({ ...props }) {
           type="button"
           onClick={() => props.setAddMenuActive(false)}
         >
-          <img src={closeIcon} alt="A cross icon" />
+          <CloseIcon className="w-5 h-5 fill-txt2" />
         </button>
       </div>
 

@@ -1,4 +1,4 @@
-import addIcon from "../../../src/assets/icons/add.svg";
+import AddIcon from "../../../src/assets/icons/Add.tsx";
 
 export default function Header({ ...props }) {
   return (
@@ -12,7 +12,7 @@ export default function Header({ ...props }) {
         type="button"
         onClick={() => props.setActive(true)}
       >
-        <img className="w-5 h-5" src={addIcon} alt="A magnifying glass icon" />{" "}
+        <AddIcon className="w-5 h-5" />
         {props.addItem}
       </button>
     </header>

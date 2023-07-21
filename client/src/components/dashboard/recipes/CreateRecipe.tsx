@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import closeIcon from "../../../assets/icons/close.svg";
+import CloseIcon from "../../../assets/icons/Close";
 
 export default function CreateRecipe({ ...props }) {
   const [title, setTitle] = useState("");
@@ -49,7 +49,7 @@ export default function CreateRecipe({ ...props }) {
             props.setAddRecipeActive(false);
           }}
         >
-          <img src={closeIcon} alt="A cross icon" />
+          <CloseIcon className="w-5 h-5 fill-txt2" />
         </button>
       </div>
 
