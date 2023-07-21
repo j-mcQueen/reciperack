@@ -3,19 +3,23 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Error from "./components/Error.tsx";
 import RecipeDetail from "./components/dashboard/recipes/RecipeDetail.tsx";
+import MenuDetail from "./components/dashboard/menus/MenuDetail.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <Error />,
+    // errorElement: <Error />,
   },
   {
     // TODO figure out how to pass the url as props to RecipeDetail -> maybe with the useParams() hook?
     path: "/recipes/:id",
     element: <RecipeDetail />,
+  },
+  {
+    path: "/menus/:id",
+    element: <MenuDetail />,
   },
 ]);
 
