@@ -18,7 +18,7 @@ export default function Dashboard() {
     // retrieve recipes from the database on page load and update recipes state accordingly
     const getRecipes = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/");
+        const response = await axios.get("http://localhost:3000/recipes");
         if (response) {
           setRecipes(response.data);
         }

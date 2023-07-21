@@ -7,6 +7,7 @@ const RecipeSchema = new Schema({
   steps: String,
   notes: String,
   source: String,
+  menus: [{ type: Schema.Types.ObjectId, ref: "Menu" }],
 });
 
 module.exports = mongoose.model("Recipe", RecipeSchema);

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Recipe({ ...props }) {
   return (
-    <div
+    <article
       className="text-lg border border-gold border-solid rounded-md"
       key={props.key}
     >
@@ -27,6 +27,6 @@ export default function Recipe({ ...props }) {
           Source
         </a>
       </div>
-    </div>
+    </article>
   );
 }

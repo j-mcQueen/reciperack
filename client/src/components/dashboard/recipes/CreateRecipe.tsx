@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import closeIcon from "../../../assets/icons/close.svg";
 
 export default function CreateRecipe({ ...props }) {
   const [title, setTitle] = useState("");
@@ -10,7 +11,7 @@ export default function CreateRecipe({ ...props }) {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/", {
+      const response = await axios.post("http://localhost:3000/recipes", {
         // must use the explicit server endpoint here - "/" refers to the client endpoint
         title,
         ingredients,
@@ -34,11 +35,25 @@ export default function CreateRecipe({ ...props }) {
   };
 
   return (
-    <div className="absolute flex flex-col items-center bg-logoBg">
-      <h2>Create a new recipe</h2>
+    // tab index of 0 set on h2 to ensure a user using assistive technology lands at a descriptive point on the modal when opened
+    <div className="font-manrope absolute flex flex-col items-center bg-logoBg border border-solid border-offmain rounded-lg p-5">
+      <div className="flex items-center justify-between w-full py-3">
+        <h2 className="text-xl" tabIndex={0}>
+          Create a new recipe
+        </h2>
+
+        <button
+          type="button"
+          className="border border-gold rounded-lg p-1"
+          onClick={() => {
+            props.setAddRecipeActive(false);
+          }}
+        >
+          <img src={closeIcon} alt="A cross icon" />
+        </button>
+      </div>
+
       <form
-        method="POST"
-        action=""
         onSubmit={(e) => {
           e.preventDefault();
 
@@ -46,7 +61,7 @@ export default function CreateRecipe({ ...props }) {
 
           props.setAddRecipeActive(false);
         }}
-        className="flex flex-col items-center gap-5"
+        className="flex flex-col gap-5"
       >
         <label htmlFor="title">
           Title
@@ -83,11 +98,10 @@ export default function CreateRecipe({ ...props }) {
           ></textarea>
         </label>
 
-        <label htmlFor="notes">
+        <label>
           Notes
           <textarea
             name="notes"
-            id="notes"
             placeholder="Enter some recipe notes"
             className="text-main"
             onChange={(e) => setNotes(e.target.value)}
@@ -97,7 +111,6 @@ export default function CreateRecipe({ ...props }) {
         <label htmlFor="source">
           Source
           <input
-            required
             name="source"
             id="source"
             type="text"
@@ -107,21 +120,12 @@ export default function CreateRecipe({ ...props }) {
           />
         </label>
 
-        <div>
-          <button className="border border-green rounded-lg p-3" type="submit">
-            Submit
-          </button>
-
-          <button
-            type="button"
-            className="border border-gold rounded-lg p-3"
-            onClick={() => {
-              props.setAddRecipeActive(false);
-            }}
-          >
-            Close
-          </button>
-        </div>
+        <button
+          className="font-semibold tracking-tighter bg-offgreen border border-green rounded-lg p-3"
+          type="submit"
+        >
+          Create Recipe
+        </button>
       </form>
     </div>
   );

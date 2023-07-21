@@ -14,7 +14,7 @@ export default function AllRecipes({ ...props }) {
       ) : null}
 
       {props.recipes.map((recipe: { _id: string }) => (
-        <Recipe key={recipe._id} recipe={recipe}></Recipe>
+        <Recipe key={recipe._id} recipe={recipe} />
       ))}
     </main>
   );
