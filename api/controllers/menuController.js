@@ -25,3 +25,15 @@ exports.menu_create_post = [
     }
   }),
 ];
+
+exports.menu_detail = asyncHandler(async (req, res, next) => {
+  const menu = await Menu.findById(req.params.id).exec();
+
+  if (menu === null) {
+    const error = new Error("Recipe not found");
+    error.status = 404;
+    next(error);
+  }
+
+  res.send(menu);
+});

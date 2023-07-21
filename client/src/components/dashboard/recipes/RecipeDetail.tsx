@@ -1,11 +1,8 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import backIcon from "../../../assets/icons/back.svg";
-import editIcon from "../../../assets/icons/edit.svg";
-import deleteIcon from "../../../assets/icons/delete.svg";
 import UpdateRecipe from "./UpdateRecipe";
 import DeleteRecipe from "./DeleteRecipe";
+import DetailHeader from "../DetailHeader";
 
 export default function RecipeDetail() {
   const [updateRecipeActive, setUpdateRecipeActive] = useState(false);
@@ -67,48 +64,11 @@ export default function RecipeDetail() {
         </div>
       ) : null}
 
-      <header className="flex justify-between items-center p-6">
-        <nav className="flex gap-5">
-          <Link to="/">
-            <img
-              className="border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
-              src={backIcon}
-              alt="A left-facing arrow icon"
-            />
-          </Link>
-
-          <a
-            className="font-manrope font-bold rounded text-main bg-gold px-3 py-2"
-            href={recipe.source}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Source
-          </a>
-        </nav>
-
-        <h1 className="font-manrope font-bold tracking-tighter text-6xl">
-          {recipe.title}
-        </h1>
-
-        <div className="flex gap-5">
-          <button
-            className="rounded border-solid border border-offmain p-2"
-            type="button"
-            onClick={() => setUpdateRecipeActive(true)}
-          >
-            <img src={editIcon} alt="A pencil icon" />
-          </button>
-
-          <button
-            className="rounded border-solid border border-offmain p-2"
-            type="button"
-            onClick={() => setDeleteRecipeActive(true)}
-          >
-            <img src={deleteIcon} alt="A bin icon" />
-          </button>
-        </div>
-      </header>
+      <DetailHeader
+        item={recipe}
+        setUpdateItemActive={setUpdateRecipeActive}
+        setDeleteItemActive={setDeleteRecipeActive}
+      />
 
       <div className="grid grid-cols-recipeDetails justify-center items-center gap-10 px-10 m-10">
         <section className="flex self-start flex-col bg-offgold rounded-lg p-10">

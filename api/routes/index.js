@@ -11,5 +11,6 @@ router.post("/recipes/:id/delete", recipeController.recipe_delete_post);
 
 router.get("/menus", menuController.menu_list);
 router.post("/menus", menuController.menu_create_post);
+router.get("/menus/:id", menuController.menu_detail);
 
 module.exports = router;
