@@ -1,12 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DetailHeader from "../DetailHeader";
-import AddIcon from "../../../assets/icons/Add";
+import Table from "./Table";
+import AddModal from "./AddModal";
 
 export default function MenuDetail() {
-  const [updateMenuActive, setUpdateMenuActive] = useState(false);
-  const [deleteMenuActive, setDeleteMenuActive] = useState(false);
+  const [addModal, setAddModal] = useState(false);
+  // const [updateMenuActive, setUpdateMenuActive] = useState(false);
+  // const [deleteMenuActive, setDeleteMenuActive] = useState(false);
   const [menu, setMenu] = useState({ title: "", id: "" });
+  const [activeDay, setActiveDay] = useState("Monday");
+  const [activeMeal, setActiveMeal] = useState("");
+
+  const week = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   useEffect(() => {
     const getMenuDetail = async () => {
@@ -29,14 +43,44 @@ export default function MenuDetail() {
     <main>
       <DetailHeader
         item={menu}
-        setUpdateItemActive={setUpdateMenuActive}
-        setDeletItemActive={setDeleteMenuActive}
+        // setUpdateItemActive={setUpdateMenuActive}
+        // setDeletItemActive={setDeleteMenuActive}
       />
-
       <section>
-        <div>
-          <AddIcon className="fill-txt2 w-5 h-5" />
-        </div>
+        <form>
+          <label>
+            <select
+              onChange={(e) => setActiveDay(e.target.value)}
+              className="text-offmain font-manrope"
+              name="days"
+            >
+              {week.map((day: string) => (
+                <option className="text-offmain" value={day}>
+                  {day}
+                </option>
+              ))}
+            </select>
+          </label>
+        </form>
+      </section>
+
+      <section className="flex">
+        {addModal ? (
+          <AddModal
+            meal={activeMeal}
+            activeDay={activeDay}
+            menu={menu}
+            setAddModal={setAddModal}
+          />
+        ) : null}
+
+        <Table
+          setActiveMeal={setActiveMeal}
+          activeDay={activeDay}
+          setActiveDay={setActiveDay}
+          addModal={addModal}
+          setAddModal={setAddModal}
+        />
       </section>
     </main>
   );
