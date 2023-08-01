@@ -41,7 +41,7 @@ export default function DeleteRecipe({ ...props }) {
 
       <button
         type="button"
-        className="font-manrope bg-red p-3 w-full rounded-lg"
+        className="font-manrope bg-offred border border-solid border-red p-3 w-full rounded-lg"
         onClick={() => handleDelete()}
       >
         Delete

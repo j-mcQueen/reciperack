@@ -7,6 +7,7 @@ export default function CreateRecipe({ ...props }) {
   const [ingredients, setIngredients] = useState("");
   const [steps, setSteps] = useState("");
   const [notes, setNotes] = useState("");
+  const [category, setCategory] = useState("");
   const [source, setSource] = useState("");
 
   const handleSubmit = async () => {
@@ -17,6 +18,7 @@ export default function CreateRecipe({ ...props }) {
         ingredients,
         steps,
         notes,
+        category,
         source,
       });
 
@@ -44,7 +46,7 @@ export default function CreateRecipe({ ...props }) {
 
         <button
           type="button"
-          className="border border-gold rounded-lg p-1"
+          className="border border-gold rounded-lg p-1 hover:bg-offgold hover:transition-colors transition-colors"
           onClick={() => {
             props.setAddRecipeActive(false);
           }}
@@ -63,37 +65,34 @@ export default function CreateRecipe({ ...props }) {
         }}
         className="flex flex-col gap-5"
       >
-        <label htmlFor="title">
+        <label>
           Title
           <input
             required
             name="title"
-            id="title"
             type="text"
             placeholder="Enter a title for the recipe"
-            className="text-main"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
 
-        <label htmlFor="ingredients">
+        <label>
           Ingredients
           <textarea
             name="ingredients"
-            id="ingredients"
             placeholder="Copy and paste the ingredients list"
-            className="text-main"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
             onChange={(e) => setIngredients(e.target.value)}
           ></textarea>
         </label>
 
-        <label htmlFor="steps">
+        <label>
           Instructions
           <textarea
             name="steps"
-            id="steps"
             placeholder="Copy and paste the instructions"
-            className="text-main"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
             onChange={(e) => setSteps(e.target.value)}
           ></textarea>
         </label>
@@ -103,9 +102,21 @@ export default function CreateRecipe({ ...props }) {
           <textarea
             name="notes"
             placeholder="Enter some recipe notes"
-            className="text-main"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
             onChange={(e) => setNotes(e.target.value)}
           ></textarea>
+        </label>
+
+        <label>
+          Category
+          <input
+            required
+            name="category"
+            type="text"
+            placeholder="Enter a category for the recipe"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
+            onChange={(e) => setCategory(e.target.value)}
+          />
         </label>
 
         <label htmlFor="source">
@@ -115,7 +126,7 @@ export default function CreateRecipe({ ...props }) {
             id="source"
             type="text"
             placeholder="Enter a valid URL for the recipe"
-            className="text-main"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
             onChange={(e) => setSource(e.target.value)}
           />
         </label>

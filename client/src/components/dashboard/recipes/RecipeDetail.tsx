@@ -13,6 +13,7 @@ export default function RecipeDetail() {
     steps: [],
     notes: [],
     source: "",
+    category: "",
     id: "",
   });
 
@@ -34,6 +35,7 @@ export default function RecipeDetail() {
           notes: response.data.notes
             .split("\n")
             .filter((note: string) => note !== ""),
+          category: response.data.category,
           source: response.data.source,
           id: response.data._id,
         });

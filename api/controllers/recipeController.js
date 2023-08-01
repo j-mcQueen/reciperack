@@ -41,6 +41,7 @@ exports.recipe_create_post = [
       ingredients: req.body.ingredients,
       steps: req.body.steps,
       notes: req.body.notes,
+      category: req.body.category,
       source: req.body.source,
     });
 
@@ -77,6 +78,7 @@ exports.recipe_update_post = [
       ingredients: req.body.ingredients,
       steps: req.body.steps,
       notes: req.body.notes,
+      category: req.body.category,
       source: req.body.source,
       _id: req.params.id,
     });

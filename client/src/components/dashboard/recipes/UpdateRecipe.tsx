@@ -17,6 +17,7 @@ export default function UpdateRecipe({ ...props }) {
   );
   const [steps, setSteps] = useState(format(props.recipe.steps));
   const [notes, setNotes] = useState(format(props.recipe.notes));
+  const [category, setCategory] = useState(props.recipe.category);
   const [source, setSource] = useState(props.recipe.source);
 
   const handleSubmit = async () => {
@@ -28,6 +29,7 @@ export default function UpdateRecipe({ ...props }) {
           ingredients,
           steps,
           notes,
+          category,
           source,
         }
       );
@@ -42,7 +44,7 @@ export default function UpdateRecipe({ ...props }) {
   };
 
   return (
-    <div className="absolute w-screen flex flex-col items-center bg-logoBg">
+    <div className="font-manrope absolute w-screen flex flex-col items-center bg-logoBg">
       <h2 className="font-manrope text-3xl tracking-tighter py-3 border-b-2 border-gold border-solid">
         Update: {props.recipe.title}
       </h2>
@@ -60,7 +62,7 @@ export default function UpdateRecipe({ ...props }) {
             name="title"
             type="text"
             placeholder="Enter a title for the recipe"
-            className="block text-main w-96"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -71,7 +73,7 @@ export default function UpdateRecipe({ ...props }) {
           <textarea
             name="ingredients"
             placeholder="Copy and paste the ingredients list"
-            className="block text-main w-96 h-48"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-48 focus:outline-none focus:border-offgreen"
             value={ingredients}
             onChange={(e) => setIngredients(e.target.value)}
           ></textarea>
@@ -82,7 +84,7 @@ export default function UpdateRecipe({ ...props }) {
           <textarea
             name="steps"
             placeholder="Copy and paste the instructions"
-            className="block text-main w-96 h-48"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-48 focus:outline-none focus:border-offgreen"
             value={steps}
             onChange={(e) => setSteps(e.target.value)}
           ></textarea>
@@ -93,10 +95,23 @@ export default function UpdateRecipe({ ...props }) {
           <textarea
             name="notes"
             placeholder="Enter some recipe notes"
-            className="block text-main w-96 h-24"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           ></textarea>
+        </label>
+
+        <label>
+          Category
+          <input
+            required
+            name="category"
+            type="text"
+            placeholder="Enter a category for this recipe"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
         </label>
 
         <label>
@@ -106,20 +121,23 @@ export default function UpdateRecipe({ ...props }) {
             name="source"
             type="text"
             placeholder="Enter a valid URL for the recipe"
-            className="block text-main w-96"
+            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
             value={source}
             onChange={(e) => setSource(e.target.value)}
           />
         </label>
 
-        <div>
-          <button className="border border-green rounded-lg p-3" type="submit">
+        <div className="flex w-full justify-center gap-5">
+          <button
+            className="font-manrope bg-offgreen border border-green rounded-lg p-3"
+            type="submit"
+          >
             Update
           </button>
 
           <button
             type="button"
-            className="border border-gold rounded-lg p-3"
+            className="font-manrope bg-offgold border border-gold rounded-lg p-3"
             onClick={() => {
               props.setUpdateRecipeActive(false);
             }}
