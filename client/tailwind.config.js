@@ -11,6 +11,9 @@ export default {
       green: "#3AB454",
       offgreen: "#3AB45480",
       red: "#f4170b",
+      offred: "#99150E",
+      blue: "#0044FF",
+      offblue: "#0034C2",
       txt1: "#FFFFFF",
       txt2: "#CECECE",
     },
@@ -26,6 +29,9 @@ export default {
         features: "40% 30%",
         recipeDetails: "repeat(auto-fit, minmax(0, 600px))",
         dashboard: "10% 90%",
+      },
+      backgroundImage: {
+        loginForm: "url('src/assets/icons/Email.tsx')",
       },
       boxShadow: {
         primary: "4px 4px 9px rgba(0,0,0, 0.25)",
