@@ -36,4 +36,37 @@ exports.menu_detail = asyncHandler(async (req, res, next) => {
   }
 
   res.send(menu);
+  return;
+});
+
+exports.menu_update_post = [
+  // validate and sanitize
+  // body("recipes", "Please select a recipe."),
+  // handle request
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    console.log(req.body.monday);
+
+    const menu = new Menu({
+      title: req.body.title,
+      monday: req.body.monday,
+      // tuesday: req.body.tuesday,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      res.send({ menu, errors: errors.array() });
+    } else {
+      const updatedMenu = await Menu.findByIdAndUpdate(req.params.id, menu);
+      res.send(updatedMenu);
+      return;
+    }
+  }),
+];
+
+exports.menu_delete_post = asyncHandler(async (req, res, next) => {
+  // menu will likely have associations, so will need to remove those references before actually deleting the menu
+  const deleted = await Menu.findByIdAndDelete(req.params.id).exec();
+  res.send(deleted);
 });
