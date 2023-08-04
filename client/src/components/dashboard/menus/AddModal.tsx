@@ -26,11 +26,20 @@ export default function AddModal({ ...props }) {
   }, []);
 
   const handleSubmit = async () => {
-    const day: string = props.activeDay.toLowerCase();
-    const updatedDayRecipes = [...props.menu[day], chosenRecipeId];
-    const updatedMenu = { ...props.menu, [day]: updatedDayRecipes };
-
     try {
+      const day: string = props.activeDay.toLowerCase();
+      const updatedDayRecipes = props.menu[day];
+
+      if (props.meal === "Breakfast") {
+        updatedDayRecipes[0] = chosenRecipeId;
+      } else if (props.meal === "Lunch") {
+        updatedDayRecipes[1] = chosenRecipeId;
+      } else {
+        updatedDayRecipes[2] = chosenRecipeId;
+      }
+
+      const updatedMenu = { ...props.menu, [day]: updatedDayRecipes };
+
       const response = await axios.post(
         `http://localhost:3000/menus/${props.menu._id}`,
         updatedMenu

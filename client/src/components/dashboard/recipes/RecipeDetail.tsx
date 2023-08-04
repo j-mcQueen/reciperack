@@ -60,6 +60,7 @@ export default function RecipeDetail() {
       {deleteRecipeActive ? (
         <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
           <DeleteRecipe
+            source="source"
             setDeleteRecipeActive={setDeleteRecipeActive}
             recipe={recipe}
           />

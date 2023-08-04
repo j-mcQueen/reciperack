@@ -14,6 +14,7 @@ export default function Table({ ...props }) {
         <TableRow
           meal={"Breakfast"}
           recipe={dayRecipes[0]}
+          setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
           activeDay={props.activeDay}
           setAddModal={props.setAddModal}
           setActiveMeal={props.setActiveMeal}
@@ -22,6 +23,7 @@ export default function Table({ ...props }) {
         <TableRow
           meal={"Lunch"}
           recipe={dayRecipes[1]}
+          setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
           activeDay={props.activeDay}
           setAddModal={props.setAddModal}
           setActiveMeal={props.setActiveMeal}
@@ -30,6 +32,7 @@ export default function Table({ ...props }) {
         <TableRow
           meal={"Dinner"}
           recipe={dayRecipes[2]}
+          setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
           activeDay={props.activeDay}
           setAddModal={props.setAddModal}
           setActiveMeal={props.setActiveMeal}

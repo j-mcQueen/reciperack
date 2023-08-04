@@ -61,7 +61,9 @@ exports.menu_update_post = [
     if (!errors.isEmpty()) {
       res.send({ menu, errors: errors.array() });
     } else {
-      const updatedMenu = await Menu.findByIdAndUpdate(req.params.id, menu);
+      const updatedMenu = await Menu.findByIdAndUpdate(req.params.id, menu, {
+        new: true,
+      });
       res.send(updatedMenu);
       return;
     }

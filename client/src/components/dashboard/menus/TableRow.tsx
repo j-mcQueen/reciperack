@@ -61,7 +61,14 @@ export default function TableRow({ ...props }) {
           </td>
 
           <td className="align-middle border border-solid border-offmain">
-            <button type="button" className="p-4">
+            <button
+              type="button"
+              className="p-4"
+              onClick={() => {
+                props.setActiveMeal(props.meal);
+                props.setDeleteMenuRecipeActive(true);
+              }}
+            >
               <DeleteIcon
                 title="Delete Menu Recipe"
                 className="w-5 h-5 fill-red"

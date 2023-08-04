@@ -4,12 +4,14 @@ import DetailHeader from "../DetailHeader";
 import Table from "./Table";
 import AddModal from "./AddModal";
 import DeleteMenu from "./DeleteMenu";
+import DeleteRecipe from "../recipes/DeleteRecipe";
 
 export default function MenuDetail() {
   const [addModal, setAddModal] = useState(false);
   const [activeDay, setActiveDay] = useState("Monday");
   const [activeMeal, setActiveMeal] = useState("");
   const [deleteMenuActive, setDeleteMenuActive] = useState(false);
+  const [deleteMenuRecipeActive, setDeleteMenuRecipeActive] = useState(false);
 
   const [menu, setMenu] = useState({
     title: "",
@@ -62,6 +64,19 @@ export default function MenuDetail() {
         </div>
       ) : null}
 
+      {deleteMenuRecipeActive ? (
+        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
+          <DeleteRecipe
+            activeDay={activeDay}
+            activeMeal={activeMeal}
+            menu={menu}
+            setMenu={setMenu}
+            setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
+            source="menu"
+          />
+        </div>
+      ) : null}
+
       <DetailHeader setDeleteItemActive={setDeleteMenuActive} item={menu} />
 
       <section>
@@ -97,6 +112,7 @@ export default function MenuDetail() {
         <Table
           menu={menu}
           setMenu={setMenu}
+          setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
           setActiveMeal={setActiveMeal}
           activeDay={activeDay}
           addModal={addModal}
