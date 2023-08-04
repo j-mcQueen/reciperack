@@ -3,17 +3,19 @@ import CloseIcon from "../../../assets/icons/Close";
 import axios from "axios";
 
 export default function AddModal({ ...props }) {
-  const [chosenRecipe, setChosenRecipe] = useState("");
   const [allRecipes, setAllRecipes] = useState([]);
-
-  // on mount, perform a get request which retrieves all the recipes in the given category
+  const [chosenRecipeId, setChosenRecipeId] = useState("");
 
   useEffect(() => {
+    // on mount, perform a get request which retrieves all the recipes in the given category
     const getRecipes = async () => {
       try {
-        // find all recipes
         const response = await axios.get("http://localhost:3000/recipes");
-        if (response) setAllRecipes(response.data);
+
+        if (response) {
+          setAllRecipes(response.data);
+          setChosenRecipeId(response.data[0]._id); // set the default chosen recipe to the first item in all recipes
+        }
       } catch (err) {
         if (err instanceof Error) {
           console.log(err);
@@ -24,21 +26,32 @@ export default function AddModal({ ...props }) {
   }, []);
 
   const handleSubmit = async () => {
-    // menu should get updated
-    // pass all mealRecipes to post request
-    // look up $set in mongodb docs
+    const day: string = props.activeDay.toLowerCase();
+    const updatedDayRecipes = [...props.menu[day], chosenRecipeId];
+    const updatedMenu = { ...props.menu, [day]: updatedDayRecipes };
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/menus/${props.menu._id}`,
+        updatedMenu
+      );
+
+      if (response) props.setMenu(updatedMenu);
+    } catch (err) {
+      if (err instanceof Error) console.log(err);
+    }
     props.setAddModal(false);
   };
 
   return (
     <div className="absolute bg-main p-3 border border-offmain border-solid rounded-lg">
-      <div className="flex font-manrope">
+      <div className="flex font-manrope gap-5">
         <h2 tabIndex={0}>
           Add recipe to {props.menu.title}, {props.meal}: {props.activeDay}
         </h2>
 
         <button
-          className="border border-solid border-offgold rounded-lg p-1"
+          className="border border-solid border-offgold rounded-lg p-1 hover:bg-offgold hover:transition-colors transition-colors"
           onClick={() => props.setAddModal(false)}
           type="button"
         >
@@ -53,19 +66,20 @@ export default function AddModal({ ...props }) {
         }}
       >
         <label>
-          {/* select tag has an onchange event which updates chosen recipe state which gets sent in the post request */}
           <select
             className="font-manrope text-offmain w-full p-2 my-3 rounded-lg"
-            onChange={(e) => setChosenRecipe(e.target.id)}
             name="recipes"
             required
           >
             {allRecipes.map((recipe: { _id: string; title: string }) => (
-              <option key={recipe._id} value={recipe.title} id={recipe._id}>
+              <option
+                onClick={() => setChosenRecipeId(recipe._id)}
+                key={recipe._id}
+                value={recipe._id}
+              >
                 {recipe.title}
               </option>
             ))}
-            {/* populate options based on recipes with a specific meal value (breakfast, lunch, dinner) - likely going to need a get request here */}
           </select>
         </label>
 

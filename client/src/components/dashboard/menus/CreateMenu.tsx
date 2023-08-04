@@ -31,7 +31,7 @@ export default function CreateMenu({ ...props }) {
         </h2>
 
         <button
-          className="border border-solid border-gold rounded-lg p-1"
+          className="border border-solid border-gold rounded-lg p-1 hover:bg-offgold hover:transition-colors transition-colors"
           type="button"
           onClick={() => props.setAddMenuActive(false)}
         >

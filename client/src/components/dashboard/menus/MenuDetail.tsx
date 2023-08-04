@@ -3,14 +3,46 @@ import { useEffect, useState } from "react";
 import DetailHeader from "../DetailHeader";
 import Table from "./Table";
 import AddModal from "./AddModal";
+import DeleteMenu from "./DeleteMenu";
 
 export default function MenuDetail() {
   const [addModal, setAddModal] = useState(false);
-  // const [updateMenuActive, setUpdateMenuActive] = useState(false);
-  // const [deleteMenuActive, setDeleteMenuActive] = useState(false);
-  const [menu, setMenu] = useState({ title: "", id: "" });
   const [activeDay, setActiveDay] = useState("Monday");
   const [activeMeal, setActiveMeal] = useState("");
+  const [deleteMenuActive, setDeleteMenuActive] = useState(false);
+
+  const [menu, setMenu] = useState({
+    title: "",
+    monday: [],
+    tuesday: [],
+    wednesday: [],
+    thursday: [],
+    friday: [],
+    saturday: [],
+    sunday: [],
+    id: "",
+  });
+
+  useEffect(() => {
+    let ignore = false;
+
+    const getMenuDetail = async () => {
+      const urlArr = window.location.href.split("/menus/");
+      const id = urlArr[urlArr.length - 1];
+      try {
+        const response = await axios.get(`http://localhost:3000/menus/${id}`);
+
+        if (response && !ignore) setMenu(response.data);
+      } catch (err) {
+        if (err instanceof Error) console.log(err);
+      }
+    };
+    getMenuDetail();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const week = [
     "Monday",
@@ -22,40 +54,27 @@ export default function MenuDetail() {
     "Sunday",
   ];
 
-  useEffect(() => {
-    const getMenuDetail = async () => {
-      const urlArr = window.location.href.split("/menus/");
-      const id = urlArr[urlArr.length - 1];
-      try {
-        const response = await axios.get(`http://localhost:3000/menus/${id}`);
-        if (response)
-          setMenu({ title: response.data.title, id: response.data._id });
-      } catch (err) {
-        if (err instanceof Error) {
-          console.log(err);
-        }
-      }
-    };
-    getMenuDetail();
-  }, []);
-
   return (
     <main>
-      <DetailHeader
-        item={menu}
-        // setUpdateItemActive={setUpdateMenuActive}
-        // setDeletItemActive={setDeleteMenuActive}
-      />
+      {deleteMenuActive ? (
+        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
+          <DeleteMenu setDeleteMenuActive={setDeleteMenuActive} menu={menu} />
+        </div>
+      ) : null}
+
+      <DetailHeader setDeleteItemActive={setDeleteMenuActive} item={menu} />
+
       <section>
-        <form>
+        <form className="font-manrope">
           <label>
+            Choose a day:
             <select
               onChange={(e) => setActiveDay(e.target.value)}
-              className="text-offmain font-manrope"
+              className="bg-main border border-solid border-offmain py-2 px-3 mx-3 rounded-lg focus:border-offgold"
               name="days"
             >
               {week.map((day: string) => (
-                <option className="text-offmain" value={day}>
+                <option key={day} className="text-offmain" value={day}>
                   {day}
                 </option>
               ))}
@@ -70,14 +89,16 @@ export default function MenuDetail() {
             meal={activeMeal}
             activeDay={activeDay}
             menu={menu}
+            setMenu={setMenu}
             setAddModal={setAddModal}
           />
         ) : null}
 
         <Table
+          menu={menu}
+          setMenu={setMenu}
           setActiveMeal={setActiveMeal}
           activeDay={activeDay}
-          setActiveDay={setActiveDay}
           addModal={addModal}
           setAddModal={setAddModal}
         />

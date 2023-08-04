@@ -46,12 +46,15 @@ exports.menu_update_post = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
-    console.log(req.body.monday);
-
     const menu = new Menu({
       title: req.body.title,
       monday: req.body.monday,
-      // tuesday: req.body.tuesday,
+      tuesday: req.body.tuesday,
+      wednesday: req.body.wednesday,
+      thursday: req.body.thursday,
+      friday: req.body.friday,
+      saturday: req.body.saturday,
+      sunday: req.body.sunday,
       _id: req.params.id,
     });
 
