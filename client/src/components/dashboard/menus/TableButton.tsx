@@ -2,7 +2,7 @@ import AddIcon from "../../../assets/icons/Add";
 
 export default function TableButton({ ...props }) {
   return (
-    <td className="border border-solid border-offmain p-3">
+    <td className="p-3">
       <button
         type="button"
         value={props.activeDay}

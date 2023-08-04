@@ -5,14 +5,10 @@ export default function Table({ ...props }) {
   const dayRecipes = props.menu[day];
 
   return (
-    <table className="font-manrope table-fixed m-10 border border-solid border-offmain rounded-lg">
-      <caption>{props.activeDay} recipes</caption>
-
-      {/* <thead>
-          <tr>
-            <th colSpan={2}>{props.meal}</th>
-          </tr>
-        </thead> */}
+    <table className="font-manrope table-fixed border-collapse m-10">
+      <caption className="text-3xl tracking-tighter p-3 border border-solid border-offmain">
+        {props.activeDay} recipes
+      </caption>
 
       <tbody>
         <TableRow
