@@ -1,5 +1,6 @@
 import axios from "axios";
 import CloseIcon from "../../../assets/icons/Close";
+import Warning from "../../../assets/icons/Warning";
 
 export default function DeleteMenu({ ...props }) {
   const handleDelete = async () => {
@@ -20,12 +21,20 @@ export default function DeleteMenu({ ...props }) {
           <h3 className="font-manrope font-semibold text-2xl tracking-tighter pb-5">
             Delete: {props.menu.title}
           </h3>
-          <p className="font-manrope">
-            Are you sure you want to remove this menu?
-          </p>
-          <p className="font-manrope text-txt2">
-            This action cannot be undone.
-          </p>
+
+          <div className="flex items-center gap-5">
+            <Warning title="Delete warning" className="w-12 h-12 fill-red" />
+
+            <div>
+              <p className="font-manrope">
+                Are you sure you want to remove this menu?
+              </p>
+
+              <p className="font-manrope text-txt2">
+                This action cannot be undone.
+              </p>
+            </div>
+          </div>
         </div>
 
         <button
@@ -39,7 +48,7 @@ export default function DeleteMenu({ ...props }) {
 
       <button
         type="button"
-        className="font-manrope bg-offred border border-solid border-red p-3 w-full rounded-lg"
+        className="font-manrope bg-offred border border-solid border-red p-3 w-full rounded-lg hover:bg-transred hover:transition-colors transition-colors"
         onClick={() => handleDelete()}
       >
         Delete

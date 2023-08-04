@@ -33,33 +33,40 @@ export default function TableRow({ ...props }) {
 
   return (
     <tr className="border border-solid border-offmain">
-      <td className="py-3 px-6 font-manrope font-semibold text-txt2 tracking-tighter text-xl text-center align-middle border border-solid border-offmain">
+      <th
+        scope="row"
+        className="py-3 px-6 font-manrope font-semibold text-txt2 tracking-tighter text-xl text-center align-middle border border-solid border-offmain"
+      >
         {props.meal}
-      </td>
+      </th>
 
       {props.recipe ? (
         <>
           <td className="p-3">
             <Link
-              className="flex text-black justify-center items-center border border-solid border-offgold bg-offgold rounded-lg p-3"
+              className="flex text-lg justify-center items-center border border-solid border-offgold bg-offgold rounded-lg p-3 hover:bg-transgold hover:transition-colors transition-colors"
               to={`/recipes/${rowRecipe._id}`}
             >
               {rowRecipe.title}
             </Link>
           </td>
 
-          <td className="align-middle p-4 border border-solid border-offmain">
-            <EditIcon
-              title="Update Menu Recipe"
-              className="w-5 h-5 fill-blue"
-            />
+          <td className="align-middle border border-solid border-offmain">
+            <button type="button" className="p-4">
+              <EditIcon
+                title="Update Menu Recipe"
+                className="w-5 h-5 fill-blue"
+              />
+            </button>
           </td>
 
-          <td className="align-middle p-4 border border-solid border-offmain">
-            <DeleteIcon
-              title="Delete Menu Recipe"
-              className="w-5 h-5 fill-red"
-            />
+          <td className="align-middle border border-solid border-offmain">
+            <button type="button" className="p-4">
+              <DeleteIcon
+                title="Delete Menu Recipe"
+                className="w-5 h-5 fill-red"
+              />
+            </button>
           </td>
         </>
       ) : (

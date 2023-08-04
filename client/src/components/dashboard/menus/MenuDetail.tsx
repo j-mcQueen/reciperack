@@ -65,7 +65,7 @@ export default function MenuDetail() {
       <DetailHeader setDeleteItemActive={setDeleteMenuActive} item={menu} />
 
       <section>
-        <form className="font-manrope">
+        <form className="font-manrope flex justify-center">
           <label>
             Choose a day:
             <select
@@ -83,7 +83,7 @@ export default function MenuDetail() {
         </form>
       </section>
 
-      <section className="flex">
+      <section className="flex justify-center">
         {addModal ? (
           <AddModal
             meal={activeMeal}
