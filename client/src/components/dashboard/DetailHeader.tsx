@@ -33,7 +33,10 @@ export default function DetailHeader({ ...props }) {
           type="button"
           onClick={() => props.setUpdateItemActive(true)}
         >
-          <EditIcon className="w-5 h-5 fill-[#3b7fc4]" />
+          <EditIcon
+            title="Update entire document"
+            className="w-5 h-5 fill-blue"
+          />
         </button>
 
         <button
@@ -41,7 +44,10 @@ export default function DetailHeader({ ...props }) {
           type="button"
           onClick={() => props.setDeleteItemActive(true)}
         >
-          <DeleteIcon className="w-5 h-5 fill-red" />
+          <DeleteIcon
+            title="Delete entire document"
+            className="w-5 h-5 fill-red"
+          />
         </button>
       </div>
     </header>
