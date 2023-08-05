@@ -12,6 +12,9 @@ export default function MenuDetail() {
   const [activeMeal, setActiveMeal] = useState("");
   const [deleteMenuActive, setDeleteMenuActive] = useState(false);
   const [deleteMenuRecipeActive, setDeleteMenuRecipeActive] = useState(false);
+  const [breakfast, setBreakfast] = useState({});
+  const [lunch, setLunch] = useState({});
+  const [dinner, setDinner] = useState({});
 
   const [menu, setMenu] = useState({
     title: "",
@@ -67,6 +70,9 @@ export default function MenuDetail() {
       {deleteMenuRecipeActive ? (
         <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
           <DeleteRecipe
+            setBreakfast={setBreakfast}
+            setLunch={setLunch}
+            setDinner={setDinner}
             activeDay={activeDay}
             activeMeal={activeMeal}
             menu={menu}
@@ -110,6 +116,12 @@ export default function MenuDetail() {
         ) : null}
 
         <Table
+          breakfast={breakfast}
+          setBreakfast={setBreakfast}
+          lunch={lunch}
+          setLunch={setLunch}
+          dinner={dinner}
+          setDinner={setDinner}
           menu={menu}
           setMenu={setMenu}
           setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}

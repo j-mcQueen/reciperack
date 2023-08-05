@@ -14,7 +14,7 @@ export default function TableRow({ ...props }) {
     const renderRecipe = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/recipes/${props.recipe}`
+          `http://localhost:3000/recipes/${props.recipe.recipe}`
         );
 
         if (response && !ignore) {
@@ -24,7 +24,7 @@ export default function TableRow({ ...props }) {
         if (err instanceof Error) console.log(err);
       }
     };
-    if (props.recipe !== undefined) renderRecipe();
+    if (props.recipe.recipe !== undefined) renderRecipe();
 
     return () => {
       ignore = true;
@@ -40,7 +40,7 @@ export default function TableRow({ ...props }) {
         {props.meal}
       </th>
 
-      {props.recipe ? (
+      {props.recipe.recipe ? (
         <>
           <td className="p-3">
             <Link

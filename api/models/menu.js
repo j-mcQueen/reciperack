@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 const MenuSchema = new Schema({
   title: String,
-  monday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
+  monday: [
+    { meal: Number, recipe: { type: Schema.Types.ObjectId, ref: "Recipe" } },
+  ],
   tuesday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
   wednesday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
   thursday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],

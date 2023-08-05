@@ -30,15 +30,17 @@ export default function AddModal({ ...props }) {
       const day: string = props.activeDay.toLowerCase();
       const updatedDayRecipes = props.menu[day];
 
+      // meal numbers represent their actual position in the menu - that way if other recipes get removed, their position in the table is not affected
       if (props.meal === "Breakfast") {
-        updatedDayRecipes[0] = chosenRecipeId;
+        updatedDayRecipes.push({ meal: 0, recipe: chosenRecipeId });
       } else if (props.meal === "Lunch") {
-        updatedDayRecipes[1] = chosenRecipeId;
+        updatedDayRecipes.push({ meal: 1, recipe: chosenRecipeId });
       } else {
-        updatedDayRecipes[2] = chosenRecipeId;
+        updatedDayRecipes.push({ meal: 2, recipe: chosenRecipeId });
       }
 
       const updatedMenu = { ...props.menu, [day]: updatedDayRecipes };
+      console.log(updatedMenu);
 
       const response = await axios.post(
         `http://localhost:3000/menus/${props.menu._id}`,

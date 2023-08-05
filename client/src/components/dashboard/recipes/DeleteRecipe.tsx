@@ -20,12 +20,28 @@ export default function DeleteRecipe({ ...props }) {
         const day = props.activeDay.toLowerCase();
         const dayRecipes = props.menu[day];
 
+        const findTarget = (arr: [{ meal: number }], meal: number) => {
+          // helper to splice correct item from dayRecipes array
+          let i = 0;
+          for (const item of arr) {
+            if (item.meal === meal) return i;
+            i++;
+          }
+        };
+
+        // maintains correct positioning of recipes in state after recipe removal
         if (props.activeMeal === "Breakfast") {
-          dayRecipes.splice(0, 1);
+          const index = findTarget(dayRecipes, 0);
+          dayRecipes.splice(index, 1);
+          props.setBreakfast({});
         } else if (props.activeMeal === "Lunch") {
-          dayRecipes.splice(1, 1);
+          const index = findTarget(dayRecipes, 1);
+          dayRecipes.splice(index, 1);
+          props.setLunch({});
         } else {
-          dayRecipes.splice(2, 1);
+          const index = findTarget(dayRecipes, 2);
+          dayRecipes.splice(index, 1);
+          props.setDinner({});
         }
 
         const updatedMenu = { ...props.menu, [day]: dayRecipes };
@@ -44,6 +60,7 @@ export default function DeleteRecipe({ ...props }) {
       }
     }
   };
+
   return (
     <div className="flex flex-col gap-10 bg-main border-solid border rounded-lg border-gold p-5 w-1/4">
       <div className="flex items-center gap-5">
