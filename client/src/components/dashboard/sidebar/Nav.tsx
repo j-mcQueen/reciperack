@@ -7,7 +7,7 @@ import LogoutIcon from "../../../assets/icons/Logout";
 
 export default function Nav({ ...props }) {
   return (
-    <div className="flex flex-col fixed h-full justify-center col-start-1 bg-main rounded-lg p-5">
+    <div className="flex flex-col fixed h-[calc(100vh-2.5rem)] justify-center col-start-1 bg-main rounded-lg p-5">
       <h2 className="font-logo text-center">reciperack</h2>
 
       <nav>
