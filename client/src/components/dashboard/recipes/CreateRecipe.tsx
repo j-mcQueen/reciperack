@@ -66,7 +66,7 @@ export default function CreateRecipe({ ...props }) {
         className="flex flex-col gap-5"
       >
         <label>
-          Title
+          Title <span className="text-red">*</span>
           <input
             required
             name="title"
@@ -110,7 +110,6 @@ export default function CreateRecipe({ ...props }) {
         <label>
           Category
           <input
-            required
             name="category"
             type="text"
             placeholder="Enter a category for the recipe"
