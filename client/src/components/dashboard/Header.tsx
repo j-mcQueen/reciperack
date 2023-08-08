@@ -2,7 +2,7 @@ import AddIcon from "../../../src/assets/icons/Add.tsx";
 
 export default function Header({ ...props }) {
   return (
-    <header className="flex justify-between items-center mb-5">
+    <header className="flex justify-between items-center mb-5 bg-main rounded-lg p-5 mr-5">
       <h1 className="font-manrope font-bold tracking-tighter text-5xl">
         {props.title}
       </h1>

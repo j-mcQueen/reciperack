@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [menus, setMenus] = useState([]);
 
   return (
-    <div className="grid grid-cols-dashboard m-5">
+    <div className="grid grid-cols-dashboard m-5 gap-5">
       <Nav activeNavItem={activeNavItem} setActiveNavItem={setActiveNavItem} />
 
       <div className="col-start-2">

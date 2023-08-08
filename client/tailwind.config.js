@@ -4,6 +4,7 @@ export default {
   theme: {
     colors: {
       logoBg: "#2F2F2F",
+      dark: "#181818",
       main: "#282828",
       offmain: "#3E3E3E",
       gold: "#FDC959",
