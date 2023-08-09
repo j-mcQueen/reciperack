@@ -1,9 +1,9 @@
 import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
 import CreateRecipe from "./CreateRecipe";
-import Recipe from "./Recipe";
 import SearchIcon from "../../../assets/icons/Search";
 import CloseIcon from "../../../assets/icons/Close";
+import DashboardTable from "./DashboardTable";
 
 export default function AllRecipes({ ...props }) {
   const [search, setSearch] = useState("");
@@ -60,7 +60,10 @@ export default function AllRecipes({ ...props }) {
           <label className="flex items-center">
             <input
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                if (noResult) setNoResult(false); // allows UI to rerender all recipes if a user types into the field after a search finds no results
+              }}
               className="bg-main border border-solid rounded-lg rounded-e-none border-offmain focus:outline-none focus:border-offgreen p-3"
               type="search"
               name="search"
@@ -103,13 +106,9 @@ export default function AllRecipes({ ...props }) {
           <p className="font-manrope"> Please clear the search or try again.</p>
         </>
       ) : result.length > 0 ? (
-        result.map((recipe: { _id: string }) => (
-          <Recipe key={recipe._id} recipe={recipe} />
-        ))
+        <DashboardTable arr={result} page="recipes" />
       ) : (
-        props.recipes.map((recipe: { _id: string }) => (
-          <Recipe key={recipe._id} recipe={recipe} />
-        ))
+        <DashboardTable arr={props.recipes} page="recipes" />
       )}
     </main>
   );
