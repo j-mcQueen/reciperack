@@ -3,10 +3,12 @@ const createError = require("http-errors");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-
 const indexRouter = require("./routes/index");
 
 const app = express();
@@ -14,9 +16,17 @@ mongoose.set("strictQuery", false);
 const mongoDB = process.env.MONGODB_URI;
 
 const main = async () => {
-  mongoose.connect(mongoDB);
+  try {
+    await mongoose.connect(mongoDB);
+  } catch (err) {
+    console.log(err);
+  }
 };
-main().catch((err) => console.log(err));
+main();
+
+mongoose.connection.on("error", (err) => {
+  console.log(err);
+});
 
 app.use(cors());
 app.use(logger("dev"));
@@ -24,6 +34,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(
+  session({ secret: "learning", resave: false, saveUninitialized: true })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
 

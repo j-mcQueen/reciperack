@@ -1,7 +1,10 @@
 const express = require("express");
+const userController = require("../controllers/userController");
 const recipeController = require("../controllers/recipeController");
 const menuController = require("../controllers/menuController");
 const router = express.Router();
+
+router.post("/signup", userController.user_create_post);
 
 router.get("/recipes", recipeController.recipe_list);
 router.post("/recipes", recipeController.recipe_create_post);
