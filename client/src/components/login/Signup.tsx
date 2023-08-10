@@ -4,10 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUp({ ...props }) {
   const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [cpwd, setCpwd] = useState("");
+
+  const [usernameError, setUsernameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [pwdError, setPwdError] = useState(false);
+  const [cpwdError, setCpwdError] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     try {
@@ -20,8 +26,16 @@ export default function SignUp({ ...props }) {
         cpwd,
       });
 
-      if (response.status === 200)
+      if (response.data.errors) {
+        for (const item of response.data.errors) {
+          if (item.path === "username") setUsernameError(item.msg);
+          if (item.path === "email") setEmailError(item.msg);
+          if (item.path === "pwd") setPwdError(item.msg);
+          if (item.path === "cpwd") setCpwdError(item.msg);
+        }
+      } else if (response.status === 200) {
         navigate("/dashboard", { state: { user: response.data } });
+      }
       // location.replace("http://localhost:5173/dashboard");
     } catch (err) {
       if (err instanceof Error) console.log(err);
@@ -46,8 +60,12 @@ export default function SignUp({ ...props }) {
             type="text"
             name="username"
             placeholder="Enter a username"
+            minLength={5}
             required
           />
+          {usernameError ? (
+            <span className="text-red">{usernameError}</span>
+          ) : null}
         </label>
 
         <label className="text-green">
@@ -60,6 +78,7 @@ export default function SignUp({ ...props }) {
             placeholder="Enter a valid email address"
             required
           />
+          {emailError ? <span className="text-red">{emailError}</span> : null}
         </label>
 
         <fieldset className="flex flex-col gap-5">
@@ -73,6 +92,7 @@ export default function SignUp({ ...props }) {
               placeholder="Create a valid password"
               required
             />
+            {pwdError ? <span className="text-red">{pwdError}</span> : null}
           </label>
 
           <label className="text-green">
@@ -85,6 +105,7 @@ export default function SignUp({ ...props }) {
               placeholder="Confirm your password"
               required
             />
+            {cpwdError ? <span className="text-red">{cpwdError}</span> : null}
           </label>
         </fieldset>
 
