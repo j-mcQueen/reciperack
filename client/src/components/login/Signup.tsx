@@ -16,9 +16,9 @@ export default function SignUp({ ...props }) {
   const [cpwdError, setCpwdError] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
-    try {
-      e.preventDefault();
+    e.preventDefault();
 
+    try {
       const response = await axios.post("http://localhost:3000/signup", {
         username,
         email,

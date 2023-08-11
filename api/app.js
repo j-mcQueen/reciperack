@@ -1,4 +1,5 @@
 require("dotenv/config");
+const User = require("./models/user");
 const createError = require("http-errors");
 const express = require("express");
 const cors = require("cors");
@@ -38,6 +39,44 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({ secret: "learning", resave: false, saveUninitialized: true })
 );
+
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username });
+      if (!user) return done(null, false, { message: "Incorrect username." });
+      if (user.password !== password)
+        return done(null, false, { message: "Incorrect password." });
+      // whenever passport.authenticate() is called, the return value of done is passed back
+      // inside authenticate is where we can send the client a response
+
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  })
+);
+
+passport.serializeUser((user, done) => {
+  // TODO this might require user._id instead of user.id
+  // TODO instead of the user's ID, we might need to supply other information. See here: http://www.passportjs.org/concepts/authentication/sessions/ -- you definitely do not want to store the user's password in the cookie
+  done(null, {
+    username: user.username,
+    menus: user.menus,
+    recipes: user.recipes,
+    _id: user._id,
+  });
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));

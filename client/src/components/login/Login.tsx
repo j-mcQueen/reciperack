@@ -1,4 +1,43 @@
+import axios, { AxiosError } from "axios";
+import { FormEvent, useState } from "react";
+
 export default function Login({ ...props }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:3000/login", {
+        username,
+        password,
+      });
+
+      if (response) console.log(response);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response !== undefined) {
+          // above conditional acts as additional type checking for err
+          // err.response.data should only contain 1 item (deliberately tested with both username and password errors)
+          // these nested conditionals ensure that only one error message is visible at a time
+
+          const errorMessage = err.response.data[0];
+          if (errorMessage.includes("username")) {
+            if (passwordError) setPasswordError(false);
+            setUsernameError(errorMessage);
+          } else if (errorMessage.includes("password")) {
+            if (usernameError) setUsernameError(false);
+            setPasswordError(errorMessage);
+          }
+        }
+      }
+    }
+  };
+
   return (
     <section className="font-manrope mx-44">
       <h1 className="font-logo text-3xl self-start">reciperack</h1>
@@ -7,29 +46,42 @@ export default function Login({ ...props }) {
         Enter your credentials to view your recipehub.
       </p>
 
-      <form className="flex flex-col gap-5 py-5">
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="flex flex-col gap-5 py-5"
+      >
         <label className="text-green">
-          Email
+          Username <span className="text-red">*</span>
           <input
+            onChange={(e) => setUsername(e.target.value)}
             className="w-full text-txt1 block bg-main border border-solid border-offmain mt-2 p-4 rounded-lg focus:outline-none focus:border-offgold"
-            type="email"
-            name="email"
-            placeholder="Enter your email address"
+            type="text"
+            name="username"
+            placeholder="Enter your username"
+            required
           />
+          {usernameError ? (
+            <span className="text-red">{usernameError}</span>
+          ) : null}
         </label>
 
         <label className="text-green">
-          Password
+          Password <span className="text-red">*</span>
           <input
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full text-txt1 block bg-main border border-solid border-offmain mt-2 p-4 rounded-lg focus:outline-none focus:border-offgold"
             type="password"
             name="pwd"
             placeholder="Enter your password"
+            required
           />
+          {passwordError ? (
+            <span className="text-red">{passwordError}</span>
+          ) : null}
         </label>
 
         <button
-          className="bg-offgreen border border-solid border-green py-3 rounded-lg hover:bg-green hover:transition-colors transition-colors"
+          className="bg-offgreen border border-solid border-green py-3 rounded-lg hover:bg-transgreen hover:transition-colors transition-colors"
           type="submit"
         >
           Login

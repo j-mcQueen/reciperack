@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const passport = require("passport");
 
 exports.user_create_post = [
   // TODO validation & sanitization,
@@ -63,4 +64,25 @@ exports.user_create_post = [
       return next(err);
     }
   }),
+];
+
+exports.user_login_post = [
+  // TODO validate and sanitize
+  passport.authenticate("local", {
+    failWithError: true,
+    failureMessage: true,
+  }),
+  (err, req, res, next) => {
+    // handle error
+    res.send(req.session.messages);
+    return;
+  },
+  (req, res, next) => {
+    // handle success
+    res.send({
+      username: req.user.username,
+      recipes: req.user.recipes,
+      menus: req.user.menus,
+    });
+  },
 ];
