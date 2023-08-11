@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import Nav from "./sidebar/Nav";
 import Header from "./Header";
 import AllRecipes from "./recipes/AllRecipes";
 import AllMenus from "./menus/AllMenus";
-import { useLocation } from "react-router-dom";
 
 export default function Dashboard() {
   // TODO user is currently logged thrice, might be worth sticking it inside a useEffect with an empty array dependency, then updating state for use in the rest of the component

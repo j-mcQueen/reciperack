@@ -1,7 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login({ ...props }) {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,11 +14,26 @@ export default function Login({ ...props }) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    if (usernameError) setUsernameError(false);
+    if (passwordError) setPasswordError(false);
+
     try {
       const response = await axios.post("http://localhost:3000/login", {
         username,
         password,
       });
+
+      if (response.data.errors) {
+        for (const error of response.data.errors) {
+          if (error.path === "username") setUsernameError(error.msg);
+          if (error.path === "password") setPasswordError(error.msg);
+        }
+        return;
+      } else {
+        if (response.status === 200) {
+          navigate("/dashboard", { state: { user: response.data } });
+        }
+      }
 
       if (response) console.log(response);
     } catch (err) {
@@ -27,10 +45,8 @@ export default function Login({ ...props }) {
 
           const errorMessage = err.response.data[0];
           if (errorMessage.includes("username")) {
-            if (passwordError) setPasswordError(false);
             setUsernameError(errorMessage);
           } else if (errorMessage.includes("password")) {
-            if (usernameError) setUsernameError(false);
             setPasswordError(errorMessage);
           }
         }
@@ -71,7 +87,7 @@ export default function Login({ ...props }) {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full text-txt1 block bg-main border border-solid border-offmain mt-2 p-4 rounded-lg focus:outline-none focus:border-offgold"
             type="password"
-            name="pwd"
+            name="password"
             placeholder="Enter your password"
             required
           />
