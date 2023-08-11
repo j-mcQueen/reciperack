@@ -7,32 +7,55 @@ export default function SignUp({ ...props }) {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [cpwd, setCpwd] = useState("");
+  const [password, setPassword] = useState("");
+  const [cpassword, setCpassword] = useState("");
 
   const [usernameError, setUsernameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
-  const [pwdError, setPwdError] = useState(false);
-  const [cpwdError, setCpwdError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [cpasswordError, setCpasswordError] = useState(false);
+
+  const [usernameTakenError, setUsernameTakenError] = useState(false);
+  const [emailTakenError, setEmailTakenError] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // clean up any residual validation or authentication errors
+    if (usernameError) setUsernameError(false);
+    if (emailError) setEmailError(false);
+    if (passwordError) setPasswordError(false);
+    if (cpasswordError) setCpasswordError(false);
+    if (usernameTakenError) setUsernameTakenError(false);
+    if (emailTakenError) setEmailTakenError(false);
 
     try {
       const response = await axios.post("http://localhost:3000/signup", {
         username,
         email,
-        pwd,
-        cpwd,
+        password,
+        cpassword,
       });
 
       if (response.data.errors) {
+        // validation errors
         for (const item of response.data.errors) {
           if (item.path === "username") setUsernameError(item.msg);
           if (item.path === "email") setEmailError(item.msg);
-          if (item.path === "pwd") setPwdError(item.msg);
-          if (item.path === "cpwd") setCpwdError(item.msg);
+          if (item.path === "password") setPasswordError(item.msg);
+          if (item.path === "cpassword") setCpasswordError(item.msg);
         }
+        return;
+      }
+
+      if (response.data.usernameTaken) {
+        // username authentication error
+        setUsernameTakenError(response.data.message);
+        return;
+      } else if (response.data.emailTaken) {
+        // email authentication error
+        setEmailTakenError(response.data.message);
+        return;
       } else if (response.status === 200) {
         navigate("/dashboard", { state: { user: response.data } });
       }
@@ -65,6 +88,8 @@ export default function SignUp({ ...props }) {
           />
           {usernameError ? (
             <span className="text-red">{usernameError}</span>
+          ) : usernameTakenError ? (
+            <span className="text-red">{usernameTakenError}</span>
           ) : null}
         </label>
 
@@ -78,34 +103,42 @@ export default function SignUp({ ...props }) {
             placeholder="Enter a valid email address"
             required
           />
-          {emailError ? <span className="text-red">{emailError}</span> : null}
+          {emailError ? (
+            <span className="text-red">{emailError}</span>
+          ) : emailTakenError ? (
+            <span className="text-red">{emailTakenError}</span>
+          ) : null}
         </label>
 
         <fieldset className="flex flex-col gap-5">
           <label className="text-green">
             Password <span className="text-red">*</span>
             <input
-              onChange={(e) => setPwd(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full text-txt1 block bg-main border border-solid border-offmain mt-2 p-4 rounded-lg focus:outline-none focus:border-offgold"
               type="password"
-              name="pwd"
+              name="password"
               placeholder="Create a valid password"
               required
             />
-            {pwdError ? <span className="text-red">{pwdError}</span> : null}
+            {passwordError ? (
+              <span className="text-red">{passwordError}</span>
+            ) : null}
           </label>
 
           <label className="text-green">
             Confirm <span className="text-red">*</span>
             <input
-              onChange={(e) => setCpwd(e.target.value)}
+              onChange={(e) => setCpassword(e.target.value)}
               className="w-full text-txt1 block bg-main border border-solid border-offmain mt-2 p-4 rounded-lg focus:outline-none focus:border-offgold"
               type="password"
-              name="cpwd"
-              placeholder="Confirm your password"
+              name="cpassword"
+              placeholder="Re-enter your password"
               required
             />
-            {cpwdError ? <span className="text-red">{cpwdError}</span> : null}
+            {cpasswordError ? (
+              <span className="text-red">{cpasswordError}</span>
+            ) : null}
           </label>
         </fieldset>
 

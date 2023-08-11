@@ -4,10 +4,6 @@ const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 
 exports.user_create_post = [
-  // TODO validation & sanitization,
-  // username should be a non empty alphanumerical and is a required field
-  // email should be a non-empty email and is a required field
-  // password should be a non-empty password (special characters permitted) and is a required field
   body("username")
     .trim()
     .notEmpty()
@@ -19,12 +15,13 @@ exports.user_create_post = [
       "Username must contain letters and or number characters only."
     ),
   body("email")
+    .trim()
     .notEmpty()
     .withMessage("Email field must not be empty")
     .isEmail()
-    .withMessage("Please enter a valid email address, e.g. example@gmail.com")
-    .trim(),
-  body("pwd")
+    .withMessage("Please enter a valid email address, e.g. example@gmail.com"),
+  body("password")
+    .trim()
     .notEmpty()
     .withMessage("Password field must not be empty.")
     .isStrongPassword({
@@ -35,26 +32,44 @@ exports.user_create_post = [
     })
     .withMessage(
       "Valid passwords must have a length of 8 or greater and contain at least 1 uppercase, 1 lowercase, and 1 symbol characters"
-    )
-    .trim(),
-  body("cpwd")
+    ),
+  body("cpassword")
     .custom((value, { req }) => {
-      return value === req.body.pwd;
+      return value === req.body.password;
     })
     .withMessage("Passwords must match."),
   asyncHandler(async (req, res, next) => {
     try {
       const errors = validationResult(req);
 
+      const existingEmail = await User.findOne({ email: req.body.email });
+      const existingUsername = await User.findOne({
+        username: req.body.username,
+      });
+
       const user = new User({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.pwd,
+        password: req.body.password,
       });
 
       if (!errors.isEmpty()) {
-        // there are errors
+        // there are validation errors
         res.send({ user, errors: errors.array() });
+        return;
+      } else if (existingUsername) {
+        // username already exists
+        res.send({
+          usernameTaken: true,
+          message: "Username already in use.",
+        });
+        return;
+      } else if (existingEmail) {
+        // email address already exists
+        res.send({
+          emailTaken: true,
+          message: "Email address already in use.",
+        });
         return;
       } else {
         const result = await user.save();
