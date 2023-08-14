@@ -3,15 +3,20 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Gate from "./components/login/Gate.tsx";
+import Dashboard from "./components/dashboard/Dashboard.tsx";
 import RecipeDetail from "./components/dashboard/recipes/RecipeDetail.tsx";
 import MenuDetail from "./components/dashboard/menus/MenuDetail.tsx";
-import Dashboard from "./components/dashboard/Dashboard.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     // errorElement: <Error />,
+  },
+  {
+    path: "/gate",
+    element: <Gate />,
   },
   {
     path: "/dashboard",

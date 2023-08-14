@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <header className="flex justify-center p-6">
@@ -17,12 +19,12 @@ export default function Header() {
           </li>
 
           <li>
-            <a
-              href=""
-              className="hover:text-gold transition-colors hover:transition-colors"
+            <Link
+              className="transition-colors hover:text-gold hover:transition-colors"
+              to="/gate"
             >
               Login
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

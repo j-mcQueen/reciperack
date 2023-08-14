@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function Hero() {
   return (
     <section className="flex flex-col items-center justify-center py-[200px] gap-5">
@@ -8,12 +9,12 @@ export default function Hero() {
         Your recipes. All in one place.
       </p>
 
-      <button
+      <Link
         className="font-logo px-6 py-2 text-text1 text-lg bg-logoBg border-gold border-solid border rounded-lg transition-colors hover:bg-gold hover:transition-colors hover:text-main"
-        type="button"
+        to="/gate"
       >
-        sign up
-      </button>
+        Get Started
+      </Link>
     </section>
   );
 }
