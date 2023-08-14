@@ -8,7 +8,7 @@ export default function DetailHeader({ ...props }) {
     <header className="flex justify-between items-center p-6">
       <nav className="flex gap-5">
         <Link
-          to="/"
+          to="/dashboard"
           className="border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
         >
           <BackIcon className="w-5 h-5" />

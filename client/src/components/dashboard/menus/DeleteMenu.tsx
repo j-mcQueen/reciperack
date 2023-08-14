@@ -1,15 +1,18 @@
 import axios from "axios";
 import CloseIcon from "../../../assets/icons/Close";
 import Warning from "../../../assets/icons/Warning";
+import { useNavigate } from "react-router-dom";
 
 export default function DeleteMenu({ ...props }) {
+  const navigate = useNavigate();
+
   const handleDelete = async () => {
     try {
       const response = await axios.post(
         `http://localhost:3000/menus/${props.menu._id}/delete`
       );
 
-      if (response.status === 200) location.replace("http://localhost:5173/");
+      if (response.status === 200) navigate("/dashboard");
     } catch (err) {
       if (err instanceof Error) console.log(err);
     }

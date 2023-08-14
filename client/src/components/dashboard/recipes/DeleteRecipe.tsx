@@ -1,7 +1,10 @@
 import axios from "axios";
 import CloseIcon from "../../../assets/icons/Close";
+import { useNavigate } from "react-router-dom";
 
 export default function DeleteRecipe({ ...props }) {
+  const navigate = useNavigate();
+
   const handleDelete = async () => {
     if (props.source === "source") {
       // if user wants to delete the source recipe
@@ -10,7 +13,7 @@ export default function DeleteRecipe({ ...props }) {
           `http://localhost:3000/recipes/${props.recipe.id}/delete`
         );
 
-        if (response.status === 200) location.replace("http://localhost:5173/");
+        if (response.status === 200) navigate("/dashboard");
       } catch (err) {
         if (err instanceof Error) console.log(err);
       }
