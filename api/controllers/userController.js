@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
@@ -45,15 +46,9 @@ exports.user_create_post = [
         username: req.body.username,
       });
 
-      const user = new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-      });
-
       if (!errors.isEmpty()) {
         // there are validation errors
-        res.send({ user, errors: errors.array() });
+        res.send({ errors: errors.array() });
         return;
       } else if (existingUsername) {
         // username already exists
@@ -71,12 +66,25 @@ exports.user_create_post = [
         return;
       } else {
         // add the user to the db
-        const result = await user.save();
-        res.send({
-          username: result.username,
-          recipes: result.recipes,
-          menus: result.menus,
-          _id: result._id,
+        bcrypt.hash(req.body.password, 10, async (err, hash) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+
+          const user = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: hash,
+          });
+
+          const result = await user.save();
+          res.send({
+            username: result.username,
+            recipes: result.recipes,
+            menus: result.menus,
+            _id: result._id,
+          });
         });
       }
     } catch (err) {
