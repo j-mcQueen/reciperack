@@ -1,11 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RecipeIcon from "../../../assets/icons/Recipe";
 import MenuIcon from "../../../assets/icons/Menu";
 import SearchIcon from "../../../assets/icons/Search";
 import SettingsIcon from "../../../assets/icons/Settings";
 import LogoutIcon from "../../../assets/icons/Logout";
+import axios from "axios";
 
 export default function Nav({ ...props }) {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/logout");
+
+      if (response.data === "success") navigate("/");
+    } catch (err) {
+      if (err instanceof Error) console.log(err);
+    }
+  };
+
   return (
     <div className="flex flex-col fixed h-[calc(100vh-2.5rem)] justify-center col-start-1 bg-main rounded-lg p-5">
       <h2 className="font-logo text-center">reciperack</h2>
@@ -57,9 +70,9 @@ export default function Nav({ ...props }) {
             <SettingsIcon className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors" />
           </Link>
 
-          <Link to="">
+          <button onClick={() => handleLogout()} type="button">
             <LogoutIcon className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors" />
-          </Link>
+          </button>
         </div>
       </nav>
     </div>
