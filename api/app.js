@@ -6,6 +6,7 @@ const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
+const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -45,10 +46,9 @@ passport.use(
     try {
       const user = await User.findOne({ username });
       if (!user) return done(null, false, { message: "Incorrect username." });
-      if (user.password !== password)
-        return done(null, false, { message: "Incorrect password." });
-      // whenever passport.authenticate() is called, the return value of done is passed back
-      // inside authenticate is where we can send the client a response
+
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) return done(null, false, { message: "Incorrect password." });
 
       return done(null, user);
     } catch (err) {
