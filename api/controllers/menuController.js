@@ -40,7 +40,7 @@ exports.menu_detail = asyncHandler(async (req, res, next) => {
 });
 
 exports.menu_update_post = [
-  // validate and sanitize
+  // TODO validate and sanitize
   // body("recipes", "Please select a recipe."),
   // handle request
   asyncHandler(async (req, res, next) => {

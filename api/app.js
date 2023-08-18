@@ -58,19 +58,12 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  // TODO this might require user._id instead of user.id
-  // TODO instead of the user's ID, we might need to supply other information. See here: http://www.passportjs.org/concepts/authentication/sessions/ -- you definitely do not want to store the user's password in the cookie
-  done(null, {
-    username: user.username,
-    menus: user.menus,
-    recipes: user.recipes,
-    _id: user._id,
-  });
+  done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = User.findById(id);
+    const user = await User.findById(id);
     done(null, user);
   } catch (err) {
     done(err);

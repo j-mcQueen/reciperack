@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 
 import Nav from "./sidebar/Nav";
 import Header from "./Header";
@@ -7,18 +6,6 @@ import AllRecipes from "./recipes/AllRecipes";
 import AllMenus from "./menus/AllMenus";
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-
-  // TODO user is currently logged thrice, might be worth sticking it inside a useEffect with an empty array dependency, then updating state for use in the rest of the component
-  const { state } = useLocation();
-  if (state) {
-    const { user } = state;
-    console.log(user);
-  } else {
-    // redirects the viewer to the login page if a user is not logged in
-    navigate("/");
-  }
-
   const [activeNavItem, setActiveNavItem] = useState(0);
   const [addRecipeActive, setAddRecipeActive] = useState(false);
   const [addMenuActive, setAddMenuActive] = useState(false);

@@ -31,7 +31,8 @@ export default function Login({ ...props }) {
         return;
       } else {
         if (response.status === 200) {
-          navigate("/dashboard", { state: { user: response.data } });
+          sessionStorage.setItem("user", JSON.stringify(response.data));
+          navigate("/dashboard");
         }
       }
 
