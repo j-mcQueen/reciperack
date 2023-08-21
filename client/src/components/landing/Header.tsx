@@ -1,33 +1,41 @@
 import { Link } from "react-router-dom";
+import Login from "../../assets/icons/Login";
+import SearchIcon from "../../assets/icons/Search";
 
 export default function Header() {
+  const Links = () => {
+    return (
+      <ul className="flex items-center gap-10 font-subtext">
+        <li>
+          <Link
+            className="flex flex-col items-center transition-colors hover:text-gold hover:transition-colors text-sm sm:text-lg text-txt2"
+            to="/"
+          >
+            <SearchIcon className="w-5 h-5 fill-green" />
+            Browse
+          </Link>
+        </li>
+
+        <li className="bg-offgold border-gold border-solid border rounded-lg shadow-sky-600 font-logo leading-none py-2 p-3 text-xl">
+          <Link to="/">reciperack</Link>
+        </li>
+
+        <li>
+          <Link
+            className="flex flex-col items-center transition-colors hover:text-gold hover:transition-colors text-sm sm:text-lg text-txt2"
+            to="/gate"
+          >
+            <Login className="w-5 h-5 fill-green" />
+            Login
+          </Link>
+        </li>
+      </ul>
+    );
+  };
+
   return (
-    <header className="flex justify-center p-6">
-      <div className="absolute left-0 bg-logoBg ml-4 border-gold border-solid borderrounded-lgshadow-sky-600 font-logo leading-nonepx-4py-3">
-        reciperack
-      </div>
-
-      <nav>
-        <ul className="flex gap-5 font-subtext">
-          <li className="font-body ">
-            <a
-              href=""
-              className="hover:text-gold transition-colors hover:transition-colors"
-            >
-              Browse
-            </a>
-          </li>
-
-          <li>
-            <Link
-              className="transition-colors hover:text-gold hover:transition-colors"
-              to="/gate"
-            >
-              Login
-            </Link>
-          </li>
-        </ul>
-      </nav>
+    <header className="font-manrope flex justify-center items-center p-6">
+      <nav>{Links()}</nav>
     </header>
   );
 }

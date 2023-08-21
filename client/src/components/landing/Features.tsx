@@ -1,4 +1,7 @@
-import icons from "../../assets/icons/export";
+import { ReactElement } from "react";
+import AddIcon from "../../assets/icons/Add";
+import BuildIcon from "../../assets/icons/Build";
+import SearchIcon from "../../assets/icons/Search";
 import Highlight from "./Highlight";
 
 export default function Features() {
@@ -6,7 +9,7 @@ export default function Features() {
     highlight: { titles: string[]; copy: string[] };
     card: {
       titles: string[];
-      images: { icon: string; alt: string }[];
+      images: { icon: ReactElement; alt: string }[];
       copy: string[];
     };
   }
@@ -27,9 +30,18 @@ export default function Features() {
     card: {
       titles: ["Create", "Explore", "Curate"],
       images: [
-        { icon: icons.add, alt: "A plus icon" },
-        { icon: icons.search, alt: "A magnifying glass icon" },
-        { icon: icons.build, alt: "A crossing hammer and chisel icon" },
+        {
+          icon: <AddIcon className="w-6 h-6 fill-txt2" />,
+          alt: "A plus icon",
+        },
+        {
+          icon: <SearchIcon className="w-6 h-6 fill-txt2" />,
+          alt: "A magnifying glass icon",
+        },
+        {
+          icon: <BuildIcon className="w-6 h-6 fill-txt2" />,
+          alt: "A crossing hammer and chisel icon",
+        },
       ],
       copy: [
         "Create, upload and share your favourite recipes",
@@ -41,6 +53,10 @@ export default function Features() {
 
   return (
     <section className="grid justify-center items-center gap-[50px]">
+      <h2 className="font-heading tracking-tighter text-gold text-center text-3xl border-solid border-b-2 pb-5">
+        FEATURES
+      </h2>
+
       <Highlight
         highlightTitle={featureProps.highlight.titles[0]}
         highlightText={featureProps.highlight.copy[0]}

@@ -1,12 +1,12 @@
 export default function Highlight({ ...props }) {
   return (
-    <div className="grid grid-cols-features items-center justify-center gap-8">
+    <div className="xl:grid xl:grid-cols-features xl:items-center xl:justify-center xl:gap-8">
       <div className="flex flex-col justify-center">
-        <h2 className="font-heading text-4xl py-3 tracking-tighter">
+        <h2 className="font-heading text-center xl:text-left text-3xl py-3 tracking-tighter">
           {props.highlightTitle}
         </h2>
 
-        <p className="font-body text-xl text-txt2 pr-20">
+        <p className="font-manrope tracking-tighter text-xl text-txt2 xl:pr-20 pb-5">
           {props.highlightText}
         </p>
       </div>
@@ -18,10 +18,10 @@ export default function Highlight({ ...props }) {
           </h3>
 
           <div className="border-gold border border-solid rounded-full p-4 shadow-primary">
-            <img src={props.cardImg} alt={props.cardImgAlt} />
+            {props.cardImg}
           </div>
 
-          <p className="font-body text-txt2 text-lg text-center">
+          <p className="font-inter tracking-tighter text-txt2 text-xl text-center">
             {props.cardText}
           </p>
         </div>
