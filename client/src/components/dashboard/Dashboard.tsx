@@ -4,8 +4,12 @@ import Nav from "./sidebar/Nav";
 import Header from "./Header";
 import AllRecipes from "./recipes/AllRecipes";
 import AllMenus from "./menus/AllMenus";
+import MobileNav from "./sidebar/MobileNav";
 
 export default function Dashboard() {
+  const viewport = window.matchMedia("(max-width: 1080px)");
+
+  const [mobileLinksActive, setMobileLinksActive] = useState(true);
   const [activeNavItem, setActiveNavItem] = useState(0);
   const [addRecipeActive, setAddRecipeActive] = useState(false);
   const [addMenuActive, setAddMenuActive] = useState(false);
@@ -14,16 +18,29 @@ export default function Dashboard() {
   const [menus, setMenus] = useState([]);
 
   return (
-    <div className="grid grid-cols-dashboard m-5 gap-5">
-      <Nav activeNavItem={activeNavItem} setActiveNavItem={setActiveNavItem} />
+    <div className="grid xl:grid-cols-dashboard mt-3 mx-3 xl:m-5 gap-5">
+      {viewport.matches === true ? (
+        <MobileNav
+          mobileLinksActive={mobileLinksActive}
+          activeNavItem={activeNavItem}
+          setActiveNavItem={setActiveNavItem}
+        />
+      ) : (
+        <Nav
+          activeNavItem={activeNavItem}
+          setActiveNavItem={setActiveNavItem}
+        />
+      )}
 
-      <div className="col-start-2">
+      <div className="xl:col-start-2">
         {activeNavItem === 0 ? (
           <>
             <Header
               title="Recipes"
               addItem={"Add Recipe"}
               setActive={setAddRecipeActive}
+              mobileLinksActive={mobileLinksActive}
+              setMobileLinksActive={setMobileLinksActive}
             />
 
             <AllRecipes
@@ -39,6 +56,8 @@ export default function Dashboard() {
               title="Menus"
               addItem={"Add Menu"}
               setActive={setAddMenuActive}
+              mobileLinksActive={mobileLinksActive}
+              setMobileLinksActive={setMobileLinksActive}
             />
 
             <AllMenus
