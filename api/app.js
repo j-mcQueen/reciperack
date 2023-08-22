@@ -30,16 +30,12 @@ mongoose.connection.on("error", (err) => {
   console.log(err);
 });
 
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
-app.use(
-  session({ secret: "learning", resave: false, saveUninitialized: true })
-);
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -58,10 +54,12 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
+  console.log("A");
   done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
+  console.log("B");
   try {
     const user = await User.findById(id);
     done(null, user);
@@ -70,9 +68,15 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
 

@@ -30,12 +30,16 @@ export default function SignUp({ ...props }) {
     if (emailTakenError) setEmailTakenError(false);
 
     try {
-      const response = await axios.post("http://localhost:3000/signup", {
-        username,
-        email,
-        password,
-        cpassword,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/signup",
+        {
+          username,
+          email,
+          password,
+          cpassword,
+        },
+        { withCredentials: true }
+      );
 
       if (response.data.errors) {
         // validation errors
@@ -57,9 +61,8 @@ export default function SignUp({ ...props }) {
         setEmailTakenError(response.data.message);
         return;
       } else if (response.status === 200) {
-        navigate("/dashboard", { state: { user: response.data } });
+        navigate("/dashboard");
       }
-      // location.replace("http://localhost:5173/dashboard");
     } catch (err) {
       if (err instanceof Error) console.log(err);
     }

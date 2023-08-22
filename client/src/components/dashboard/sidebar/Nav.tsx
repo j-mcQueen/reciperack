@@ -13,7 +13,9 @@ export default function Nav({ ...props }) {
     try {
       const response = await axios.post("http://localhost:3000/logout");
 
-      if (response.data === "success") navigate("/gate");
+      if (response.data === "success") {
+        navigate("/gate");
+      }
     } catch (err) {
       if (err instanceof Error) console.log(err);
     }
