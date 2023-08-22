@@ -56,8 +56,12 @@ export default function Login({ ...props }) {
   };
 
   return (
-    <section className="font-manrope mx-44">
-      <h1 className="font-logo text-3xl self-start">reciperack</h1>
+    <section className="font-manrope xl:mx-44">
+      <h1 className="font-logo text-3xl">
+        <span className="bg-offgold border border-solid border-gold rounded-lg px-3">
+          reciperack
+        </span>
+      </h1>
       <h2 className="text-5xl tracking-tighter py-5">Welcome back!</h2>
       <p className="text-txt2">
         Enter your credentials to view your recipehub.

@@ -6,10 +6,8 @@ export default function Gate() {
   const [form, setForm] = useState(0);
 
   return (
-    <main className="grid grid-cols-2 items-center h-screen">
+    <main className="xl:grid xl:grid-cols-2 flex justify-center items-center h-screen">
       {form === 0 ? <Login setForm={setForm} /> : <SignUp setForm={setForm} />}
-
-      <section className="shadow-inner"></section>
     </main>
   );
 }
