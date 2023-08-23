@@ -15,6 +15,7 @@ export default function RecipeDetail() {
     source: "",
     category: "",
     id: "",
+    createdBy: "",
   });
 
   useEffect(() => {
@@ -22,23 +23,29 @@ export default function RecipeDetail() {
       const urlArr = window.location.href.split("/recipes/");
       const id = urlArr[urlArr.length - 1];
       try {
-        const response = await axios.get(`http://localhost:3000/recipes/${id}`);
+        const response = await axios.get(
+          `http://localhost:3000/recipes/${id}`,
+          { withCredentials: true }
+        );
 
-        setRecipe({
-          title: response.data.title,
-          ingredients: response.data.ingredients
-            .split("\n")
-            .filter((ing: string) => ing !== ""),
-          steps: response.data.steps
-            .split("\n")
-            .filter((step: string) => step !== ""),
-          notes: response.data.notes
-            .split("\n")
-            .filter((note: string) => note !== ""),
-          category: response.data.category,
-          source: response.data.source,
-          id: response.data._id,
-        });
+        if (response) {
+          setRecipe({
+            title: response.data.title,
+            ingredients: response.data.ingredients
+              .split("\n")
+              .filter((ing: string) => ing !== ""),
+            steps: response.data.steps
+              .split("\n")
+              .filter((step: string) => step !== ""),
+            notes: response.data.notes
+              .split("\n")
+              .filter((note: string) => note !== ""),
+            category: response.data.category,
+            source: response.data.source,
+            id: response.data._id,
+            createdBy: response.data.createdBy,
+          });
+        }
       } catch (error) {
         if (error instanceof Error) {
           console.log(error);

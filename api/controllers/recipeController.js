@@ -111,7 +111,13 @@ exports.recipe_update_post = [
   }),
 ];
 
-exports.recipe_delete_post = asyncHandler(async (req, res, next) => {
+exports.recipe_delete = asyncHandler(async (req, res, next) => {
   const deleted = await Recipe.findByIdAndDelete(req.params.id).exec();
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user._id,
+    { $pull: { recipes: deleted._id } },
+    { new: true }
+  );
+
   res.send(deleted);
 });

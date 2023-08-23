@@ -9,8 +9,9 @@ export default function DeleteRecipe({ ...props }) {
     if (props.source === "source") {
       // if user wants to delete the source recipe
       try {
-        const response = await axios.post(
-          `http://localhost:3000/recipes/${props.recipe.id}/delete`
+        const response = await axios.delete(
+          `http://localhost:3000/recipes/${props.recipe.id}`,
+          { withCredentials: true }
         );
 
         if (response.status === 200) navigate("/dashboard");
