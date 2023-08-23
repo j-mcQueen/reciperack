@@ -1,10 +1,11 @@
 const Menu = require("../models/menu");
+const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.menu_list = asyncHandler(async (req, res, next) => {
-  const allMenus = await Menu.find().exec();
-  res.send(allMenus);
+  const allUserMenus = await Menu.find({ createdBy: req.user._id }).exec();
+  res.send(allUserMenus);
 });
 
 exports.menu_create_post = [
@@ -14,14 +15,23 @@ exports.menu_create_post = [
 
     const menu = new Menu({
       title: req.body.title,
+      createdBy: req.user._id,
     });
 
     if (!errors.isEmpty()) {
       res.send({ menu, errors: errors.array() });
       return;
     } else {
-      await menu.save();
-      res.send(menu);
+      const newMenu = await menu.save();
+
+      const user = await User.findByIdAndUpdate(
+        req.user._id,
+        { $set: { menus: [...req.user.menus, newMenu] } },
+        { new: true }
+      );
+      console.log(user);
+
+      res.send(newMenu);
     }
   }),
 ];
