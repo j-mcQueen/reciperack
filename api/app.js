@@ -11,6 +11,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo");
 const indexRouter = require("./routes/index");
 
 const app = express();
@@ -73,11 +74,13 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+    }),
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
