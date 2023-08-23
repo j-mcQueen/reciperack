@@ -22,6 +22,7 @@ export default function MenuDetail() {
     saturday: [],
     sunday: [],
     id: "",
+    createdBy: "",
   });
 
   useEffect(() => {
@@ -31,7 +32,9 @@ export default function MenuDetail() {
       const urlArr = window.location.href.split("/menus/");
       const id = urlArr[urlArr.length - 1];
       try {
-        const response = await axios.get(`http://localhost:3000/menus/${id}`);
+        const response = await axios.get(`http://localhost:3000/menus/${id}`, {
+          withCredentials: true,
+        });
 
         if (response && !ignore) setMenu(response.data);
       } catch (err) {

@@ -8,8 +8,9 @@ export default function DeleteMenu({ ...props }) {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:3000/menus/${props.menu._id}/delete`
+      const response = await axios.delete(
+        `http://localhost:3000/menus/${props.menu._id}`,
+        { withCredentials: true }
       );
 
       if (response.status === 200) navigate("/dashboard");

@@ -80,8 +80,13 @@ exports.menu_update_post = [
   }),
 ];
 
-exports.menu_delete_post = asyncHandler(async (req, res, next) => {
+exports.menu_delete = asyncHandler(async (req, res, next) => {
   // menu will likely have associations, so will need to remove those references before actually deleting the menu
   const deleted = await Menu.findByIdAndDelete(req.params.id).exec();
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user._id,
+    { $pull: { menus: deleted._id } },
+    { new: true }
+  );
   res.send(deleted);
 });

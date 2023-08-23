@@ -18,6 +18,6 @@ router.get("/menus", menuController.menu_list);
 router.post("/menus", menuController.menu_create_post);
 router.get("/menus/:id", menuController.menu_detail);
 router.post("/menus/:id", menuController.menu_update_post);
-router.post("/menus/:id/delete", menuController.menu_delete_post);
+router.delete("/menus/:id", menuController.menu_delete);
 
 module.exports = router;
