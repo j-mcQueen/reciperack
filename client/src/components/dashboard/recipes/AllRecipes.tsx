@@ -14,8 +14,13 @@ export default function AllRecipes({ ...props }) {
     // retrieve recipes from the database on page load and update recipes state accordingly
     const getRecipes = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/recipes");
-        if (response) props.setRecipes(response.data);
+        const response = await axios.get("http://localhost:3000/recipes", {
+          withCredentials: true,
+        });
+        if (response) {
+          console.log(response);
+          props.setRecipes(response.data);
+        }
       } catch (err) {
         if (err instanceof Error) {
           console.log(err);
@@ -41,7 +46,7 @@ export default function AllRecipes({ ...props }) {
   };
 
   return (
-    <main className="flex flex-col gap-5 bg-main mr-5 p-5 rounded-lg">
+    <main className="flex flex-col gap-5 bg-main xl:mr-5 p-5 rounded-lg">
       {props.addRecipeActive ? (
         <CreateRecipe
           addRecipeActive={props.addRecipeActive}

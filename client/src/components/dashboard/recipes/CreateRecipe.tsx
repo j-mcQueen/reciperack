@@ -12,15 +12,19 @@ export default function CreateRecipe({ ...props }) {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/recipes", {
-        // must use the explicit server endpoint here - "/" refers to the client endpoint
-        title,
-        ingredients,
-        steps,
-        notes,
-        category,
-        source,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/recipes",
+        {
+          // must use the absolute path to server endpoint
+          title,
+          ingredients,
+          steps,
+          notes,
+          category,
+          source,
+        },
+        { withCredentials: true }
+      );
 
       if (response) {
         console.log(response);

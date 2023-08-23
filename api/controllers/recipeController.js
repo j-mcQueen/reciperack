@@ -1,22 +1,11 @@
 const Recipe = require("../models/recipe");
+const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.recipe_list = asyncHandler(async (req, res, next) => {
-  const allRecipes = await Recipe.find().exec();
+  const allRecipes = await Recipe.find({ createdBy: req.user._id }).exec();
   res.send(allRecipes);
-});
-
-exports.recipe_detail = asyncHandler(async (req, res, next) => {
-  const recipe = await Recipe.findById(req.params.id).exec();
-
-  if (recipe === null) {
-    const error = new Error("Recipe not found");
-    error.status = 404;
-    next(error);
-  }
-
-  res.send(recipe);
 });
 
 exports.recipe_create_post = [
@@ -43,6 +32,7 @@ exports.recipe_create_post = [
       notes: req.body.notes,
       category: req.body.category,
       source: req.body.source,
+      createdBy: req.user._id,
     });
 
     if (!errors.isEmpty()) {
@@ -51,11 +41,34 @@ exports.recipe_create_post = [
       return;
     } else {
       // save the recipe to the database and send the response
-      await recipe.save();
-      res.send(recipe);
+      const newRecipe = await recipe.save();
+
+      const user = await User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $set: { recipes: [...req.user.recipes, newRecipe] },
+        },
+        { new: true }
+      );
+      console.log(user);
+
+      // update the user
+      res.send(newRecipe);
     }
   }),
 ];
+
+exports.recipe_detail = asyncHandler(async (req, res, next) => {
+  const recipe = await Recipe.findById(req.params.id).exec();
+
+  if (recipe === null) {
+    const error = new Error("Recipe not found");
+    error.status = 404;
+    next(error);
+  }
+
+  res.send(recipe);
+});
 
 exports.recipe_update_post = [
   // validate & sanitize

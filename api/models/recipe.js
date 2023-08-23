@@ -8,6 +8,7 @@ const RecipeSchema = new Schema({
   notes: String,
   category: String,
   source: String,
+  createdBy: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 module.exports = mongoose.model("Recipe", RecipeSchema);
