@@ -7,12 +7,15 @@ export default function AllMenus({ ...props }) {
   useEffect(() => {
     const getMenus = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/menus");
-        if (response) props.setMenus(response.data);
-      } catch (err) {
-        if (err instanceof Error) {
-          console.log(err);
+        const response = await axios.get("http://localhost:3000/menus", {
+          withCredentials: true,
+        });
+        if (response) {
+          console.log(response);
+          props.setMenus(response.data);
         }
+      } catch (err) {
+        if (err instanceof Error) console.log(err);
       }
     };
     getMenus();

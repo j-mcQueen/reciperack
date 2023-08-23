@@ -24,6 +24,7 @@ const MenuSchema = new Schema({
   sunday: [
     { meal: Number, recipe: { type: Schema.Types.ObjectId, ref: "Recipe" } },
   ],
+  createdBy: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 module.exports = mongoose.model("Menu", MenuSchema);

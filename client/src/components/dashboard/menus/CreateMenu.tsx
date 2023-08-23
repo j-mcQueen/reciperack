@@ -7,9 +7,13 @@ export default function CreateMenu({ ...props }) {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/menus", {
-        title,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/menus",
+        {
+          title,
+        },
+        { withCredentials: true }
+      );
 
       if (response) {
         console.log(response);
