@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateRecipe({ ...props }) {
+  const navigate = useNavigate();
+
   const format = (arr: string[]) => {
     // helper to present the recipe details in the form field in a manner that is easier to edit
     let str = "";
@@ -22,8 +25,8 @@ export default function UpdateRecipe({ ...props }) {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:3000/recipes/${props.recipe.id}`,
+      const response = await axios.put(
+        `http://localhost:3000/recipes/${props.recipe._id}`,
         {
           title,
           ingredients,
@@ -31,15 +34,13 @@ export default function UpdateRecipe({ ...props }) {
           notes,
           category,
           source,
-        }
+        },
+        { withCredentials: true }
       );
 
-      console.log(response);
-      location.reload(); // opted for this instead of permitting the default behaviour of form submission so that the post request could execute first
+      if (response.status === 200) navigate(0); // refresh page
     } catch (err) {
-      if (err instanceof Error) {
-        console.log(err);
-      }
+      if (err instanceof Error) console.log(err);
     }
   };
 
@@ -116,7 +117,6 @@ export default function UpdateRecipe({ ...props }) {
         <label>
           Source
           <input
-            required
             name="source"
             type="text"
             placeholder="Enter a valid URL for the recipe"

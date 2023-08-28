@@ -70,7 +70,7 @@ exports.recipe_detail = asyncHandler(async (req, res, next) => {
   res.send(recipe);
 });
 
-exports.recipe_update_post = [
+exports.recipe_update = [
   // validate & sanitize
   body("title", "Title must be specified.").trim(),
   body("ingredients").optional({ values: "falsy" }).trim(),
@@ -94,6 +94,7 @@ exports.recipe_update_post = [
       category: req.body.category,
       source: req.body.source,
       _id: req.params.id,
+      createdBy: req.user._id,
     });
 
     if (!errors.isEmpty()) {
@@ -103,7 +104,15 @@ exports.recipe_update_post = [
       const updatedRecipe = await Recipe.findByIdAndUpdate(
         req.params.id,
         recipe,
-        {}
+        { new: true }
+      );
+
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: req.user._id, recipes: updatedRecipe._id },
+        {
+          $set: { "recipes.$": updatedRecipe },
+        },
+        { new: true }
       );
 
       res.send(updatedRecipe);

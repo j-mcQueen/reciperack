@@ -88,7 +88,10 @@ export default function RecipeDetail() {
           <ul className="py-5">
             {recipe.ingredients.map((ingredient: string, i) => (
               // using indexes not ideal as noted by React, but ingredients do not have an associated id, and using the recipe id throws warnings because of multiple list items using the same id. Tried using uuidv4() but for whatever reason it caused errors
-              <li className="font-body text-xl list-disc list-inside" key={i}>
+              <li
+                className="font-inter text-lg tracking-tight list-disc list-inside"
+                key={i}
+              >
                 {ingredient.trimStart()}
               </li>
             ))}
@@ -96,12 +99,12 @@ export default function RecipeDetail() {
         </section>
 
         <section className="flex flex-col rounded-lg bg-offgreen p-10">
-          <h2 className="font-manrope font-bold tracking-tighter text-4xl">
+          <h2 className="font-manrope font-bold tracking-tight text-4xl">
             Instructions
           </h2>
           <ol className="list-decimal list-inside">
             {recipe.steps.map((step: string, i) => (
-              <li className="font-body text-xl py-2" key={i}>
+              <li className="font-inter text-lg tracking-tighter py-2" key={i}>
                 {step.trimStart()}
               </li>
             ))}
@@ -115,7 +118,7 @@ export default function RecipeDetail() {
         </h2>
         <ul>
           {recipe.notes.map((note: string, i) => (
-            <li className="font-body text-lg" key={i}>
+            <li className="font-manrope text-lg" key={i}>
               {note.trimStart()}
             </li>
           ))}

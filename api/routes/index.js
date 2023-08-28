@@ -11,7 +11,7 @@ router.post("/logout", userController.user_logout);
 router.get("/recipes", recipeController.recipe_list);
 router.post("/recipes", recipeController.recipe_create_post);
 router.get("/recipes/:id", recipeController.recipe_detail);
-router.post("/recipes/:id", recipeController.recipe_update_post);
+router.put("/recipes/:id", recipeController.recipe_update);
 router.delete("/recipes/:id", recipeController.recipe_delete);
 
 router.get("/menus", menuController.menu_list);
