@@ -49,7 +49,7 @@ exports.menu_detail = asyncHandler(async (req, res, next) => {
   return;
 });
 
-exports.menu_update_post = [
+exports.menu_update = [
   // TODO validate and sanitize
   // body("recipes", "Please select a recipe."),
   // handle request
@@ -66,6 +66,7 @@ exports.menu_update_post = [
       saturday: req.body.saturday,
       sunday: req.body.sunday,
       _id: req.params.id,
+      createdBy: req.user._id,
     });
 
     if (!errors.isEmpty()) {
@@ -83,10 +84,12 @@ exports.menu_update_post = [
 exports.menu_delete = asyncHandler(async (req, res, next) => {
   // menu will likely have associations, so will need to remove those references before actually deleting the menu
   const deleted = await Menu.findByIdAndDelete(req.params.id).exec();
+
   const updatedUser = await User.findByIdAndUpdate(
     req.user._id,
     { $pull: { menus: deleted._id } },
     { new: true }
   );
+
   res.send(deleted);
 });

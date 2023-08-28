@@ -28,9 +28,9 @@ export default function CreateMenu({ ...props }) {
 
   // tab index of 0 set on h2 to ensure a user using assistive technology lands at a descriptive point on the modal when opened
   return (
-    <div className="absolute bg-logoBg font-manrope flex flex-col items-center p-5 border-solid border-offmain border rounded-lg">
+    <div className="absolute bg-main font-manrope flex flex-col items-center p-5 rounded-lg w-[calc(100%-1.5rem)] xl:w-auto">
       <div className="flex w-full items-center justify-between">
-        <h2 className="text-xl" tabIndex={0}>
+        <h2 className="text-xl tracking-tighter font-bold" tabIndex={0}>
           Create a new menu
         </h2>
 
@@ -49,12 +49,12 @@ export default function CreateMenu({ ...props }) {
           handleSubmit();
           props.setAddMenuActive(false);
         }}
-        className="flex flex-col gap-5 py-3"
+        className="flex flex-col gap-5 py-3 w-full"
       >
         <label>
           Title <span className="text-red">*</span>
           <input
-            className="block mt-2 bg-logoBg border border-solid rounded-lg border-offmain p-3 focus:border-gold focus:outline-none"
+            className="block mt-2 bg-logoBg border border-solid rounded-lg border-offmain p-3 focus:border-offgold focus:outline-none w-full"
             onChange={(e) => setTitle(e.target.value)}
             required
             type="text"

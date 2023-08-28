@@ -14,7 +14,8 @@ export default function TableRow({ ...props }) {
     const renderRecipe = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/recipes/${props.recipe.recipe}`
+          `http://localhost:3000/recipes/${props.recipe.recipe}`,
+          { withCredentials: true }
         );
 
         if (response && !ignore) {

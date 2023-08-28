@@ -17,7 +17,7 @@ router.delete("/recipes/:id", recipeController.recipe_delete);
 router.get("/menus", menuController.menu_list);
 router.post("/menus", menuController.menu_create_post);
 router.get("/menus/:id", menuController.menu_detail);
-router.post("/menus/:id", menuController.menu_update_post);
+router.put("/menus/:id", menuController.menu_update);
 router.delete("/menus/:id", menuController.menu_delete);
 
 module.exports = router;

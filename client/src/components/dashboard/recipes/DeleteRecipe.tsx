@@ -50,9 +50,10 @@ export default function DeleteRecipe({ ...props }) {
 
         const updatedMenu = { ...props.menu, [day]: dayRecipes };
 
-        const response = await axios.post(
+        const response = await axios.put(
           `http://localhost:3000/menus/${props.menu._id}`,
-          updatedMenu
+          updatedMenu,
+          { withCredentials: true }
         );
 
         if (response) {

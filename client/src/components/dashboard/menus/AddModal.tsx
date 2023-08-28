@@ -10,7 +10,9 @@ export default function AddModal({ ...props }) {
     // on mount, perform a get request which retrieves all the recipes in the given category
     const getRecipes = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/recipes");
+        const response = await axios.get("http://localhost:3000/recipes", {
+          withCredentials: true,
+        });
 
         if (response) {
           setAllRecipes(response.data);
@@ -42,9 +44,10 @@ export default function AddModal({ ...props }) {
       const updatedMenu = { ...props.menu, [day]: updatedDayRecipes };
       console.log(updatedMenu);
 
-      const response = await axios.post(
+      const response = await axios.put(
         `http://localhost:3000/menus/${props.menu._id}`,
-        updatedMenu
+        updatedMenu,
+        { withCredentials: true }
       );
 
       if (response) props.setMenu(updatedMenu);

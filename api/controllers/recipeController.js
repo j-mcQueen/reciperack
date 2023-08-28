@@ -59,7 +59,10 @@ exports.recipe_create_post = [
 ];
 
 exports.recipe_detail = asyncHandler(async (req, res, next) => {
-  const recipe = await Recipe.findById(req.params.id).exec();
+  const recipe = await Recipe.findOne({
+    _id: req.params.id,
+    createdBy: req.user._id,
+  }).exec();
 
   if (recipe === null) {
     const error = new Error("Recipe not found");
