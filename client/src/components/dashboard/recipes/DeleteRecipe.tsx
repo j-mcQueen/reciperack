@@ -10,7 +10,7 @@ export default function DeleteRecipe({ ...props }) {
       // if user wants to delete the source recipe
       try {
         const response = await axios.delete(
-          `http://localhost:3000/recipes/${props.recipe.id}`,
+          `http://localhost:3000/recipes/${props.recipe._id}`,
           { withCredentials: true }
         );
 

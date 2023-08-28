@@ -14,7 +14,7 @@ export default function RecipeDetail() {
     notes: [],
     source: "",
     category: "",
-    id: "",
+    _id: "",
     createdBy: "",
   });
 
@@ -42,7 +42,7 @@ export default function RecipeDetail() {
               .filter((note: string) => note !== ""),
             category: response.data.category,
             source: response.data.source,
-            id: response.data._id,
+            _id: response.data._id,
             createdBy: response.data.createdBy,
           });
         }
