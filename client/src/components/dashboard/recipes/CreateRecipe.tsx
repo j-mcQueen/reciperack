@@ -42,9 +42,9 @@ export default function CreateRecipe({ ...props }) {
 
   return (
     // tab index of 0 set on h2 to ensure a user using assistive technology lands at a descriptive point on the modal when opened
-    <div className="font-manrope absolute flex flex-col items-center bg-logoBg border border-solid border-offmain rounded-lg p-5">
+    <div className="font-manrope absolute w-[calc(100%-1.5rem)] xl:w-auto flex flex-col items-center bg-main border border-solid border-offmain rounded-lg p-5">
       <div className="flex items-center justify-between w-full py-3">
-        <h2 className="text-xl" tabIndex={0}>
+        <h2 className="text-2xl tracking-tighter font-bold" tabIndex={0}>
           Create a new recipe
         </h2>
 
@@ -67,72 +67,76 @@ export default function CreateRecipe({ ...props }) {
 
           props.setAddRecipeActive(false);
         }}
-        className="flex flex-col gap-5"
+        className="flex flex-col w-full gap-5"
       >
-        <label>
-          Title <span className="text-red">*</span>
-          <input
-            required
-            name="title"
-            type="text"
-            placeholder="Enter a title for the recipe"
-            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </label>
+        <div className="flex flex-col xl:flex-row gap-5">
+          <label>
+            Title <span className="text-red">*</span>
+            <input
+              required
+              name="title"
+              type="text"
+              placeholder="Enter a title for the recipe"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </label>
 
-        <label>
-          Ingredients
-          <textarea
-            name="ingredients"
-            placeholder="Copy and paste the ingredients list"
-            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
-            onChange={(e) => setIngredients(e.target.value)}
-          ></textarea>
-        </label>
+          <label>
+            Category
+            <input
+              name="category"
+              type="text"
+              placeholder="Enter a category for the recipe"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
+              onChange={(e) => setCategory(e.target.value)}
+            />
+          </label>
 
-        <label>
-          Instructions
-          <textarea
-            name="steps"
-            placeholder="Copy and paste the instructions"
-            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
-            onChange={(e) => setSteps(e.target.value)}
-          ></textarea>
-        </label>
+          <label htmlFor="source">
+            Source
+            <input
+              name="source"
+              id="source"
+              type="text"
+              placeholder="Enter a valid URL for the recipe"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
+              onChange={(e) => setSource(e.target.value)}
+            />
+          </label>
+        </div>
 
-        <label>
-          Notes
-          <textarea
-            name="notes"
-            placeholder="Enter some recipe notes"
-            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
-            onChange={(e) => setNotes(e.target.value)}
-          ></textarea>
-        </label>
+        <div className="flex flex-col xl:flex-row gap-5">
+          <label>
+            Ingredients
+            <textarea
+              name="ingredients"
+              placeholder="Copy and paste the ingredients list"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
+              onChange={(e) => setIngredients(e.target.value)}
+            ></textarea>
+          </label>
 
-        <label>
-          Category
-          <input
-            name="category"
-            type="text"
-            placeholder="Enter a category for the recipe"
-            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
-            onChange={(e) => setCategory(e.target.value)}
-          />
-        </label>
+          <label>
+            Instructions
+            <textarea
+              name="steps"
+              placeholder="Copy and paste the instructions"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
+              onChange={(e) => setSteps(e.target.value)}
+            ></textarea>
+          </label>
 
-        <label htmlFor="source">
-          Source
-          <input
-            name="source"
-            id="source"
-            type="text"
-            placeholder="Enter a valid URL for the recipe"
-            className="text-txt1 block w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
-            onChange={(e) => setSource(e.target.value)}
-          />
-        </label>
+          <label>
+            Notes
+            <textarea
+              name="notes"
+              placeholder="Enter some recipe notes"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
+              onChange={(e) => setNotes(e.target.value)}
+            ></textarea>
+          </label>
+        </div>
 
         <button
           className="font-semibold tracking-tighter bg-offgreen border border-green rounded-lg p-3"

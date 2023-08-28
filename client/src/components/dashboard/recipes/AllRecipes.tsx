@@ -3,7 +3,7 @@ import { FormEvent, useEffect, useState } from "react";
 import CreateRecipe from "./CreateRecipe";
 import SearchIcon from "../../../assets/icons/Search";
 import CloseIcon from "../../../assets/icons/Close";
-import DashboardTable from "./DashboardTable";
+import RecipeItems from "./RecipeItems";
 
 export default function AllRecipes({ ...props }) {
   const [search, setSearch] = useState("");
@@ -46,7 +46,7 @@ export default function AllRecipes({ ...props }) {
   };
 
   return (
-    <main className="flex flex-col gap-5 bg-main xl:mr-5 p-5 rounded-lg">
+    <main className="flex flex-col gap-3 xl:gap-5">
       {props.addRecipeActive ? (
         <CreateRecipe
           addRecipeActive={props.addRecipeActive}
@@ -56,7 +56,7 @@ export default function AllRecipes({ ...props }) {
         />
       ) : null}
 
-      <div className="flex items-center gap-5">
+      <section className="flex items-center gap-3 xl:gap-5 bg-main xl:mr-5 p-5 rounded-lg">
         <form
           onSubmit={(e) => onSearch(e)}
           role="search"
@@ -100,7 +100,7 @@ export default function AllRecipes({ ...props }) {
         ) : (
           <></>
         )}
-      </div>
+      </section>
 
       {noResult ? (
         // rectifies an edge case where searched results would show after all recipes
@@ -111,9 +111,13 @@ export default function AllRecipes({ ...props }) {
           <p className="font-manrope"> Please clear the search or try again.</p>
         </>
       ) : result.length > 0 ? (
-        <DashboardTable arr={result} page="recipes" />
+        <section className="grid xl:grid-rows-3 gap-3 xl:gap-5 xl:mr-5">
+          <RecipeItems arr={result} page="recipes" />
+        </section>
       ) : (
-        <DashboardTable arr={props.recipes} page="recipes" />
+        <section className="grid xl:grid-cols-3 gap-3 xl:gap-5 xl:mr-5">
+          <RecipeItems arr={props.recipes} page="recipes" />
+        </section>
       )}
     </main>
   );
