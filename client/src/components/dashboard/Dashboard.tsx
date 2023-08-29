@@ -25,7 +25,7 @@ export default function Dashboard() {
   return (
     <div className="grid xl:grid-cols-dashboard mt-3 mx-3 xl:m-5 gap-5">
       {deleteActive === true ? (
-        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
+        <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 rounded-lg">
           <DeleteRecipe
             source={"source"}
             setDeleteRecipeActive={setDeleteActive}
