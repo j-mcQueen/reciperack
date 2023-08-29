@@ -1,16 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import TableRow from "./TableRow";
-import DeleteRecipe from "../recipes/DeleteRecipe";
 
 export default function Table({ ...props }) {
-  const [breakfast, setBreakfast] = useState({});
-  const [lunch, setLunch] = useState({});
-  const [dinner, setDinner] = useState({});
-
   useEffect(() => {
-    setBreakfast({});
-    setLunch({});
-    setDinner({});
+    props.setMeals.setBreakfast({});
+    props.setMeals.setLunch({});
+    props.setMeals.setDinner({});
   }, [props.activeDay]);
 
   useEffect(() => {
@@ -19,32 +14,17 @@ export default function Table({ ...props }) {
 
     for (const recipe of dayRecipes) {
       if (recipe.meal === 0) {
-        setBreakfast(recipe);
+        props.setMeals.setBreakfast(recipe);
       } else if (recipe.meal === 1) {
-        setLunch(recipe);
+        props.setMeals.setLunch(recipe);
       } else {
-        setDinner(recipe);
+        props.setMeals.setDinner(recipe);
       }
     }
   }, [props.activeDay, props.menu]);
 
   return (
     <>
-      {props.deleteMenuRecipeActive ? (
-        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
-          <DeleteRecipe
-            setBreakfast={setBreakfast}
-            setLunch={setLunch}
-            setDinner={setDinner}
-            activeDay={props.activeDay}
-            activeMeal={props.activeMeal}
-            menu={props.menu}
-            setMenu={props.setMenu}
-            setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
-            source="menu"
-          />
-        </div>
-      ) : null}
       <table className="font-manrope table-fixed border-collapse m-10">
         <caption className="text-3xl tracking-tighter p-3 border border-solid border-offmain">
           {props.activeDay} recipes
@@ -53,7 +33,7 @@ export default function Table({ ...props }) {
         <tbody>
           <TableRow
             meal={"Breakfast"}
-            recipe={breakfast}
+            recipe={props.meals.breakfast}
             setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
             activeDay={props.activeDay}
             setAddModal={props.setAddModal}
@@ -62,7 +42,7 @@ export default function Table({ ...props }) {
 
           <TableRow
             meal={"Lunch"}
-            recipe={lunch}
+            recipe={props.meals.lunch}
             setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
             activeDay={props.activeDay}
             setAddModal={props.setAddModal}
@@ -71,7 +51,7 @@ export default function Table({ ...props }) {
 
           <TableRow
             meal={"Dinner"}
-            recipe={dinner}
+            recipe={props.meals.dinner}
             setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
             activeDay={props.activeDay}
             setAddModal={props.setAddModal}

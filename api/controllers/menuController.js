@@ -37,7 +37,10 @@ exports.menu_create_post = [
 ];
 
 exports.menu_detail = asyncHandler(async (req, res, next) => {
-  const menu = await Menu.findById(req.params.id).exec();
+  const menu = await Menu.findOne({
+    _id: req.params.id,
+    createdBy: req.user._id,
+  }).exec();
 
   if (menu === null) {
     const error = new Error("Recipe not found");

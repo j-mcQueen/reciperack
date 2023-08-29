@@ -42,15 +42,15 @@ export default function DeleteRecipe({ ...props }) {
         if (props.activeMeal === "Breakfast") {
           const index = findTarget(dayRecipes, 0);
           dayRecipes.splice(index, 1);
-          props.setBreakfast({});
+          props.setMeals.setBreakfast({});
         } else if (props.activeMeal === "Lunch") {
           const index = findTarget(dayRecipes, 1);
           dayRecipes.splice(index, 1);
-          props.setLunch({});
+          props.setMeals.setLunch({});
         } else {
           const index = findTarget(dayRecipes, 2);
           dayRecipes.splice(index, 1);
-          props.setDinner({});
+          props.setMeals.setDinner({});
         }
 
         const updatedMenu = { ...props.menu, [day]: dayRecipes };
