@@ -3,6 +3,16 @@ import DeleteIcon from "../../../assets/icons/Delete";
 import Open from "../../../assets/icons/Open";
 
 export default function RecipeItems({ ...props }) {
+  const handleDeleteClick = (item: {
+    _id: string;
+    category: string;
+    title: string;
+    source: string;
+  }) => {
+    props.setTargetRecipe(item);
+    props.setDeleteActive(true);
+  };
+
   return props.arr.map(
     (item: {
       _id: string;
@@ -20,6 +30,7 @@ export default function RecipeItems({ ...props }) {
           </h3>
 
           <button
+            onClick={() => handleDeleteClick(item)}
             className="p-2 bg-offred border border-solid border-red rounded-lg xl:hover:bg-transred xl:hover:transition-colors transition-colors"
             type="button"
           >

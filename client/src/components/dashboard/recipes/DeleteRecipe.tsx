@@ -14,7 +14,12 @@ export default function DeleteRecipe({ ...props }) {
           { withCredentials: true }
         );
 
-        if (response.status === 200) navigate("/dashboard");
+        if (response.status === 200) {
+          // if the user has delete from the dashboard, there will be a target recipe, therefore refresh
+          // otherwise, the user has deleted from the detail page so navigate to dashboard
+          if (props.targetRecipe !== undefined) navigate(0);
+          else navigate("/dashboard");
+        }
       } catch (err) {
         if (err instanceof Error) console.log(err);
       }
@@ -66,6 +71,15 @@ export default function DeleteRecipe({ ...props }) {
     }
   };
 
+  const handleClose = (source: string) => {
+    if (source === "source") {
+      props.setDeleteRecipeActive(false);
+      if (props.targetRecipe !== undefined) props.setTargetRecipe(false);
+    } else {
+      props.setDeleteMenuRecipeActive(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-10 bg-main border-solid border rounded-lg border-gold p-5 w-1/4">
       <div className="flex items-center gap-5">
@@ -86,11 +100,7 @@ export default function DeleteRecipe({ ...props }) {
         <button
           type="button"
           className="self-start border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
-          onClick={() =>
-            props.source === "source"
-              ? props.setDeleteRecipeActive(false)
-              : props.setDeleteMenuRecipeActive(false)
-          }
+          onClick={() => handleClose(props.source)}
         >
           <CloseIcon className="w-5 h-5 fill-txt2" />
         </button>

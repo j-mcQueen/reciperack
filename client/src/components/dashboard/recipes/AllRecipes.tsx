@@ -112,11 +112,21 @@ export default function AllRecipes({ ...props }) {
         </>
       ) : result.length > 0 ? (
         <section className="grid xl:grid-rows-3 gap-3 xl:gap-5 xl:mr-5">
-          <RecipeItems arr={result} page="recipes" />
+          <RecipeItems
+            setTargetRecipe={props.setTargetRecipe}
+            setDeleteActive={props.setDeleteActive}
+            arr={result}
+            page="recipes"
+          />
         </section>
       ) : (
         <section className="grid xl:grid-cols-3 gap-3 xl:gap-5 xl:mr-5">
-          <RecipeItems arr={props.recipes} page="recipes" />
+          <RecipeItems
+            setTargetRecipe={props.setTargetRecipe}
+            setDeleteActive={props.setDeleteActive}
+            arr={props.recipes}
+            page="recipes"
+          />
         </section>
       )}
     </main>
