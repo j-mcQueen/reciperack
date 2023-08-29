@@ -47,15 +47,6 @@ export default function AllRecipes({ ...props }) {
 
   return (
     <main className="flex flex-col gap-3 xl:gap-5">
-      {props.addRecipeActive ? (
-        <CreateRecipe
-          addRecipeActive={props.addRecipeActive}
-          setAddRecipeActive={props.setAddRecipeActive}
-          recipes={props.recipes}
-          setRecipes={props.setRecipes}
-        />
-      ) : null}
-
       <section className="flex items-center gap-3 xl:gap-5 bg-main xl:mr-5 p-5 rounded-lg">
         <form
           onSubmit={(e) => onSearch(e)}

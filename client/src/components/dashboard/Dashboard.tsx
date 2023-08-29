@@ -6,6 +6,8 @@ import AllRecipes from "./recipes/AllRecipes";
 import AllMenus from "./menus/AllMenus";
 import MobileNav from "./sidebar/MobileNav";
 import DeleteRecipe from "./recipes/DeleteRecipe";
+import CreateMenu from "./menus/CreateMenu";
+import CreateRecipe from "./recipes/CreateRecipe";
 
 export default function Dashboard() {
   const viewport = window.matchMedia("(max-width: 1080px)");
@@ -25,13 +27,35 @@ export default function Dashboard() {
   return (
     <div className="grid xl:grid-cols-dashboard mt-3 mx-3 xl:m-5 gap-5">
       {deleteActive === true ? (
-        <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 rounded-lg">
+        <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 xl:rounded-none rounded-lg">
           <DeleteRecipe
             source={"source"}
             setDeleteRecipeActive={setDeleteActive}
             recipe={targetRecipe}
             targetRecipe={targetRecipe}
             setTargetRecipe={setTargetRecipe}
+          />
+        </div>
+      ) : null}
+
+      {addMenuActive ? (
+        <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 xl:rounded-none rounded-lg">
+          <CreateMenu
+            menus={menus}
+            setMenus={setMenus}
+            addMenuActive={addMenuActive}
+            setAddMenuActive={setAddMenuActive}
+          />
+        </div>
+      ) : null}
+
+      {addRecipeActive ? (
+        <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 xl:rounded-none rounded-lg">
+          <CreateRecipe
+            addRecipeActive={addRecipeActive}
+            setAddRecipeActive={setAddRecipeActive}
+            recipes={recipes}
+            setRecipes={setRecipes}
           />
         </div>
       ) : null}

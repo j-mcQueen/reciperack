@@ -46,15 +46,17 @@ export default function RecipeItems({ ...props }) {
             {item.title}
           </Link>
 
-          <a
-            className="flex items-center justify-center gap-2 text-lg tracking-tighter py-2 px-3 border border-solid border-gold rounded-lg bg-offgold xl:hover:bg-transgold xl:hover:transition-colors transition-colors w-full"
-            href={item.source}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Source
-            <Open className="w-5 h-5 fill-txt1" />
-          </a>
+          {props.source ? (
+            <a
+              className="flex items-center justify-center gap-2 text-lg tracking-tighter py-2 px-3 border border-solid border-gold rounded-lg bg-offgold xl:hover:bg-transgold xl:hover:transition-colors transition-colors w-full"
+              href={item.source}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Source
+              <Open className="w-5 h-5 fill-txt1" />
+            </a>
+          ) : null}
         </div>
       </article>
     )

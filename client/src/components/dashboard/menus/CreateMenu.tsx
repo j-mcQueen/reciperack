@@ -28,7 +28,7 @@ export default function CreateMenu({ ...props }) {
 
   // tab index of 0 set on h2 to ensure a user using assistive technology lands at a descriptive point on the modal when opened
   return (
-    <div className="absolute bg-main font-manrope flex flex-col items-center p-5 rounded-lg w-[calc(100%-1.5rem)] xl:w-auto">
+    <div className="absolute bg-main font-manrope flex flex-col items-center p-5 rounded-lg w-full xl:w-auto">
       <div className="flex w-full items-center justify-between">
         <h2 className="text-xl tracking-tighter font-bold" tabIndex={0}>
           Create a new menu
