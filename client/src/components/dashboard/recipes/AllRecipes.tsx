@@ -1,6 +1,5 @@
 import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
-import CreateRecipe from "./CreateRecipe";
 import SearchIcon from "../../../assets/icons/Search";
 import CloseIcon from "../../../assets/icons/Close";
 import RecipeItems from "./RecipeItems";
@@ -45,6 +44,23 @@ export default function AllRecipes({ ...props }) {
     }
   };
 
+  const RemoveButton = () => {
+    return (
+      <button
+        onClick={() => {
+          setNoResult(false);
+          setResult([]);
+          setSearch("");
+        }}
+        type="button"
+        className="font-manrope bg-transred border border-solid border-red rounded-lg flex items-center gap-1 p-2"
+      >
+        <CloseIcon className="w-5 h-5 fill-txt2" />
+        Remove
+      </button>
+    );
+  };
+
   return (
     <main className="flex flex-col gap-3 xl:gap-5">
       <section className="flex items-center gap-3 xl:gap-5 bg-main xl:mr-5 p-5 rounded-lg">
@@ -71,26 +87,11 @@ export default function AllRecipes({ ...props }) {
             className="border border-solid border-s-0 border-offmain rounded-lg rounded-s-none focus:bg-offgreen focus:border-green focus:outline-none p-2 px-3"
             type="submit"
           >
-            <SearchIcon className="w-5 h-5 fill-txt2" />
+            <SearchIcon title="Search recipes" className="w-5 h-5 fill-txt2" />
           </button>
         </form>
 
-        {noResult ? (
-          <button
-            onClick={() => {
-              setNoResult(false);
-              setResult([]);
-              setSearch("");
-            }}
-            type="button"
-            className="font-manrope bg-transred border border-solid border-red rounded-lg flex items-center gap-1 p-2"
-          >
-            <CloseIcon className="w-5 h-5 fill-txt2" />
-            Remove
-          </button>
-        ) : (
-          <></>
-        )}
+        {noResult || result.length > 0 ? <RemoveButton /> : <></>}
       </section>
 
       {noResult ? (
@@ -102,7 +103,7 @@ export default function AllRecipes({ ...props }) {
           <p className="font-manrope"> Please clear the search or try again.</p>
         </>
       ) : result.length > 0 ? (
-        <section className="grid xl:grid-rows-3 gap-3 xl:gap-5 xl:mr-5">
+        <section className="grid xl:grid-cols-3 gap-3 xl:gap-5 xl:mr-5">
           <RecipeItems
             setTargetRecipe={props.setTargetRecipe}
             setDeleteActive={props.setDeleteActive}
@@ -111,7 +112,7 @@ export default function AllRecipes({ ...props }) {
           />
         </section>
       ) : (
-        <section className="grid xl:grid-cols-3 gap-3 xl:gap-5 xl:mr-5">
+        <section className="grid xl:grid-cols-3 items-start gap-3 xl:gap-5 xl:mr-5">
           <RecipeItems
             setTargetRecipe={props.setTargetRecipe}
             setDeleteActive={props.setDeleteActive}
