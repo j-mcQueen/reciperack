@@ -102,7 +102,10 @@ export default function DeleteRecipe({ ...props }) {
           className="self-start border-solid border border-gold rounded-lg p-2 hover:bg-offgold hover:transition-colors transition-colors"
           onClick={() => handleClose(props.source)}
         >
-          <CloseIcon className="w-5 h-5 fill-txt2" />
+          <CloseIcon
+            title="Close delete recipe modal"
+            className="w-5 h-5 fill-txt2"
+          />
         </button>
       </div>
 

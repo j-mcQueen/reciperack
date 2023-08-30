@@ -76,23 +76,24 @@ export default function MenuModal({ ...props }) {
 
   return (
     <div className="absolute bg-main p-3 border border-offmain border-solid rounded-lg">
-      <div className="flex font-manrope gap-5">
+      <div className="flex items-center justify-between tracking-tighter font-manrope gap-5 text-xl">
         {props.modal.modalAction === "add" ? (
-          <h2 tabIndex={0}>
+          <h3>
             Add recipe to {props.menu.title}, {props.meal}: {props.activeDay}
-          </h2>
+          </h3>
         ) : (
-          <h2 tabIndex={0}>
-            Update {props.meal}: {props.activeDay} recipe
-          </h2>
+          <h3>
+            Update {props.activeDay}: {props.meal} recipe
+          </h3>
         )}
 
         <button
+          autoFocus={true}
           className="border border-solid border-offgold rounded-lg p-1 hover:bg-offgold hover:transition-colors transition-colors"
           onClick={() => props.setMenuModal(false)}
           type="button"
         >
-          <CloseIcon className="w-5 h-5 fill-txt2" />
+          <CloseIcon title="Close menu modal" className="w-5 h-5 fill-txt2" />
         </button>
       </div>
 
