@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import UpdateRecipe from "./UpdateRecipe";
 import DeleteRecipe from "./DeleteRecipe";
 import DetailHeader from "../DetailHeader";
+import MobileDetailHeader from "./MobileDetailHeader";
 
 export default function RecipeDetail() {
   const [updateRecipeActive, setUpdateRecipeActive] = useState(false);
@@ -17,6 +18,8 @@ export default function RecipeDetail() {
     _id: "",
     createdBy: "",
   });
+
+  const viewport = window.matchMedia("(max-width: 1080px)");
 
   useEffect(() => {
     const getRecipeDetail = async () => {
@@ -74,22 +77,30 @@ export default function RecipeDetail() {
         </div>
       ) : null}
 
-      <DetailHeader
-        item={recipe}
-        setUpdateItemActive={setUpdateRecipeActive}
-        setDeleteItemActive={setDeleteRecipeActive}
-      />
+      {viewport.matches === true ? (
+        <MobileDetailHeader
+          item={recipe}
+          setUpdateItemActive={setUpdateRecipeActive}
+          setDeleteItemActive={setDeleteRecipeActive}
+        />
+      ) : (
+        <DetailHeader
+          item={recipe}
+          setUpdateItemActive={setUpdateRecipeActive}
+          setDeleteItemActive={setDeleteRecipeActive}
+        />
+      )}
 
-      <div className="grid grid-cols-recipeDetails justify-center items-center gap-10 px-10 m-10">
-        <section className="flex self-start flex-col bg-offgold rounded-lg p-10">
-          <h2 className="font-manrope font-bold tracking-tighter text-4xl">
+      <div className="grid grid-cols-recipeDetails justify-center items-center gap-5 xl:gap-10 xl:px-10 my-10 mx-3 xl:m-10">
+        <section className="flex self-start flex-col border border-solid border-gold rounded-lg p-5 xl:p-10">
+          <h2 className="font-manrope font-bold tracking-tighter text-4xl py-3 xl:py-0">
             Ingredients
           </h2>
-          <ul className="py-5">
+          <ul className="xl:py-5">
             {recipe.ingredients.map((ingredient: string, i) => (
               // using indexes not ideal as noted by React, but ingredients do not have an associated id, and using the recipe id throws warnings because of multiple list items using the same id. Tried using uuidv4() but for whatever reason it caused errors
               <li
-                className="font-inter text-lg tracking-tight list-disc list-inside"
+                className="font-inter text-lg tracking-tight list-disc list-inside py-2"
                 key={i}
               >
                 {ingredient.trimStart()}
@@ -98,8 +109,8 @@ export default function RecipeDetail() {
           </ul>
         </section>
 
-        <section className="flex flex-col rounded-lg bg-offgreen p-10">
-          <h2 className="font-manrope font-bold tracking-tight text-4xl">
+        <section className="flex flex-col rounded-lg border border-solid border-green p-5 xl:p-10">
+          <h2 className="font-manrope font-bold tracking-tight text-4xl py-3 xl:py-0">
             Instructions
           </h2>
           <ol className="list-decimal list-inside">
