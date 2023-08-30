@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import BackIcon from "../../assets/icons/Back";
 import EditIcon from "../../assets/icons/Edit";
 import DeleteIcon from "../../assets/icons/Delete";
+import Open from "../../assets/icons/Open";
 
 export default function DetailHeader({ ...props }) {
   return (
@@ -16,12 +17,13 @@ export default function DetailHeader({ ...props }) {
 
         {props.item.source ? (
           <a
-            className="font-manrope font-bold rounded text-main bg-gold px-3 py-2"
+            className="font-manrope flex items-center justify-center gap-2 text-lg tracking-tighter py-1 px-3 border border-solid border-gold rounded-lg bg-offgold xl:hover:bg-transgold xl:hover:transition-colors transition-colors w-full"
             href={props.item.source}
             target="_blank"
             rel="noreferrer"
           >
             Source
+            <Open className="w-5 h-5 fill-txt1" />
           </a>
         ) : null}
       </nav>

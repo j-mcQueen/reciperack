@@ -81,7 +81,7 @@ export default function DeleteRecipe({ ...props }) {
   };
 
   return (
-    <div className="flex flex-col gap-10 bg-main border-solid border rounded-lg border-offmain p-5 xl:w-1/4">
+    <div className="flex flex-col gap-10 bg-main border-solid border rounded-lg border-offmain p-5 mx-3 xl:mx-0 xl:w-1/4">
       <div className="flex items-center gap-5">
         <div>
           <h3 className="font-manrope font-semibold text-2xl tracking-tighter pb-5">
@@ -111,7 +111,7 @@ export default function DeleteRecipe({ ...props }) {
 
       <button
         type="button"
-        className="font-manrope bg-offred border border-solid border-red p-3 w-full rounded-lg hover:bg-transred hover:transition-colors transition-colors"
+        className="font-manrope bg-offred border border-solid border-red p-3 w-full rounded-lg xl:hover:bg-transred xl:hover:transition-colors xl:transition-colors"
         onClick={() => handleDelete()}
       >
         Delete

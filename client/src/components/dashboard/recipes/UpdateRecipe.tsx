@@ -45,7 +45,7 @@ export default function UpdateRecipe({ ...props }) {
   };
 
   return (
-    <div className="font-manrope absolute flex flex-col w-[calc(100%-1.5rem)] xl:w-auto items-center bg-main m-3 xl:m-10 rounded-lg border border-solid border-offmain">
+    <div className="font-manrope absolute flex flex-col w-[calc(100%-1.5rem)] xl:w-auto items-center bg-main m-3 xl:m-10 rounded-lg border border-solid border-offmain xl:p-3">
       <h2 className="font-manrope text-3xl tracking-tighter py-3 border-b-2 border-gold border-solid">
         Update: {props.recipe.title}
       </h2>
@@ -130,7 +130,7 @@ export default function UpdateRecipe({ ...props }) {
           </label>
         </div>
 
-        <div className="flex w-full justify-center gap-3 xl:gap-5 px-3">
+        <div className="flex w-full justify-center gap-3 xl:gap-5 px-3 xl:px-0">
           <button
             className="font-manrope w-full bg-offgreen border border-green rounded-lg p-3"
             type="submit"

@@ -25,7 +25,7 @@ export default function Dashboard() {
   const [targetRecipe, setTargetRecipe] = useState(false);
 
   return (
-    <div className="grid xl:grid-cols-dashboard mt-3 mx-3 xl:m-5 gap-5">
+    <div className="grid xl:grid-cols-dashboard mt-3 mx-3 mb-[calc(84px+1.5rem)] xl:m-5 gap-5">
       {deleteActive === true ? (
         <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 xl:rounded-none rounded-lg">
           <DeleteRecipe

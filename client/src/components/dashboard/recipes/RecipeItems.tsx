@@ -46,7 +46,7 @@ export default function RecipeItems({ ...props }) {
             {item.title}
           </Link>
 
-          {props.source ? (
+          {item.source !== "" ? (
             <a
               className="flex items-center justify-center gap-2 text-lg tracking-tighter py-2 px-3 border border-solid border-gold rounded-lg bg-offgold xl:hover:bg-transgold xl:hover:transition-colors transition-colors w-full"
               href={item.source}
