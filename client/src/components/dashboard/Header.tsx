@@ -11,7 +11,7 @@ export default function Header({ ...props }) {
           className="bg-offgold p-2 border border-solid border-gold rounded-lg "
           type="button"
         >
-          <Burger className="w-5 h-5 fill-txt1" />
+          <Burger title="Toggle menu" className="w-5 h-5 fill-txt1" />
         </button>
       ) : null}
 

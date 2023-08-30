@@ -11,7 +11,7 @@ export default function DetailHeader({ ...props }) {
           to="/dashboard"
           className="border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
         >
-          <BackIcon className="w-5 h-5" />
+          <BackIcon title="Previous page" className="w-5 h-5" />
         </Link>
 
         {props.item.source ? (

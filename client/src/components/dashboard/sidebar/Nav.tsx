@@ -69,11 +69,17 @@ export default function Nav({ ...props }) {
 
         <div className="flex justify-center gap-3">
           <Link to="">
-            <SettingsIcon className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors" />
+            <SettingsIcon
+              title="User settings"
+              className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors"
+            />
           </Link>
 
           <button onClick={() => handleLogout()} type="button">
-            <LogoutIcon className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors" />
+            <LogoutIcon
+              title="Logout"
+              className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors"
+            />
           </button>
         </div>
       </nav>

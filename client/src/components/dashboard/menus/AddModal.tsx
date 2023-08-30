@@ -69,7 +69,7 @@ export default function AddModal({ ...props }) {
           onClick={() => props.setAddModal(false)}
           type="button"
         >
-          <CloseIcon className="w-5 h-5 fill-txt2" />
+          <CloseIcon title="Close Modal" className="w-5 h-5 fill-txt2" />
         </button>
       </div>
 

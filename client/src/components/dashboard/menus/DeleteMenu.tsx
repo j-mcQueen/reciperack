@@ -46,7 +46,10 @@ export default function DeleteMenu({ ...props }) {
           className="self-start border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
           onClick={() => props.setDeleteMenuActive(false)}
         >
-          <CloseIcon className="w-5 h-5 fill-txt2" />
+          <CloseIcon
+            title="Close create menu modal"
+            className="w-5 h-5 fill-txt2"
+          />
         </button>
       </div>
 

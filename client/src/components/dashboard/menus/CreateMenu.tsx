@@ -39,7 +39,10 @@ export default function CreateMenu({ ...props }) {
           type="button"
           onClick={() => props.setAddMenuActive(false)}
         >
-          <CloseIcon className="w-5 h-5 fill-txt2" />
+          <CloseIcon
+            title="Close create menu modal"
+            className="w-5 h-5 fill-txt2"
+          />
         </button>
       </div>
 
