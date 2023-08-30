@@ -36,7 +36,8 @@ export default function Table({ ...props }) {
             recipe={props.meals.breakfast}
             setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
             activeDay={props.activeDay}
-            setAddModal={props.setAddModal}
+            setMenuModal={props.setMenuModal}
+            setModalAction={props.setModalAction}
             setActiveMeal={props.setActiveMeal}
           />
 
@@ -45,7 +46,8 @@ export default function Table({ ...props }) {
             recipe={props.meals.lunch}
             setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
             activeDay={props.activeDay}
-            setAddModal={props.setAddModal}
+            setMenuModal={props.setMenuModal}
+            setModalAction={props.setModalAction}
             setActiveMeal={props.setActiveMeal}
           />
 
@@ -54,7 +56,8 @@ export default function Table({ ...props }) {
             recipe={props.meals.dinner}
             setDeleteMenuRecipeActive={props.setDeleteMenuRecipeActive}
             activeDay={props.activeDay}
-            setAddModal={props.setAddModal}
+            setMenuModal={props.setMenuModal}
+            setModalAction={props.setModalAction}
             setActiveMeal={props.setActiveMeal}
           />
         </tbody>

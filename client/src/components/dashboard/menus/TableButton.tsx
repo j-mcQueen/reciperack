@@ -7,8 +7,9 @@ export default function TableButton({ ...props }) {
         type="button"
         value={props.activeDay}
         onClick={() => {
+          props.setModalAction("add");
           props.setActiveMeal(props.meal);
-          props.setAddModal(true);
+          props.setMenuModal(true);
         }}
         className="flex justify-center items-center bg-offgreen border-solid border-green border rounded-lg w-full p-3 gap-2 hover:bg-transgreen hover:transition-colors transition-colors"
       >

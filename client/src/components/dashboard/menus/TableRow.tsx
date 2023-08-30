@@ -9,6 +9,9 @@ export default function TableRow({ ...props }) {
   const [rowRecipe, setRowRecipe] = useState({ _id: "", title: "" });
 
   useEffect(() => {
+    // if there has been a change in the selected menu for breakfast/lunch/dinner
+    // change can occur via a recipe replacement or addition
+
     let ignore = false;
 
     const renderRecipe = async () => {
@@ -30,7 +33,7 @@ export default function TableRow({ ...props }) {
     return () => {
       ignore = true;
     };
-  }, [props.recipe]);
+  }, [props.recipe.recipe]);
 
   return (
     <tr className="border border-solid border-offmain">
@@ -53,7 +56,15 @@ export default function TableRow({ ...props }) {
           </td>
 
           <td className="align-middle border border-solid border-offmain">
-            <button type="button" className="p-4">
+            <button
+              onClick={() => {
+                props.setMenuModal(true);
+                props.setActiveMeal(props.meal);
+                props.setModalAction("update");
+              }}
+              type="button"
+              className="p-4"
+            >
               <EditIcon
                 title="Update Menu Recipe"
                 className="w-5 h-5 fill-blue"
@@ -80,7 +91,8 @@ export default function TableRow({ ...props }) {
       ) : (
         <TableButton
           setActiveMeal={props.setActiveMeal}
-          setAddModal={props.setAddModal}
+          setModalAction={props.setModalAction}
+          setMenuModal={props.setMenuModal}
           activeDay={props.activeDay}
           meal={props.meal}
         />

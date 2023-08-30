@@ -2,12 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DetailHeader from "../DetailHeader";
 import Table from "./Table";
-import AddModal from "./AddModal";
 import DeleteMenu from "./DeleteMenu";
 import DeleteRecipe from "../recipes/DeleteRecipe";
+import MenuModal from "./MenuModal";
 
 export default function MenuDetail() {
-  const [addModal, setAddModal] = useState(false);
+  const [menuModal, setMenuModal] = useState(false);
+  const [modalAction, setModalAction] = useState("add");
   const [activeDay, setActiveDay] = useState("Monday");
   const [activeMeal, setActiveMeal] = useState("");
   const [deleteMenuActive, setDeleteMenuActive] = useState(false);
@@ -107,13 +108,14 @@ export default function MenuDetail() {
       </section>
 
       <section className="flex justify-center">
-        {addModal ? (
-          <AddModal
+        {menuModal ? (
+          <MenuModal
             meal={activeMeal}
             activeDay={activeDay}
             menu={menu}
             setMenu={setMenu}
-            setAddModal={setAddModal}
+            setMenuModal={setMenuModal}
+            modal={{ modalAction, setModalAction }}
           />
         ) : null}
 
@@ -123,7 +125,8 @@ export default function MenuDetail() {
           setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
           setActiveMeal={setActiveMeal}
           activeDay={activeDay}
-          setAddModal={setAddModal}
+          setMenuModal={setMenuModal}
+          setModalAction={setModalAction}
           meals={{ breakfast, lunch, dinner }}
           setMeals={{ setBreakfast, setLunch, setDinner }}
         />
