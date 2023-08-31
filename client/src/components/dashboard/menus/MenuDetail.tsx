@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DetailHeader from "../DetailHeader";
-import Table from "./Table";
 import DeleteMenu from "./DeleteMenu";
 import DeleteRecipe from "../recipes/DeleteRecipe";
 import MenuModal from "./MenuModal";
+import MobileDetailHeader from "../MobileDetailHeader";
+import MealBlock from "./MealBlock";
 
 export default function MenuDetail() {
   const [menuModal, setMenuModal] = useState(false);
@@ -54,6 +55,27 @@ export default function MenuDetail() {
     };
   }, []);
 
+  useEffect(() => {
+    setBreakfast({});
+    setLunch({});
+    setDinner({});
+  }, [activeDay]);
+
+  useEffect(() => {
+    const day = activeDay.toLowerCase();
+    const dayRecipes = menu[day];
+
+    for (const recipe of dayRecipes) {
+      if (recipe.meal === 0) {
+        setBreakfast(recipe);
+      } else if (recipe.meal === 1) {
+        setLunch(recipe);
+      } else {
+        setDinner(recipe);
+      }
+    }
+  }, [activeDay, menu]);
+
   const week = [
     "Monday",
     "Tuesday",
@@ -64,8 +86,10 @@ export default function MenuDetail() {
     "Sunday",
   ];
 
+  const viewport = window.matchMedia("(max-width: 1080px)");
+
   return (
-    <main>
+    <main className="flex flex-col gap-10">
       {deleteMenuActive ? (
         <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
           <DeleteMenu setDeleteMenuActive={setDeleteMenuActive} menu={menu} />
@@ -86,7 +110,19 @@ export default function MenuDetail() {
         </div>
       ) : null}
 
-      <DetailHeader setDeleteItemActive={setDeleteMenuActive} item={menu} />
+      {viewport.matches === true ? (
+        <MobileDetailHeader
+          item={menu}
+          // setUpdateItemActive={setUpdateRecipeActive}
+          setDeleteItemActive={setDeleteMenuActive}
+        />
+      ) : (
+        <DetailHeader
+          item={menu}
+          // setUpdateItemActive={setUpdateRecipeActive}
+          setDeleteItemActive={setDeleteMenuActive}
+        />
+      )}
 
       <section>
         <form className="font-manrope flex justify-center">
@@ -105,9 +141,13 @@ export default function MenuDetail() {
             </select>
           </label>
         </form>
+
+        <h2 className="font-manrope text-center font-bold text-3xl tracking-tighter pt-10">
+          {activeDay} recipes
+        </h2>
       </section>
 
-      <section className="flex justify-center">
+      <section className="grid xl:grid-cols-3 items-start justify-center mx-3 gap-3 xl:mx-10">
         {menuModal ? (
           <MenuModal
             meal={activeMeal}
@@ -119,16 +159,34 @@ export default function MenuDetail() {
           />
         ) : null}
 
-        <Table
-          menu={menu}
-          deleteMenuRecipeActive={deleteMenuRecipeActive}
+        <MealBlock
+          meal={"Breakfast"}
+          mealRecipe={breakfast}
           setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
-          setActiveMeal={setActiveMeal}
           activeDay={activeDay}
           setMenuModal={setMenuModal}
           setModalAction={setModalAction}
-          meals={{ breakfast, lunch, dinner }}
-          setMeals={{ setBreakfast, setLunch, setDinner }}
+          setActiveMeal={setActiveMeal}
+        />
+
+        <MealBlock
+          meal={"Lunch"}
+          mealRecipe={lunch}
+          setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
+          activeDay={activeDay}
+          setMenuModal={setMenuModal}
+          setModalAction={setModalAction}
+          setActiveMeal={setActiveMeal}
+        />
+
+        <MealBlock
+          meal={"Dinner"}
+          mealRecipe={dinner}
+          setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
+          activeDay={activeDay}
+          setMenuModal={setMenuModal}
+          setModalAction={setModalAction}
+          setActiveMeal={setActiveMeal}
         />
       </section>
     </main>

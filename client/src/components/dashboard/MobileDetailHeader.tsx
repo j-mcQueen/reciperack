@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import DeleteIcon from "../../../assets/icons/Delete";
-import EditIcon from "../../../assets/icons/Edit";
-import BackIcon from "../../../assets/icons/Back";
-import Open from "../../../assets/icons/Open";
+import DeleteIcon from "../../assets/icons/Delete";
+import EditIcon from "../../assets/icons/Edit";
+import BackIcon from "../../assets/icons/Back";
+import Open from "../../assets/icons/Open";
 
 export default function MobileDetailHeader({ ...props }) {
   return (
