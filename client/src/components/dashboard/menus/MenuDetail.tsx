@@ -89,66 +89,9 @@ export default function MenuDetail() {
   const viewport = window.matchMedia("(max-width: 1080px)");
 
   return (
-    <main className="flex flex-col gap-10">
-      {deleteMenuActive ? (
-        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
-          <DeleteMenu setDeleteMenuActive={setDeleteMenuActive} menu={menu} />
-        </div>
-      ) : null}
-
-      {deleteMenuRecipeActive ? (
-        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
-          <DeleteRecipe
-            setMeals={{ setBreakfast, setLunch, setDinner }}
-            activeDay={activeDay}
-            activeMeal={activeMeal}
-            menu={menu}
-            setMenu={setMenu}
-            setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
-            source="menu"
-          />
-        </div>
-      ) : null}
-
-      {viewport.matches === true ? (
-        <MobileDetailHeader
-          item={menu}
-          // setUpdateItemActive={setUpdateRecipeActive}
-          setDeleteItemActive={setDeleteMenuActive}
-        />
-      ) : (
-        <DetailHeader
-          item={menu}
-          // setUpdateItemActive={setUpdateRecipeActive}
-          setDeleteItemActive={setDeleteMenuActive}
-        />
-      )}
-
-      <section>
-        <form className="font-manrope flex justify-center">
-          <label>
-            Choose a day:
-            <select
-              onChange={(e) => setActiveDay(e.target.value)}
-              className="bg-main border border-solid border-offmain py-2 px-3 mx-3 rounded-lg focus:border-offgold"
-              name="days"
-            >
-              {week.map((day: string) => (
-                <option key={day} className="text-offmain" value={day}>
-                  {day}
-                </option>
-              ))}
-            </select>
-          </label>
-        </form>
-
-        <h2 className="font-manrope text-center font-bold text-3xl tracking-tighter pt-10">
-          {activeDay} recipes
-        </h2>
-      </section>
-
-      <section className="grid xl:grid-cols-3 items-start justify-center mx-3 gap-3 xl:mx-10">
-        {menuModal ? (
+    <>
+      {menuModal ? (
+        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50 px-5 xl:px-0">
           <MenuModal
             meal={activeMeal}
             activeDay={activeDay}
@@ -157,38 +100,99 @@ export default function MenuDetail() {
             setMenuModal={setMenuModal}
             modal={{ modalAction, setModalAction }}
           />
+        </div>
+      ) : null}
+
+      <main className="flex flex-col gap-10">
+        {deleteMenuActive ? (
+          <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
+            <DeleteMenu setDeleteMenuActive={setDeleteMenuActive} menu={menu} />
+          </div>
         ) : null}
 
-        <MealBlock
-          meal={"Breakfast"}
-          mealRecipe={breakfast}
-          setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
-          activeDay={activeDay}
-          setMenuModal={setMenuModal}
-          setModalAction={setModalAction}
-          setActiveMeal={setActiveMeal}
-        />
+        {deleteMenuRecipeActive ? (
+          <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
+            <DeleteRecipe
+              setMeals={{ setBreakfast, setLunch, setDinner }}
+              activeDay={activeDay}
+              activeMeal={activeMeal}
+              menu={menu}
+              setMenu={setMenu}
+              setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
+              source="menu"
+            />
+          </div>
+        ) : null}
 
-        <MealBlock
-          meal={"Lunch"}
-          mealRecipe={lunch}
-          setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
-          activeDay={activeDay}
-          setMenuModal={setMenuModal}
-          setModalAction={setModalAction}
-          setActiveMeal={setActiveMeal}
-        />
+        {viewport.matches === true ? (
+          <MobileDetailHeader
+            item={menu}
+            // setUpdateItemActive={setUpdateRecipeActive}
+            setDeleteItemActive={setDeleteMenuActive}
+          />
+        ) : (
+          <DetailHeader
+            item={menu}
+            // setUpdateItemActive={setUpdateRecipeActive}
+            setDeleteItemActive={setDeleteMenuActive}
+          />
+        )}
 
-        <MealBlock
-          meal={"Dinner"}
-          mealRecipe={dinner}
-          setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
-          activeDay={activeDay}
-          setMenuModal={setMenuModal}
-          setModalAction={setModalAction}
-          setActiveMeal={setActiveMeal}
-        />
-      </section>
-    </main>
+        <section>
+          <form className="font-manrope flex justify-center">
+            <label>
+              Choose a day:
+              <select
+                onChange={(e) => setActiveDay(e.target.value)}
+                className="bg-main border border-solid border-offmain py-2 px-3 mx-3 rounded-lg focus:border-offgold"
+                name="days"
+              >
+                {week.map((day: string) => (
+                  <option key={day} className="text-offmain" value={day}>
+                    {day}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </form>
+
+          <h2 className="font-manrope text-center font-bold text-3xl tracking-tighter pt-10">
+            {activeDay} recipes
+          </h2>
+        </section>
+
+        <section className="grid xl:grid-cols-3 items-start justify-center mx-3 gap-3 xl:mx-10">
+          <MealBlock
+            meal={"Breakfast"}
+            mealRecipe={breakfast}
+            setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
+            activeDay={activeDay}
+            setMenuModal={setMenuModal}
+            setModalAction={setModalAction}
+            setActiveMeal={setActiveMeal}
+          />
+
+          <MealBlock
+            meal={"Lunch"}
+            mealRecipe={lunch}
+            setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
+            activeDay={activeDay}
+            setMenuModal={setMenuModal}
+            setModalAction={setModalAction}
+            setActiveMeal={setActiveMeal}
+          />
+
+          <MealBlock
+            meal={"Dinner"}
+            mealRecipe={dinner}
+            setDeleteMenuRecipeActive={setDeleteMenuRecipeActive}
+            activeDay={activeDay}
+            setMenuModal={setMenuModal}
+            setModalAction={setModalAction}
+            setActiveMeal={setActiveMeal}
+          />
+        </section>
+      </main>
+    </>
   );
 }

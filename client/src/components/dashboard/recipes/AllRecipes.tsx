@@ -44,7 +44,7 @@ export default function AllRecipes({ ...props }) {
     }
   };
 
-  const RemoveButton = () => {
+  const ClearButton = () => {
     return (
       <button
         onClick={() => {
@@ -53,21 +53,21 @@ export default function AllRecipes({ ...props }) {
           setSearch("");
         }}
         type="button"
-        className="font-manrope bg-transred border border-solid border-red rounded-lg flex items-center gap-1 p-2"
+        className="font-manrope bg-transred border border-solid border-red rounded-lg flex items-center gap-1 p-2 xl:ps-3"
       >
         <CloseIcon className="w-5 h-5 fill-txt2" />
-        Remove
+        Clear
       </button>
     );
   };
 
   return (
     <main className="flex flex-col gap-3 xl:gap-5">
-      <section className="flex items-center gap-3 xl:gap-5 bg-main xl:mr-5 p-5 rounded-lg">
+      <section className="flex flex-col xl:flex-row items-center gap-3 xl:gap-5 bg-main xl:mr-5 p-5 rounded-lg">
         <form
           onSubmit={(e) => onSearch(e)}
           role="search"
-          className="font-manrope flex w-fit"
+          className="font-manrope flex xl:w-fit"
         >
           <label className="flex items-center">
             <input
@@ -91,7 +91,30 @@ export default function AllRecipes({ ...props }) {
           </button>
         </form>
 
-        {noResult || result.length > 0 ? <RemoveButton /> : <></>}
+        {noResult || result.length > 0 ? <ClearButton /> : <></>}
+
+        {/* <label>
+          <select name="">
+            <optgroup label="Category">
+              {props.recipes.map(recipe => )}
+            </optgroup>
+          </select>
+        </label> */}
+
+        {
+          // inside the optgroup, we must map over all unique categories
+          // filter by category
+          // when a user clicks the button
+          // a drop down menu appears
+          // drop down menu has a category optgroup
+          // inside this category optgroup are several optgroups which contain recipes under the user-defined optgroups
+          // e.g.
+          // select
+          //  optgroup - category
+          //    option - category 1
+          //    option - category 2
+          // ...
+        }
       </section>
 
       {noResult ? (

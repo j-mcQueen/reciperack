@@ -91,57 +91,5 @@ export default function MealBlock({ ...props }) {
         />
       )}
     </article>
-    //   <div className="font-manrope tracking-tighter rounded-lg bg-main border border-solid border-offmain grid grid-cols-2 gap-3 m-3 p-3">
-    //   <h3 className="flex items-center justify-center bg-logoBg rounded-lg p-2 text-2xl font-bold">
-    //     Breakfast
-    //   </h3>
-    //   <button
-    //     type="button"
-    //     className="flex flex-col gap-3 items-center bg-offgold border border-solid border-gold rounded-lg p-3"
-    //   >
-    //     <RecipeIcon className="w-5 h-5 fill-txt1" />
-    //     The Perfect Breakfast
-    //   </button>
-    //   <button
-    //     type="button"
-    //     className="flex justify-center text-sm items-center gap-3 rounded-lg border border-solid border-blue bg-offblue py-2"
-    //   >
-    //     <EditIcon className="w-5 h-5 fill-txt1" />
-    //     Edit
-    //   </button>
-    //   <button
-    //     type="button"
-    //     className="flex justify-center text-sm items-center gap-3 rounded-lg border border-solid border-red bg-offred py-2"
-    //   >
-    //     <DeleteIcon className="w-5 h-5 fill-txt1" />
-    //     Delete
-    //   </button>
-    // </div>
-
-    // <div className="font-manrope tracking-tighter rounded-lg bg-main border border-solid border-offmain grid grid-cols-2 gap-3 m-3 p-3">
-    //   <h3 className="flex items-center justify-center bg-logoBg rounded-lg p-2 text-2xl">
-    //     Lunch
-    //   </h3>
-    //   <button
-    //     type="button"
-    //     className="flex gap-3 items-center bg-offgreen border border-solid border-green rounded-lg p-3"
-    //   >
-    //     <AddIcon className="w-5 h-5 fill-txt1" />
-    //     Add Recipe
-    //   </button>
-    // </div>
-
-    // <div className="font-manrope tracking-tighter rounded-lg bg-main border border-solid border-offmain grid grid-cols-2 gap-3 m-3 p-3">
-    //   <h3 className="flex items-center justify-center bg-logoBg rounded-lg p-2 text-2xl">
-    //     Dinner
-    //   </h3>
-    //   <button
-    //     type="button"
-    //     className="flex gap-3 items-center bg-offgreen border border-solid border-green rounded-lg p-3"
-    //   >
-    //     <AddIcon className="w-5 h-5 fill-txt1" />
-    //     Add Recipe
-    //   </button>
-    // </div>
   );
 }
