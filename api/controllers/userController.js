@@ -79,11 +79,10 @@ exports.user_create_post = [
           });
 
           const result = await user.save();
-          res.send({
-            username: result.username,
-            recipes: result.recipes,
-            menus: result.menus,
-            _id: result._id,
+
+          req.login(result, (err) => {
+            if (err) return next(err);
+            res.sendStatus(200);
           });
         });
       }
@@ -137,12 +136,7 @@ exports.user_login_post = [
   },
   (req, res, next) => {
     // handle success
-    res.send({
-      username: req.user.username,
-      recipes: req.user.recipes,
-      menus: req.user.menus,
-      _id: req.user._id,
-    });
+    res.sendStatus(200);
   },
 ];
 
@@ -151,4 +145,46 @@ exports.user_logout = asyncHandler(async (req, res, next) => {
     if (err) return next(err);
     res.send("success");
   });
+});
+
+exports.get_user = asyncHandler(async (req, res, next) => {
+  try {
+    res.send({
+      _id: req.user._id,
+      username: req.user.username,
+      recipes: req.user.recipes,
+      menu: req.user.menu,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+exports.user_update = asyncHandler(async (req, res, next) => {
+  try {
+    if (req.body.target === "menu") {
+      const updateUserMenus = await User.findByIdAndUpdate(
+        req.params.id,
+        { $set: { menu: req.body.updatedMenu } },
+        { new: true }
+      );
+      res.send({
+        menu: updateUserMenus.menu,
+      });
+    } else if (req.body.target === "recipes") {
+      const updateUserRecipes = await User.findByIdAndUpdate(
+        req.params.id,
+        { $set: { recipes: req.body.recipes } },
+        { new: true }
+      );
+      res.send({
+        _id: updateUserRecipes._id,
+        username: updateUserRecipes.username,
+        recipes: updateUserRecipes.recipes,
+        menu: updateUserRecipes.menu,
+      });
+    }
+  } catch (err) {
+    return next(err);
+  }
 });

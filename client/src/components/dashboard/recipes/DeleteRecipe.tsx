@@ -6,7 +6,7 @@ export default function DeleteRecipe({ ...props }) {
   const navigate = useNavigate();
 
   const handleDelete = async () => {
-    if (props.source === "source") {
+    if (props.vals.source === "source") {
       // if user wants to delete the source recipe
       try {
         const response = await axios.delete(
@@ -26,8 +26,8 @@ export default function DeleteRecipe({ ...props }) {
     } else {
       // if user wants to delete a menu recipe
       try {
-        const day = props.activeDay.toLowerCase();
-        const dayRecipes = props.menu[day];
+        const day = props.vals.activeDay.toLowerCase();
+        const dayRecipes = props.vals.menu[day];
 
         const findTarget = (arr: [{ meal: number }], meal: number) => {
           // helper to splice correct item from dayRecipes array
@@ -39,31 +39,30 @@ export default function DeleteRecipe({ ...props }) {
         };
 
         // maintains correct positioning of recipes in state after recipe removal
-        if (props.activeMeal === "Breakfast") {
+        if (props.vals.activeMeal === "Breakfast") {
           const index = findTarget(dayRecipes, 0);
           dayRecipes.splice(index, 1);
-          props.setMeals.setBreakfast({});
-        } else if (props.activeMeal === "Lunch") {
+          props.setters.setBreakfast({});
+        } else if (props.vals.activeMeal === "Lunch") {
           const index = findTarget(dayRecipes, 1);
           dayRecipes.splice(index, 1);
-          props.setMeals.setLunch({});
+          props.setters.setLunch({});
         } else {
           const index = findTarget(dayRecipes, 2);
           dayRecipes.splice(index, 1);
-          props.setMeals.setDinner({});
+          props.setters.setDinner({});
         }
 
-        const updatedMenu = { ...props.menu, [day]: dayRecipes };
-
+        const updatedMenu = { ...props.vals.menu, [day]: dayRecipes };
         const response = await axios.put(
-          `http://localhost:3000/menus/${props.menu._id}`,
-          updatedMenu,
+          `http://localhost:3000/user/${props.vals.userId}`,
+          { updatedMenu, target: "menu" },
           { withCredentials: true }
         );
 
         if (response) {
-          props.setMenu(response.data);
-          props.setDeleteMenuRecipeActive(false);
+          props.setters.setMenu(response.data.menu);
+          props.setters.setDeleteMenuRecipeActive(false);
         }
       } catch (err) {
         if (err instanceof Error) console.log(err);
@@ -76,7 +75,7 @@ export default function DeleteRecipe({ ...props }) {
       props.setDeleteRecipeActive(false);
       if (props.targetRecipe !== undefined) props.setTargetRecipe(false);
     } else {
-      props.setDeleteMenuRecipeActive(false);
+      props.setters.setDeleteMenuRecipeActive(false);
     }
   };
 
@@ -87,7 +86,7 @@ export default function DeleteRecipe({ ...props }) {
           <h3 className="font-manrope font-semibold text-2xl tracking-tighter pb-5">
             {props.recipe
               ? `Delete: ${props.recipe.title}`
-              : `Remove recipe from ${props.menu.title}`}
+              : `Remove recipe from ${props.vals.activeDay}: ${props.vals.activeMeal}`}
           </h3>
           <p className="font-manrope">
             Are you sure you want to remove this recipe?
@@ -100,7 +99,7 @@ export default function DeleteRecipe({ ...props }) {
         <button
           type="button"
           className="self-start border-solid border border-gold rounded-lg p-2 hover:bg-offgold hover:transition-colors transition-colors"
-          onClick={() => handleClose(props.source)}
+          onClick={() => handleClose(props.vals.source)}
         >
           <CloseIcon
             title="Close delete recipe modal"

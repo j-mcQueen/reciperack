@@ -17,7 +17,7 @@ export default function MealBlock({ ...props }) {
     const renderRecipe = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/recipes/${props.mealRecipe.recipe}`,
+          `http://localhost:3000/recipes/${props.vals.mealRecipe.recipe}`,
           { withCredentials: true }
         );
 
@@ -28,19 +28,20 @@ export default function MealBlock({ ...props }) {
         if (err instanceof Error) console.log(err);
       }
     };
-    if (props.mealRecipe.recipe !== undefined) renderRecipe();
+    if (props.vals.mealRecipe.recipe !== undefined) renderRecipe();
 
     return () => {
       ignore = true;
     };
-  }, [props.mealRecipe.recipe]);
+  }, [props.vals.mealRecipe.recipe]);
 
   return (
     <article className="font-manrope tracking-tighter rounded-lg bg-main border border-solid border-offmain grid grid-cols-2 gap-3 p-3">
       <h3 className="flex items-center justify-center bg-logoBg rounded-lg p-2 text-2xl font-bold">
-        {props.meal}
+        {props.vals.meal}
       </h3>
-      {props.mealRecipe.recipe ? (
+
+      {props.vals.mealRecipe.recipe ? (
         <>
           <Link
             className="flex flex-col text-lg justify-center items-center border border-solid border-offgold bg-offgold rounded-lg p-3 hover:bg-transgold hover:transition-colors transition-colors"
@@ -52,9 +53,9 @@ export default function MealBlock({ ...props }) {
 
           <button
             onClick={() => {
-              props.setMenuModal(true);
-              props.setActiveMeal(props.meal);
-              props.setModalAction("update");
+              props.setters.setMenuModal(true);
+              props.setters.setActiveMeal(props.vals.meal);
+              props.setters.setModalAction("update");
             }}
             type="button"
             className="flex justify-center text-sm items-center gap-3 rounded-lg border border-solid border-blue bg-offblue py-2"
@@ -70,8 +71,8 @@ export default function MealBlock({ ...props }) {
             type="button"
             className="flex justify-center text-sm items-center gap-3 rounded-lg border border-solid border-red bg-offred py-2"
             onClick={() => {
-              props.setActiveMeal(props.meal);
-              props.setDeleteMenuRecipeActive(true);
+              props.setters.setActiveMeal(props.vals.meal);
+              props.setters.setDeleteMenuRecipeActive(true);
             }}
           >
             <DeleteIcon
@@ -83,11 +84,12 @@ export default function MealBlock({ ...props }) {
         </>
       ) : (
         <BlockButton
-          setActiveMeal={props.setActiveMeal}
-          setModalAction={props.setModalAction}
-          setMenuModal={props.setMenuModal}
-          activeDay={props.activeDay}
-          meal={props.meal}
+          vals={{ meal: props.vals.meal, activeDay: props.vals.activeDay }}
+          setters={{
+            setActiveMeal: props.setters.setActiveMeal,
+            setModalAction: props.setters.setModalAction,
+            setMenuModal: props.setters.setMenuModal,
+          }}
         />
       )}
     </article>

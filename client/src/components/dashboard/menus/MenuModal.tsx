@@ -29,8 +29,8 @@ export default function MenuModal({ ...props }) {
 
   const handleSubmit = async () => {
     try {
-      const day: string = props.activeDay.toLowerCase();
-      const updatedDayRecipes = props.menu[day];
+      const day: string = props.vals.activeDay.toLowerCase();
+      const updatedDayRecipes = props.vals.menu[day];
 
       const replaceRecipe = (val: number) => {
         for (const key of updatedDayRecipes) {
@@ -38,59 +38,66 @@ export default function MenuModal({ ...props }) {
         }
       };
 
-      if (props.modal.modalAction === "add") {
-        if (props.meal === "Breakfast") {
+      if (props.vals.modalAction === "add") {
+        if (props.vals.activeMeal === "Breakfast") {
           // meal numbers represent their actual position in the menu - that way if other recipes get removed, their position in the table is not affected
           updatedDayRecipes.push({ meal: 0, recipe: chosenRecipeId });
-        } else if (props.meal === "Lunch") {
+        } else if (props.vals.activeMeal === "Lunch") {
           updatedDayRecipes.push({ meal: 1, recipe: chosenRecipeId });
         } else {
           updatedDayRecipes.push({ meal: 2, recipe: chosenRecipeId });
         }
       } else {
-        if (props.meal === "Breakfast") {
+        if (props.vals.activeMeal === "Breakfast") {
           replaceRecipe(0);
-        } else if (props.meal === "Lunch") {
+        } else if (props.vals.activeMeal === "Lunch") {
           replaceRecipe(1);
         } else {
           replaceRecipe(2);
         }
       }
-      const updatedMenu = { ...props.menu, [day]: updatedDayRecipes };
+      const updatedMenu = { ...props.vals.menu, [day]: updatedDayRecipes };
 
+      // TODO request should update the user rather than the menu
       const response = await axios.put(
-        `http://localhost:3000/menus/${props.menu._id}`,
-        updatedMenu,
+        `http://localhost:3000/user/${props.vals.userId}`,
+        { updatedMenu, target: "menu" },
         { withCredentials: true }
       );
+      // const response = await axios.put(
+      //   `http://localhost:3000/menus/${props.vals.menu._id}`,
+      //   updatedMenu,
+      //   { withCredentials: true }
+      // );
 
       if (response) {
-        props.setMenu(updatedMenu);
-        props.setMenuModal(false);
+        // props.setters.setMenu(updatedMenu);
+        props.setters.setMenu(response.data.menu);
+        props.setters.setMenuModal(false);
       }
     } catch (err) {
       if (err instanceof Error) console.log(err);
     }
-    props.setMenuModal(false);
+    props.setters.setMenuModal(false);
   };
 
   return (
     <div className="absolute bg-main p-3 border border-offmain border-solid rounded-lg">
       <div className="flex items-center justify-between tracking-tighter font-manrope gap-5 text-xl">
-        {props.modal.modalAction === "add" ? (
+        {props.vals.modalAction === "add" ? (
           <h3>
-            Add recipe to {props.menu.title}, {props.meal}: {props.activeDay}
+            Add recipe to {props.vals.activeDay}: {props.vals.activeMeal}
           </h3>
         ) : (
           <h3>
-            Update {props.activeDay}: {props.meal} recipe
+            Update {props.vals.activeDay}: {props.vals.activeMeal} recipe
           </h3>
         )}
 
         <button
           autoFocus={true}
           className="border border-solid border-offgold rounded-lg p-1 hover:bg-offgold hover:transition-colors transition-colors"
-          onClick={() => props.setMenuModal(false)}
+          onClick={() => props.setters.setMenuModal(false)}
           type="button"
         >
           <CloseIcon title="Close menu modal" className="w-5 h-5 fill-txt2" />
@@ -121,7 +128,7 @@ export default function MenuModal({ ...props }) {
           </select>
         </label>
 
-        {props.modal.modalAction === "add" ? (
+        {props.vals.modalAction === "add" ? (
           <button
             className="font-manrope py-2 bg-offgreen border border-solid border-green rounded-lg w-full"
             type="submit"

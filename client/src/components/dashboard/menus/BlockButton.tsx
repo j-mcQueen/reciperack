@@ -4,11 +4,11 @@ export default function BlockButton({ ...props }) {
   return (
     <button
       type="button"
-      value={props.activeDay}
+      value={props.vals.activeDay}
       onClick={() => {
-        props.setModalAction("add");
-        props.setActiveMeal(props.meal);
-        props.setMenuModal(true);
+        props.setters.setModalAction("add");
+        props.setters.setActiveMeal(props.vals.meal);
+        props.setters.setMenuModal(true);
       }}
       className="flex justify-center items-center bg-offgreen border-solid border-green border rounded-lg w-full p-3 gap-2 hover:bg-transgreen hover:transition-colors transition-colors"
     >

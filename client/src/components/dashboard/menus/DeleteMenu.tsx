@@ -4,6 +4,8 @@ import Warning from "../../../assets/icons/Warning";
 import { useNavigate } from "react-router-dom";
 
 export default function DeleteMenu({ ...props }) {
+  // TODO change name to ClearMenu
+  // update functionality to clearing a day's or week's entries on button click
   const navigate = useNavigate();
 
   const handleDelete = async () => {
