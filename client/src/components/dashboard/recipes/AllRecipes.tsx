@@ -10,7 +10,7 @@ export default function AllRecipes({ ...props }) {
   const [result, setResult] = useState([]);
 
   useEffect(() => {
-    // retrieve recipes from the database on page load and update recipes state accordingly
+    // retrieve recipes from the database on component load and update recipes state accordingly
     const getRecipes = async () => {
       try {
         const response = await axios.get("http://localhost:3000/recipes", {
@@ -18,7 +18,7 @@ export default function AllRecipes({ ...props }) {
         });
         if (response) {
           console.log(response);
-          props.setRecipes(response.data);
+          props.setters.setRecipes(response.data);
         }
       } catch (err) {
         if (err instanceof Error) {
@@ -33,7 +33,7 @@ export default function AllRecipes({ ...props }) {
     // filter all recipes for recipe objects which contain titles that include the search state value
     e.preventDefault();
 
-    const filtered = props.recipes.filter((recipe: { title: string }) =>
+    const filtered = props.vals.recipes.filter((recipe: { title: string }) =>
       recipe.title.toLowerCase().includes(search)
     );
 
@@ -92,29 +92,6 @@ export default function AllRecipes({ ...props }) {
         </form>
 
         {noResult || result.length > 0 ? <ClearButton /> : <></>}
-
-        {/* <label>
-          <select name="">
-            <optgroup label="Category">
-              {props.recipes.map(recipe => )}
-            </optgroup>
-          </select>
-        </label> */}
-
-        {
-          // inside the optgroup, we must map over all unique categories
-          // filter by category
-          // when a user clicks the button
-          // a drop down menu appears
-          // drop down menu has a category optgroup
-          // inside this category optgroup are several optgroups which contain recipes under the user-defined optgroups
-          // e.g.
-          // select
-          //  optgroup - category
-          //    option - category 1
-          //    option - category 2
-          // ...
-        }
       </section>
 
       {noResult ? (
@@ -128,8 +105,8 @@ export default function AllRecipes({ ...props }) {
       ) : result.length > 0 ? (
         <section className="grid xl:grid-cols-3 gap-3 xl:gap-5 xl:mr-5">
           <RecipeItems
-            setTargetRecipe={props.setTargetRecipe}
-            setDeleteActive={props.setDeleteActive}
+            setTargetRecipe={props.setters.setTargetRecipe}
+            setDeleteActive={props.setters.setDeleteActive}
             arr={result}
             page="recipes"
           />
@@ -137,9 +114,9 @@ export default function AllRecipes({ ...props }) {
       ) : (
         <section className="grid xl:grid-cols-3 items-start gap-3 xl:gap-5 xl:mr-5">
           <RecipeItems
-            setTargetRecipe={props.setTargetRecipe}
-            setDeleteActive={props.setDeleteActive}
-            arr={props.recipes}
+            setTargetRecipe={props.setters.setTargetRecipe}
+            setDeleteActive={props.setters.setDeleteActive}
+            arr={props.vals.recipes}
             page="recipes"
           />
         </section>

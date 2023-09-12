@@ -30,7 +30,7 @@ export default function CreateRecipe({ ...props }) {
         console.log(response);
         // if there is indeed a response, we should update state
         // in order to update state, we need to pass the data returned from the response to the state setter
-        props.setRecipes([...props.recipes, response.data]);
+        props.setters.setRecipes([...props.vals.recipes, response.data]);
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -52,7 +52,7 @@ export default function CreateRecipe({ ...props }) {
           type="button"
           className="border border-gold rounded-lg p-1 hover:bg-offgold hover:transition-colors transition-colors"
           onClick={() => {
-            props.setAddRecipeActive(false);
+            props.setters.setAddRecipeActive(false);
           }}
         >
           <CloseIcon
@@ -65,10 +65,8 @@ export default function CreateRecipe({ ...props }) {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-
           handleSubmit();
-
-          props.setAddRecipeActive(false);
+          props.setters.setAddRecipeActive(false);
         }}
         className="flex flex-col w-full gap-5"
       >
@@ -142,7 +140,7 @@ export default function CreateRecipe({ ...props }) {
         </div>
 
         <button
-          className="font-semibold tracking-tighter bg-offgreen border border-green rounded-lg p-3"
+          className="font-semibold tracking-tighter bg-offgreen border border-green rounded-lg p-3 xl:hover:bg-transgreen, xl:transition-colors xl:hover:transition-colors"
           type="submit"
         >
           Create Recipe

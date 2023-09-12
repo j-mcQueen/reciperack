@@ -56,12 +56,11 @@ export default function Dashboard() {
       {deleteActive === true ? (
         <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 xl:rounded-none rounded-lg">
           <DeleteRecipe
-            vals={{ source: "source" }}
-            source={"source"}
-            setDeleteRecipeActive={setDeleteActive}
-            recipe={targetRecipe}
-            targetRecipe={targetRecipe}
-            setTargetRecipe={setTargetRecipe}
+            vals={{ source: "source", recipe: targetRecipe }}
+            setters={{
+              setDeleteRecipeActive: setDeleteActive,
+              setTargetRecipe,
+            }}
           />
         </div>
       ) : null}
@@ -69,10 +68,8 @@ export default function Dashboard() {
       {addRecipeActive ? (
         <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 xl:rounded-none rounded-lg">
           <CreateRecipe
-            addRecipeActive={addRecipeActive}
-            setAddRecipeActive={setAddRecipeActive}
-            recipes={recipes}
-            setRecipes={setRecipes}
+            vals={{ addRecipeActive, recipes }}
+            setters={{ setAddRecipeActive, setRecipes }}
           />
         </div>
       ) : null}
@@ -111,12 +108,13 @@ export default function Dashboard() {
             />
 
             <AllRecipes
-              addRecipeActive={addRecipeActive}
-              setAddRecipeActive={setAddRecipeActive}
-              recipes={recipes}
-              setRecipes={setRecipes}
-              setDeleteActive={setDeleteActive}
-              setTargetRecipe={setTargetRecipe}
+              vals={{ addRecipeActive, recipes }}
+              setters={{
+                setAddRecipeActive,
+                setRecipes,
+                setDeleteActive,
+                setTargetRecipe,
+              }}
             />
           </>
         ) : activeNavItem === 1 ? (

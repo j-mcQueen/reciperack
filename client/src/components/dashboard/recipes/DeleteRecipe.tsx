@@ -10,14 +10,14 @@ export default function DeleteRecipe({ ...props }) {
       // if user wants to delete the source recipe
       try {
         const response = await axios.delete(
-          `http://localhost:3000/recipes/${props.recipe._id}`,
+          `http://localhost:3000/recipes/${props.vals.recipe._id}`,
           { withCredentials: true }
         );
 
         if (response.status === 200) {
           // if the user has delete from the dashboard, there will be a target recipe, therefore refresh
           // otherwise, the user has deleted from the detail page so navigate to dashboard
-          if (props.targetRecipe !== undefined) navigate(0);
+          if (props.vals.recipe !== undefined) navigate(0);
           else navigate("/dashboard");
         }
       } catch (err) {
@@ -72,8 +72,9 @@ export default function DeleteRecipe({ ...props }) {
 
   const handleClose = (source: string) => {
     if (source === "source") {
-      props.setDeleteRecipeActive(false);
-      if (props.targetRecipe !== undefined) props.setTargetRecipe(false);
+      props.setters.setDeleteRecipeActive(false);
+      if (props.vals.targetRecipe !== undefined)
+        props.setters.setTargetRecipe(false);
     } else {
       props.setters.setDeleteMenuRecipeActive(false);
     }
@@ -84,8 +85,8 @@ export default function DeleteRecipe({ ...props }) {
       <div className="flex items-center gap-5">
         <div>
           <h3 className="font-manrope font-semibold text-2xl tracking-tighter pb-5">
-            {props.recipe
-              ? `Delete: ${props.recipe.title}`
+            {props.vals.recipe
+              ? `Delete: ${props.vals.recipe.title}`
               : `Remove recipe from ${props.vals.activeDay}: ${props.vals.activeMeal}`}
           </h3>
           <p className="font-manrope">
