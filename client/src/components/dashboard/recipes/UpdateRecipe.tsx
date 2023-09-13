@@ -45,10 +45,11 @@ export default function UpdateRecipe({ ...props }) {
   };
 
   return (
-    <div className="font-manrope absolute flex flex-col w-[calc(100%-1.5rem)] xl:w-auto items-center bg-main m-3 xl:m-10 rounded-lg border border-solid border-offmain xl:p-3">
+    <div className="overscroll-contain fixed overflow-y-scroll inset-0 font-manrope xl:overscroll-auto xl:overflow-y-auto xl:inset-auto xl:absolute flex flex-col w-[calc(100%-1.5rem)] xl:w-auto items-center bg-main m-3 xl:m-10 rounded-lg border border-solid border-offmain xl:p-3">
       <h2 className="font-manrope text-3xl tracking-tighter py-3 border-b-2 border-gold border-solid">
         Update: {props.recipe.title}
       </h2>
+
       <form
         className="flex flex-col items-center w-full xl:m-3 gap-5 py-3"
         onSubmit={async (e) => {

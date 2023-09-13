@@ -147,13 +147,14 @@ export default function Dashboard() {
               />
             </>
           ) : (
-            <main className="flex items-center h-screen">
+            <main className="flex justify-center items-center xl:h-[calc(100vh-2.5rem)]">
               <section className="font-manrope tracking-tighter rounded-lg">
-                <h1 className="flex justify-center items-center gap-4 font-bold xl:text-7xl xl:py-5">
-                  <RecipeIcon className="w-14 h-14 bg-offgreen border border-solid border-green p-2 rounded-lg fill-txt1" />
+                <h1 className="flex justify-center items-center gap-4 font-bold text-3xl xl:text-7xl py-5">
+                  <RecipeIcon className="w-10 h-10 xl:w-14 xl:-14 bg-offgreen border border-solid border-green p-2 rounded-lg fill-txt1" />
                   Add some recipes!
                 </h1>
-                <p className="xl:mx-96 xl:text-xl text-txt2">
+
+                <p className="mx-10 xl:mx-96 text-lg xl:text-xl text-txt2">
                   You'll need some recipes to begin building a menu. Head on
                   over to the <strong>Recipes</strong> tab where you'll be able
                   to add a recipe of your own creation or one of your favourites

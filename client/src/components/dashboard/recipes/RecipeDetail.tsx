@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import UpdateRecipe from "./UpdateRecipe";
 import DeleteRecipe from "./DeleteRecipe";
 import DetailHeader from "../DetailHeader";
-import MobileDetailHeader from "./MobileDetailHeader";
+import MobileDetailHeader from "../MobileDetailHeader";
 
 export default function RecipeDetail() {
   const [updateRecipeActive, setUpdateRecipeActive] = useState(false);
