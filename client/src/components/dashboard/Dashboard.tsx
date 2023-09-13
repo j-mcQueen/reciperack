@@ -9,6 +9,7 @@ import MobileNav from "./sidebar/MobileNav";
 import DeleteRecipe from "./recipes/DeleteRecipe";
 import CreateRecipe from "./recipes/CreateRecipe";
 import MenuModal from "./menus/MenuModal";
+import RecipeIcon from "../../assets/icons/Recipe";
 
 export default function Dashboard() {
   const viewport = window.matchMedia("(max-width: 1080px)");
@@ -118,32 +119,49 @@ export default function Dashboard() {
             />
           </>
         ) : activeNavItem === 1 ? (
-          <>
-            <Header
-              source={`${activeDay} Menu`}
-              addItem={"Add Menu"}
-              setActive={setAddMenuActive}
-              mobileLinksActive={mobileLinksActive}
-              setMobileLinksActive={setMobileLinksActive}
-            />
+          recipes.length > 0 ? (
+            <>
+              <Header
+                source={`${activeDay} Menu`}
+                addItem={"Add Menu"}
+                setActive={setAddMenuActive}
+                mobileLinksActive={mobileLinksActive}
+                setMobileLinksActive={setMobileLinksActive}
+              />
 
-            <AllMenus
-              vals={{
-                addMenuActive,
-                menu,
-                activeDay,
-                activeMeal,
-                userId,
-              }}
-              setters={{
-                setMenu,
-                setActiveDay,
-                setMenuModal,
-                setModalAction,
-                setActiveMeal,
-              }}
-            />
-          </>
+              <AllMenus
+                vals={{
+                  addMenuActive,
+                  menu,
+                  activeDay,
+                  activeMeal,
+                  userId,
+                }}
+                setters={{
+                  setMenu,
+                  setActiveDay,
+                  setMenuModal,
+                  setModalAction,
+                  setActiveMeal,
+                }}
+              />
+            </>
+          ) : (
+            <main className="flex items-center h-screen">
+              <section className="font-manrope tracking-tighter rounded-lg">
+                <h1 className="flex justify-center items-center gap-4 font-bold xl:text-7xl xl:py-5">
+                  <RecipeIcon className="w-14 h-14 bg-offgreen border border-solid border-green p-2 rounded-lg fill-txt1" />
+                  Add some recipes!
+                </h1>
+                <p className="xl:mx-96 xl:text-xl text-txt2">
+                  You'll need some recipes to begin building a menu. Head on
+                  over to the <strong>Recipes</strong> tab where you'll be able
+                  to add a recipe of your own creation or one of your favourites
+                  from online.
+                </p>
+              </section>
+            </main>
+          )
         ) : activeNavItem === 2 ? (
           <Header
             // TODO browse header will likely not have an addItem button so this may need its own component

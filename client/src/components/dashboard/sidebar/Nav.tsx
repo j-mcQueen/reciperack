@@ -49,7 +49,7 @@ export default function Nav({ ...props }) {
           >
             <MenuIcon className="w-5 h-5 fill-txt2" />
             <button onClick={() => props.setActiveNavItem(1)} type="button">
-              Menus
+              Menu
             </button>
           </li>
 
