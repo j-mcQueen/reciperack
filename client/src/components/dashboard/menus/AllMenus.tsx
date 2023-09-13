@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import MealBlock from "./MealBlock";
 import DeleteRecipe from "../recipes/DeleteRecipe";
+import ClearIcon from "../../../assets/icons/Clear";
+import ClearMenu from "./ClearMenu";
 
 // TODO change component name to UserMenu
 export default function AllMenus({ ...props }) {
   const [deleteMenuRecipeActive, setDeleteMenuRecipeActive] = useState(false);
+  const [clearModalActive, setClearModalActive] = useState(false);
 
   const [breakfast, setBreakfast] = useState({});
   const [lunch, setLunch] = useState({});
@@ -64,8 +67,27 @@ export default function AllMenus({ ...props }) {
         </div>
       ) : null}
 
+      {clearModalActive ? (
+        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
+          <ClearMenu
+            vals={{
+              menu: props.vals.menu,
+              userId: props.vals.userId,
+              activeDay: props.vals.activeDay,
+            }}
+            setters={{
+              setBreakfast,
+              setLunch,
+              setDinner,
+              setClearModalActive,
+              setMenu: props.setters.setMenu,
+            }}
+          />
+        </div>
+      ) : null}
+
       <main className="flex flex-col gap-5">
-        <section>
+        <section className="flex flex-col xl:flex-row xl:justify-between items-center gap-3 xl:gap-5 bg-main xl:mr-5 p-5 rounded-lg">
           <form className="font-manrope flex justify-center">
             <label>
               Choose a day:
@@ -82,6 +104,15 @@ export default function AllMenus({ ...props }) {
               </select>
             </label>
           </form>
+
+          <button
+            onClick={() => setClearModalActive(true)}
+            className="font-manrope flex items-center gap-2 bg-offred border border-solid border-red rounded-lg p-2 xl:hover:transition-colors xl:transition-colors xl:hover:bg-transred"
+            type="button"
+          >
+            <ClearIcon className="fill-txt1 w-5 h-5" />
+            Clear
+          </button>
         </section>
 
         <section className="grid xl:grid-cols-3 items-start justify-center mx-3 gap-3 xl:mx-10">

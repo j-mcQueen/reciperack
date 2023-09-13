@@ -100,7 +100,7 @@ export default function Dashboard() {
         {activeNavItem === 0 ? (
           <>
             <Header
-              title="Recipes"
+              source="Recipes"
               addItem={"Add Recipe"}
               setActive={setAddRecipeActive}
               mobileLinksActive={mobileLinksActive}
@@ -120,7 +120,7 @@ export default function Dashboard() {
         ) : activeNavItem === 1 ? (
           <>
             <Header
-              title="Menus"
+              source={`${activeDay} Menu`}
               addItem={"Add Menu"}
               setActive={setAddMenuActive}
               mobileLinksActive={mobileLinksActive}

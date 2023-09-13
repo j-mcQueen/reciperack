@@ -58,20 +58,13 @@ export default function MenuModal({ ...props }) {
       }
       const updatedMenu = { ...props.vals.menu, [day]: updatedDayRecipes };
 
-      // TODO request should update the user rather than the menu
       const response = await axios.put(
         `http://localhost:3000/user/${props.vals.userId}`,
         { updatedMenu, target: "menu" },
         { withCredentials: true }
       );
-      // const response = await axios.put(
-      //   `http://localhost:3000/menus/${props.vals.menu._id}`,
-      //   updatedMenu,
-      //   { withCredentials: true }
-      // );
 
       if (response) {
-        // props.setters.setMenu(updatedMenu);
         props.setters.setMenu(response.data.menu);
         props.setters.setMenuModal(false);
       }
