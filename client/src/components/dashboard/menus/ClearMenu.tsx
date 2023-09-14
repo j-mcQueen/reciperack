@@ -6,7 +6,23 @@ export default function ClearMenu({ ...props }) {
   const handleRemove = async () => {
     try {
       const day: string = props.vals.activeDay.toLowerCase();
-      const updatedMenu = { ...props.vals.menu, [day]: [] };
+      let updatedMenu;
+
+      if (props.vals.intent === 1) {
+        // reset entire week
+        updatedMenu = {
+          monday: [],
+          tuesday: [],
+          wednesday: [],
+          thursday: [],
+          friday: [],
+          saturday: [],
+          sunday: [],
+        };
+      } else {
+        // clear day recipes
+        updatedMenu = { ...props.vals.menu, [day]: [] };
+      }
 
       const response = await axios.put(
         `http://localhost:3000/user/${props.vals.userId}`,
@@ -31,7 +47,9 @@ export default function ClearMenu({ ...props }) {
     <div className="flex flex-col gap-5 bg-main border-solid border rounded-lg border-offmain p-5 mx-3 xl:mx-0 xl:w-1/4">
       <div className="flex justify-between items-center w-full">
         <h3 className="font-manrope font-semibold text-2xl tracking-tighter">
-          Clear {props.vals.activeDay} recipes
+          {props.vals.intent === 0
+            ? `Clear ${props.vals.activeDay} recipes`
+            : `Clear all recipes from menu`}
         </h3>
 
         <button
@@ -51,8 +69,10 @@ export default function ClearMenu({ ...props }) {
 
         <div>
           <p>
-            Are you sure you want to clear all recipes from your{" "}
-            {props.vals.activeDay} menu?
+            {props.vals.intent === 0
+              ? `Are you sure you want to clear all recipes from your
+            ${props.vals.activeDay} menu?`
+              : `Are you sure you want to reset the entire menu?`}
           </p>
 
           <p className="text-txt2">

@@ -3,11 +3,13 @@ import MealBlock from "./MealBlock";
 import DeleteRecipe from "../recipes/DeleteRecipe";
 import ClearIcon from "../../../assets/icons/Clear";
 import ClearMenu from "./ClearMenu";
+import ResetIcon from "../../../assets/icons/Reset";
 
 // TODO change component name to UserMenu
-export default function AllMenus({ ...props }) {
+export default function UserMenu({ ...props }) {
   const [deleteMenuRecipeActive, setDeleteMenuRecipeActive] = useState(false);
   const [clearModalActive, setClearModalActive] = useState(false);
+  const [intent, setIntent] = useState(0);
 
   const [breakfast, setBreakfast] = useState({});
   const [lunch, setLunch] = useState({});
@@ -47,7 +49,7 @@ export default function AllMenus({ ...props }) {
   return (
     <>
       {deleteMenuRecipeActive ? (
-        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
+        <div className="overscroll-contain fixed overflow-y-scroll inset-0 xl:overscroll-auto xl:overflow-y-auto xl:inset-auto flex items-center justify-center w-screen xl:w-[calc(100vw-10%-3.5rem)] h-screen xl:h-[calc(100vh-88px-3.75rem)] backdrop-brightness-50 rounded-lg">
           <DeleteRecipe
             vals={{
               activeDay: props.vals.activeDay,
@@ -71,6 +73,7 @@ export default function AllMenus({ ...props }) {
         <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
           <ClearMenu
             vals={{
+              intent,
               menu: props.vals.menu,
               userId: props.vals.userId,
               activeDay: props.vals.activeDay,
@@ -86,8 +89,8 @@ export default function AllMenus({ ...props }) {
         </div>
       ) : null}
 
-      <main className="flex flex-col gap-5">
-        <section className="flex flex-col xl:flex-row xl:justify-between items-center gap-3 xl:gap-5 bg-main xl:mr-5 p-5 rounded-lg">
+      <main className="flex flex-col gap-3 xl:gap-5">
+        <section className="flex flex-col xl:flex-row xl:justify-between items-center gap-5 bg-main xl:mr-5 p-5 rounded-lg">
           <form className="font-manrope flex justify-center">
             <label>
               Choose a day:
@@ -105,17 +108,34 @@ export default function AllMenus({ ...props }) {
             </label>
           </form>
 
-          <button
-            onClick={() => setClearModalActive(true)}
-            className="font-manrope flex items-center gap-2 bg-offred border border-solid border-red rounded-lg p-2 xl:hover:transition-colors xl:transition-colors xl:hover:bg-transred"
-            type="button"
-          >
-            <ClearIcon className="fill-txt1 w-5 h-5" />
-            Clear
-          </button>
+          <div className="flex gap-5 w-full xl:w-auto">
+            <button
+              onClick={() => {
+                setIntent(0);
+                setClearModalActive(true);
+              }}
+              className="font-manrope flex justify-center items-center gap-2 bg-offred border border-solid border-red rounded-lg p-3 xl:hover:transition-colors xl:transition-colors xl:hover:bg-transred w-full"
+              type="button"
+            >
+              <ClearIcon className="fill-txt1 w-5 h-5" />
+              Clear
+            </button>
+
+            <button
+              onClick={() => {
+                setIntent(1);
+                setClearModalActive(true);
+              }}
+              className="font-manrope flex justify-center items-center gap-2 bg-offblue border border-solid border-blue rounded-lg p-3 xl:hover:transition-colors xl:transition-colors xl:hover:bg-blue w-full"
+              type="button"
+            >
+              <ResetIcon className="w-5 h-5 fill-txt1" />
+              Reset
+            </button>
+          </div>
         </section>
 
-        <section className="grid xl:grid-cols-3 items-start justify-center mx-3 gap-3 xl:mx-10">
+        <section className="grid xl:grid-cols-3 items-start xl:justify-center gap-3 xl:mr-5">
           <MealBlock
             vals={{
               meal: "Breakfast",
