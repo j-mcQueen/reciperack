@@ -70,7 +70,7 @@ export default function UserMenu({ ...props }) {
       ) : null}
 
       {clearModalActive ? (
-        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
+        <div className="fixed flex items-center justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll xl:overflow-y-auto inset-0 xl:inset-auto w-screen xl:w-[calc(100vw-10%-3.5rem)] h-screen xl:h-[calc(100vh-88px-3.75rem)] rounded-lg backdrop-brightness-50">
           <ClearMenu
             vals={{
               intent,

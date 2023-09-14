@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import Nav from "./sidebar/Nav";
 import Header from "./Header";
 import AllRecipes from "./recipes/AllRecipes";
-import AllMenus from "./menus/AllMenus";
 import MobileNav from "./sidebar/MobileNav";
 import DeleteRecipe from "./recipes/DeleteRecipe";
 import CreateRecipe from "./recipes/CreateRecipe";
 import MenuModal from "./menus/MenuModal";
 import RecipeIcon from "../../assets/icons/Recipe";
+import UserMenu from "./menus/UserMenu";
 
 export default function Dashboard() {
   const viewport = window.matchMedia("(max-width: 1080px)");
@@ -53,37 +53,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="grid xl:grid-cols-dashboard mt-3 mx-3 mb-[calc(84px+1.5rem)] xl:m-5 gap-5">
-      {deleteActive === true ? (
-        <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 xl:rounded-none rounded-lg">
-          <DeleteRecipe
-            vals={{ source: "source", recipe: targetRecipe }}
-            setters={{
-              setDeleteRecipeActive: setDeleteActive,
-              setTargetRecipe,
-            }}
-          />
-        </div>
-      ) : null}
-
-      {addRecipeActive ? (
-        <div className="fixed flex items-center xl:justify-center w-[calc(100vw-1.5rem)] xl:w-screen h-screen backdrop-brightness-50 xl:rounded-none rounded-lg">
-          <CreateRecipe
-            vals={{ addRecipeActive, recipes }}
-            setters={{ setAddRecipeActive, setRecipes }}
-          />
-        </div>
-      ) : null}
-
-      {menuModal ? (
-        <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50 px-5 xl:px-0">
-          <MenuModal
-            vals={{ activeMeal, activeDay, modalAction, menu, userId }}
-            setters={{ setMenu, setMenuModal, setModalAction }}
-          />
-        </div>
-      ) : null}
-
+    <div className="xl:grid xl:grid-cols-dashboard mt-3 mx-3 mb-[calc(84px+1.5rem)] xl:m-5 gap-5">
       {viewport.matches === true ? (
         <MobileNav
           mobileLinksActive={mobileLinksActive}
@@ -100,9 +70,29 @@ export default function Dashboard() {
       <div className="xl:col-start-2">
         {activeNavItem === 0 ? (
           <>
+            {addRecipeActive ? (
+              <div className="fixed flex items-center justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll inset-0 xl:inset-auto xl:w-[calc(100vw-10%-3.5rem)] h-screen xl:h-[calc(100vh-2.5rem)] rounded-lg backdrop-brightness-50">
+                <CreateRecipe
+                  vals={{ addRecipeActive, recipes }}
+                  setters={{ setAddRecipeActive, setRecipes }}
+                />
+              </div>
+            ) : null}
+
+            {deleteActive ? (
+              <div className="fixed flex items-center justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll xl:overflow-y-auto inset-0 xl:inset-auto w-screen xl:w-[calc(100vw-10%-3.5rem)] h-screen xl:h-[calc(100vh-2.5rem)] rounded-lg backdrop-brightness-50">
+                <DeleteRecipe
+                  vals={{ source: "source", recipe: targetRecipe }}
+                  setters={{
+                    setDeleteRecipeActive: setDeleteActive,
+                    setTargetRecipe,
+                  }}
+                />
+              </div>
+            ) : null}
+
             <Header
               source="Recipes"
-              addItem={"Add Recipe"}
               setActive={setAddRecipeActive}
               mobileLinksActive={mobileLinksActive}
               setMobileLinksActive={setMobileLinksActive}
@@ -121,15 +111,23 @@ export default function Dashboard() {
         ) : activeNavItem === 1 ? (
           recipes.length > 0 ? (
             <>
+              {menuModal ? (
+                <div className="fixed flex items-center justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll xl:overflow-y-auto inset-0 xl:inset-auto w-screen xl:w-[calc(100vw-10%-3.5rem)] h-screen xl:h-[calc(100vh-2.5rem)] rounded-lg backdrop-brightness-50">
+                  <MenuModal
+                    vals={{ activeMeal, activeDay, modalAction, menu, userId }}
+                    setters={{ setMenu, setMenuModal, setModalAction }}
+                  />
+                </div>
+              ) : null}
+
               <Header
                 source={`${activeDay} Menu`}
-                addItem={"Add Menu"}
                 setActive={setAddMenuActive}
                 mobileLinksActive={mobileLinksActive}
                 setMobileLinksActive={setMobileLinksActive}
               />
 
-              <AllMenus
+              <UserMenu
                 vals={{
                   addMenuActive,
                   menu,

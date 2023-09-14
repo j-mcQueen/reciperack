@@ -1,4 +1,3 @@
-import AddIcon from "../../../src/assets/icons/Add.tsx";
 import Burger from "../../assets/icons/Burger.tsx";
 
 export default function Header({ ...props }) {
@@ -18,17 +17,6 @@ export default function Header({ ...props }) {
       <h1 className="font-manrope font-bold tracking-tighter text-2xl xl:text-5xl">
         {props.source}
       </h1>
-
-      {props.source === "Recipes" ? (
-        <button
-          className="font-manrope font-bold tracking-tighter text-txt1 bg-offgreen border border-solid border-green rounded-lg flex gap-1 items-center p-2 xl:px-3 xl:py-3 xl:hover:bg-transgreen xl:transition-colors xl:hover:transition-colors"
-          type="button"
-          onClick={() => props.setActive(true)}
-        >
-          <AddIcon className="w-5 h-5 fill-txt1" />
-          {viewport.matches === true ? null : props.addItem}
-        </button>
-      ) : null}
     </header>
   );
 }

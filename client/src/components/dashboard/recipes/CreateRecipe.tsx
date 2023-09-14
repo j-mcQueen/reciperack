@@ -41,16 +41,15 @@ export default function CreateRecipe({ ...props }) {
   };
 
   return (
-    // tab index of 0 set on h2 to ensure a user using assistive technology lands at a descriptive point on the modal when opened
-    <div className="font-manrope absolute w-full xl:w-auto flex flex-col items-center bg-main border border-solid border-offmain rounded-lg p-5">
+    <div className="font-manrope w-[calc(100%-1.5rem)] xl:w-auto flex flex-col items-center bg-main border border-solid border-offmain rounded-lg p-5">
       <div className="flex items-center justify-between w-full py-3">
-        <h2 className="text-2xl tracking-tighter font-bold" tabIndex={0}>
+        <h2 className="text-2xl tracking-tighter font-bold">
           Create a new recipe
         </h2>
 
         <button
           type="button"
-          className="border border-offgold rounded-lg p-1 hover:bg-transgold hover:transition-colors transition-colors"
+          className="border border-offgold rounded-lg p-2 hover:bg-transgold hover:transition-colors transition-colors"
           onClick={() => {
             props.setters.setAddRecipeActive(false);
           }}
@@ -113,7 +112,7 @@ export default function CreateRecipe({ ...props }) {
             <textarea
               name="ingredients"
               placeholder="Copy and paste the ingredients list"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgold"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg xl:h-24 focus:outline-none focus:border-offgold"
               onChange={(e) => setIngredients(e.target.value)}
             ></textarea>
           </label>
@@ -123,7 +122,7 @@ export default function CreateRecipe({ ...props }) {
             <textarea
               name="steps"
               placeholder="Copy and paste the instructions"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgold"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg xl:h-24 focus:outline-none focus:border-offgold"
               onChange={(e) => setSteps(e.target.value)}
             ></textarea>
           </label>
@@ -133,7 +132,7 @@ export default function CreateRecipe({ ...props }) {
             <textarea
               name="notes"
               placeholder="Enter some recipe notes"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgold"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg xl:h-24 focus:outline-none focus:border-offgold"
               onChange={(e) => setNotes(e.target.value)}
             ></textarea>
           </label>

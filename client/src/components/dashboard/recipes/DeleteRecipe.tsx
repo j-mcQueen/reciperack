@@ -82,8 +82,8 @@ export default function DeleteRecipe({ ...props }) {
   };
 
   return (
-    <div className="flex flex-col gap-10 xl:gap-7 bg-main border-solid border rounded-lg border-offmain p-5 mx-3 xl:mx-0 xl:w-1/4">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-7 xl:gap-7 bg-main border-solid border rounded-lg border-offmain p-5 xl:mx-0 xl:w-1/3 w-[calc(100%-1.25rem)]">
+      <div className="flex items-center justify-between xl:gap-3">
         <h3 className="font-manrope font-semibold text-2xl tracking-tighter">
           {props.vals.recipe
             ? `Delete recipe: ${props.vals.recipe.title}`
@@ -110,7 +110,7 @@ export default function DeleteRecipe({ ...props }) {
         <Warning title="Delete warning" className="w-10 h-10 fill-red" />
 
         <div className="font-manrope tracking-tighter">
-          <p className="xl:text-lg">
+          <p className="xl:text-lg text-lg">
             Are you sure you want to remove this recipe?
           </p>
 
