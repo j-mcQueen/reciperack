@@ -76,7 +76,7 @@ export default function AllRecipes({ ...props }) {
                 setSearch(e.target.value);
                 if (noResult) setNoResult(false); // allows UI to rerender all recipes if a user types into the field after a search finds no results
               }}
-              className="bg-main border border-solid rounded-lg rounded-e-none border-offmain focus:outline-none focus:border-offgreen p-3"
+              className="bg-main border border-solid rounded-lg rounded-e-none border-offmain focus:outline-none focus:border-offgold p-3"
               type="search"
               name="search"
               placeholder="Search for a recipe title"
@@ -84,7 +84,7 @@ export default function AllRecipes({ ...props }) {
           </label>
 
           <button
-            className="border border-solid border-s-0 border-offmain rounded-lg rounded-s-none focus:bg-offgreen focus:border-green focus:outline-none p-2 px-3"
+            className="border border-solid border-s-0 border-offmain rounded-lg rounded-s-none focus:bg-offgold focus:border-gold focus:outline-none p-2 px-3"
             type="submit"
           >
             <SearchIcon title="Search recipes" className="w-5 h-5 fill-txt2" />

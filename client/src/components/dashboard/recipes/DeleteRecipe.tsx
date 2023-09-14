@@ -1,6 +1,7 @@
 import axios from "axios";
 import CloseIcon from "../../../assets/icons/Close";
 import { useNavigate } from "react-router-dom";
+import Warning from "../../../assets/icons/Warning";
 
 export default function DeleteRecipe({ ...props }) {
   const navigate = useNavigate();
@@ -81,32 +82,40 @@ export default function DeleteRecipe({ ...props }) {
   };
 
   return (
-    <div className="flex flex-col gap-10 bg-main border-solid border rounded-lg border-offmain p-5 mx-3 xl:mx-0 xl:w-1/4">
-      <div className="flex items-center gap-5">
-        <div>
-          <h3 className="font-manrope font-semibold text-2xl tracking-tighter pb-5">
-            {props.vals.recipe
-              ? `Delete: ${props.vals.recipe.title}`
-              : `Remove recipe from ${props.vals.activeDay}: ${props.vals.activeMeal}`}
-          </h3>
-          <p className="font-manrope">
-            Are you sure you want to remove this recipe?
-          </p>
-          <p className="font-manrope text-txt2">
-            This action cannot be undone.
-          </p>
-        </div>
+    <div className="flex flex-col gap-10 xl:gap-7 bg-main border-solid border rounded-lg border-offmain p-5 mx-3 xl:mx-0 xl:w-1/4">
+      <div className="flex items-center justify-between">
+        <h3 className="font-manrope font-semibold text-2xl tracking-tighter">
+          {props.vals.recipe
+            ? `Delete recipe: ${props.vals.recipe.title}`
+            : `Remove recipe from ${props.vals.activeDay}: ${props.vals.activeMeal}`}
+        </h3>
 
         <button
           type="button"
-          className="self-start border-solid border border-gold rounded-lg p-2 hover:bg-offgold hover:transition-colors transition-colors"
+          className="self-start border-solid border border-offgold rounded-lg p-2 hover:bg-transgold hover:transition-colors transition-colors"
           onClick={() => handleClose(props.vals.source)}
         >
           <CloseIcon
-            title="Close delete recipe modal"
+            title={
+              props.vals.recipe
+                ? "Close delete recipe modal"
+                : "Close remove menu recipe modal"
+            }
             className="w-5 h-5 fill-txt2"
           />
         </button>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <Warning title="Delete warning" className="w-10 h-10 fill-red" />
+
+        <div className="font-manrope tracking-tighter">
+          <p className="xl:text-lg">
+            Are you sure you want to remove this recipe?
+          </p>
+
+          <p className=" text-txt2">This action cannot be undone.</p>
+        </div>
       </div>
 
       <button

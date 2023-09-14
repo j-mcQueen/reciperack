@@ -50,7 +50,7 @@ export default function CreateRecipe({ ...props }) {
 
         <button
           type="button"
-          className="border border-gold rounded-lg p-1 hover:bg-offgold hover:transition-colors transition-colors"
+          className="border border-offgold rounded-lg p-1 hover:bg-transgold hover:transition-colors transition-colors"
           onClick={() => {
             props.setters.setAddRecipeActive(false);
           }}
@@ -78,7 +78,7 @@ export default function CreateRecipe({ ...props }) {
               name="title"
               type="text"
               placeholder="Enter a title for the recipe"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgold"
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
@@ -89,7 +89,7 @@ export default function CreateRecipe({ ...props }) {
               name="category"
               type="text"
               placeholder="Enter a category for the recipe"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgold"
               onChange={(e) => setCategory(e.target.value)}
             />
           </label>
@@ -101,7 +101,7 @@ export default function CreateRecipe({ ...props }) {
               id="source"
               type="text"
               placeholder="Enter a valid URL for the recipe"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgreen"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg focus:outline-none focus:border-offgold"
               onChange={(e) => setSource(e.target.value)}
             />
           </label>
@@ -113,7 +113,7 @@ export default function CreateRecipe({ ...props }) {
             <textarea
               name="ingredients"
               placeholder="Copy and paste the ingredients list"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgold"
               onChange={(e) => setIngredients(e.target.value)}
             ></textarea>
           </label>
@@ -123,7 +123,7 @@ export default function CreateRecipe({ ...props }) {
             <textarea
               name="steps"
               placeholder="Copy and paste the instructions"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgold"
               onChange={(e) => setSteps(e.target.value)}
             ></textarea>
           </label>
@@ -133,7 +133,7 @@ export default function CreateRecipe({ ...props }) {
             <textarea
               name="notes"
               placeholder="Enter some recipe notes"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgreen"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgold"
               onChange={(e) => setNotes(e.target.value)}
             ></textarea>
           </label>

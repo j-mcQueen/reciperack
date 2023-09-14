@@ -28,7 +28,7 @@ export default function ClearMenu({ ...props }) {
     }
   };
   return (
-    <div className="flex flex-col gap-5 bg-main border-solid border rounded-lg border-gold p-5 mx-3 xl:mx-0 xl:w-1/4">
+    <div className="flex flex-col gap-5 bg-main border-solid border rounded-lg border-offmain p-5 mx-3 xl:mx-0 xl:w-1/4">
       <div className="flex justify-between items-center w-full">
         <h3 className="font-manrope font-semibold text-2xl tracking-tighter">
           Clear {props.vals.activeDay} recipes
@@ -36,7 +36,7 @@ export default function ClearMenu({ ...props }) {
 
         <button
           type="button"
-          className="self-start border-solid border border-offgreen rounded-lg p-2 hover:bg-offgreen hover:transition-colors transition-colors"
+          className="self-start border-solid border border-offgold rounded-lg p-2 hover:bg-transgold hover:transition-colors transition-colors"
           onClick={() => props.setters.setClearModalActive(false)}
         >
           <CloseIcon
