@@ -16,10 +16,9 @@ export default function DeleteRecipe({ ...props }) {
         );
 
         if (response.status === 200) {
-          // if the user has delete from the dashboard, there will be a target recipe, therefore refresh
-          // otherwise, the user has deleted from the detail page so navigate to dashboard
-          if (props.vals.recipe !== undefined) navigate(0);
-          else navigate("/dashboard");
+          // if props.vals.detail has been set to true, the source of the deletion comes from the recipe detail page, so navigate to dashboard
+          if (props.vals.detail) navigate("/dashboard");
+          else navigate(0);
         }
       } catch (err) {
         if (err instanceof Error) console.log(err);
