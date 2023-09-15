@@ -58,7 +58,7 @@ export default function MealBlock({ ...props }) {
               props.setters.setModalAction("update");
             }}
             type="button"
-            className="flex justify-center text-sm items-center gap-3 rounded-lg border border-solid border-blue bg-offblue py-2"
+            className="flex justify-center text-sm items-center gap-3 rounded-lg border border-solid border-blue bg-offblue xl:hover:bg-blue xl:transition-colors xl:hover:transition-colors py-2"
           >
             <EditIcon
               title="Update Menu Recipe"
@@ -69,7 +69,7 @@ export default function MealBlock({ ...props }) {
 
           <button
             type="button"
-            className="flex justify-center text-sm items-center gap-3 rounded-lg border border-solid border-red bg-offred py-2"
+            className="flex justify-center text-sm items-center gap-3 rounded-lg border border-solid border-red bg-offred xl:hover:bg-transred xl:hover:transition-colors xl:transition-colors py-2"
             onClick={() => {
               props.setters.setActiveMeal(props.vals.meal);
               props.setters.setDeleteMenuRecipeActive(true);

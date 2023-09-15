@@ -11,7 +11,7 @@ export default function Header() {
 
         <li>
           <Link
-            className="flex flex-col items-center transition-colors hover:text-gold hover:transition-colors text-sm sm:text-lg text-txt2"
+            className="flex flex-col items-center transition-colors hover:text-gold hover:transition-colors text-sm xl:text-md text-txt2"
             to="/gate"
           >
             <Login className="w-5 h-5 fill-green" />

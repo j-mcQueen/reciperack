@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import CloseIcon from "../../../assets/icons/Close";
+import AddIcon from "../../../assets/icons/Add";
+import EditIcon from "../../../assets/icons/Edit";
 
 export default function MenuModal({ ...props }) {
   const [allRecipes, setAllRecipes] = useState([]);
@@ -76,7 +78,7 @@ export default function MenuModal({ ...props }) {
 
   return (
     <div className="absolute bg-main p-3 border border-offmain border-solid rounded-lg">
-      <div className="flex items-center justify-between tracking-tighter font-manrope gap-5 text-xl">
+      <div className="flex items-center justify-between tracking-tighter font-manrope gap-5 text-2xl">
         {props.vals.modalAction === "add" ? (
           <h3>
             Add recipe to {props.vals.activeDay}: {props.vals.activeMeal}
@@ -89,7 +91,7 @@ export default function MenuModal({ ...props }) {
 
         <button
           autoFocus={true}
-          className="border border-solid border-offgold rounded-lg p-1 hover:bg-offgold hover:transition-colors transition-colors"
+          className="border border-solid border-offgold rounded-lg p-2 hover:bg-offgold hover:transition-colors transition-colors"
           onClick={() => props.setters.setMenuModal(false)}
           type="button"
         >
@@ -98,6 +100,7 @@ export default function MenuModal({ ...props }) {
       </div>
 
       <form
+        className="font-manrope tracking-tighter"
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit();
@@ -123,17 +126,19 @@ export default function MenuModal({ ...props }) {
 
         {props.vals.modalAction === "add" ? (
           <button
-            className="font-manrope py-2 bg-offgreen border border-solid border-green rounded-lg w-full"
+            className="flex justify-center items-center bg-offgreen border-solid border-green border rounded-lg w-full p-3 gap-2 hover:bg-transgreen hover:transition-colors transition-colors"
             type="submit"
           >
-            Add
+            <AddIcon className="w-5 h-5 fill-txt1" />
+            Add Recipe
           </button>
         ) : (
           <button
-            className="font-manrope py-2 bg-offgreen border border-solid border-green rounded-lg w-full"
+            className="flex justify-center items-center bg-offblue border-solid border-blue border rounded-lg w-full p-3 gap-2 hover:bg-blue hover:transition-colors transition-colors"
             type="submit"
           >
-            Update
+            <EditIcon className="w-5 h-5 fill-txt1" />
+            Update Recipe
           </button>
         )}
       </form>

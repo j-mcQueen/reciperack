@@ -112,7 +112,7 @@ export default function CreateRecipe({ ...props }) {
             <textarea
               name="ingredients"
               placeholder="Copy and paste the ingredients list"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgold"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-48 focus:outline-none focus:border-offgold"
               onChange={(e) => setIngredients(e.target.value)}
             ></textarea>
           </label>
@@ -122,7 +122,7 @@ export default function CreateRecipe({ ...props }) {
             <textarea
               name="steps"
               placeholder="Copy and paste the instructions"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgold"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-48 focus:outline-none focus:border-offgold"
               onChange={(e) => setSteps(e.target.value)}
             ></textarea>
           </label>
@@ -132,7 +132,7 @@ export default function CreateRecipe({ ...props }) {
             <textarea
               name="notes"
               placeholder="Enter some recipe notes"
-              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-24 focus:outline-none focus:border-offgold"
+              className="text-txt1 block w-full xl:w-96 p-3 mt-2 bg-logoBg border border-solid border-offmain rounded-lg h-48 focus:outline-none focus:border-offgold"
               onChange={(e) => setNotes(e.target.value)}
             ></textarea>
           </label>
