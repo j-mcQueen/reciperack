@@ -143,7 +143,7 @@ exports.user_login_post = [
 exports.user_logout = asyncHandler(async (req, res, next) => {
   req.logout((err) => {
     if (err) return next(err);
-    res.send("success");
+    res.sendStatus(200);
   });
 });
 
