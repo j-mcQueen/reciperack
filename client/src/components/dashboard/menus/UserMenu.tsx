@@ -5,7 +5,6 @@ import ClearIcon from "../../../assets/icons/Clear";
 import ClearMenu from "./ClearMenu";
 import ResetIcon from "../../../assets/icons/Reset";
 
-// TODO change component name to UserMenu
 export default function UserMenu({ ...props }) {
   const [deleteMenuRecipeActive, setDeleteMenuRecipeActive] = useState(false);
   const [clearModalActive, setClearModalActive] = useState(false);
@@ -15,26 +14,8 @@ export default function UserMenu({ ...props }) {
   const [lunch, setLunch] = useState({});
   const [dinner, setDinner] = useState({});
 
-  useEffect(() => {
-    setBreakfast({});
-    setLunch({});
-    setDinner({});
-  }, [props.vals.activeDay]);
-
-  useEffect(() => {
-    const day = props.vals.activeDay.toLowerCase();
-    const dayRecipes = props.vals.menu[day];
-
-    for (const recipe of dayRecipes) {
-      if (recipe.meal === 0) {
-        setBreakfast(recipe);
-      } else if (recipe.meal === 1) {
-        setLunch(recipe);
-      } else {
-        setDinner(recipe);
-      }
-    }
-  }, [props.vals.activeDay, props.vals.menu]);
+  const day = props.vals.activeDay.toLowerCase();
+  const dayRecipes = props.vals.menu[day];
 
   const week = [
     "Monday",
@@ -45,6 +26,27 @@ export default function UserMenu({ ...props }) {
     "Saturday",
     "Sunday",
   ];
+
+  // the following 2 effects ensure each day in the menu have state that is isolated from the other days in the menu
+  useEffect(() => {
+    // if activeDay changes, the meal values that are passed to the blocks need to be reset
+    // this ensures any missing meal from dayRecipes (defined in the next effect) has the correct empty object state value
+    setBreakfast({});
+    setLunch({});
+    setDinner({});
+  }, [props.vals.activeDay]);
+
+  useEffect(() => {
+    for (const recipe of dayRecipes) {
+      if (recipe.meal === 0) {
+        setBreakfast(recipe);
+      } else if (recipe.meal === 1) {
+        setLunch(recipe);
+      } else {
+        setDinner(recipe);
+      }
+    }
+  }, [dayRecipes]);
 
   return (
     <>

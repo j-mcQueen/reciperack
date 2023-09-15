@@ -1,6 +1,6 @@
 export default function Highlight({ ...props }) {
   return (
-    <div className="xl:grid xl:grid-cols-features xl:items-center xl:justify-center xl:gap-8">
+    <article className="xl:grid xl:grid-cols-features xl:items-center xl:justify-center xl:gap-8">
       <div className="flex flex-col justify-center">
         <h2 className="font-manrope text-center xl:text-left text-3xl xl:text-4xl py-3 tracking-tighter">
           {props.highlightTitle}
@@ -26,6 +26,6 @@ export default function Highlight({ ...props }) {
           </p>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
