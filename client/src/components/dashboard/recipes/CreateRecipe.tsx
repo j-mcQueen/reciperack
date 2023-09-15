@@ -49,7 +49,7 @@ export default function CreateRecipe({ ...props }) {
 
         <button
           type="button"
-          className="border border-offgold rounded-lg p-2 hover:bg-transgold hover:transition-colors transition-colors"
+          className="border border-offgold rounded-lg p-2 xl:hover:bg-transgold xl:hover:transition-colors xl:transition-colors"
           onClick={() => {
             props.setters.setAddRecipeActive(false);
           }}
@@ -139,7 +139,7 @@ export default function CreateRecipe({ ...props }) {
         </div>
 
         <button
-          className="font-semibold tracking-tighter bg-offgreen border border-green rounded-lg p-3 xl:hover:bg-transgreen, xl:transition-colors xl:hover:transition-colors"
+          className="font-semibold tracking-tighter bg-offgreen xl:hover:bg-transgreen border border-green rounded-lg p-3 xl:transition-colors xl:hover:transition-colors"
           type="submit"
         >
           Create Recipe

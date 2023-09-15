@@ -25,7 +25,7 @@ export default function RecipeDetail() {
     return (
       <>
         {props.vals.arr.length > 0 ? (
-          <ul>
+          <ul className="mt-3 xl:mt-3">
             {props.vals.arr.map((item: string, i: number) => (
               // using indexes not ideal as noted by React, but ingredients do not have an associated id, and using the recipe id throws warnings because of multiple list items using the same id. Tried using uuidv4() but for whatever reason it caused errors
               <li
@@ -83,10 +83,12 @@ export default function RecipeDetail() {
   return (
     <main>
       {updateRecipeActive ? (
-        <UpdateRecipe
-          setUpdateRecipeActive={setUpdateRecipeActive}
-          recipe={recipe}
-        />
+        <div className="fixed xl:flex xl:items-center xl:justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll xl:overflow-y-auto inset-0 xl:inset-auto w-screen h-screen rounded-lg backdrop-brightness-50">
+          <UpdateRecipe
+            setUpdateRecipeActive={setUpdateRecipeActive}
+            recipe={recipe}
+          />
+        </div>
       ) : null}
 
       {deleteRecipeActive ? (
@@ -133,7 +135,7 @@ export default function RecipeDetail() {
           </h2>
 
           {recipe.steps.length > 0 ? (
-            <ol className="list-decimal list-inside">
+            <ol className="list-decimal list-inside mt-3 xl:mt-3">
               {recipe.steps.map((step: string, i) => (
                 <li
                   className="font-inter text-lg tracking-tighter py-2"

@@ -3,6 +3,7 @@ import { FormEvent, useEffect, useState } from "react";
 import SearchIcon from "../../../assets/icons/Search";
 import CloseIcon from "../../../assets/icons/Close";
 import RecipeItems from "./RecipeItems";
+import AddIcon from "../../../assets/icons/Add";
 
 export default function AllRecipes({ ...props }) {
   const [search, setSearch] = useState("");
@@ -17,7 +18,6 @@ export default function AllRecipes({ ...props }) {
           withCredentials: true,
         });
         if (response) {
-          console.log(response);
           props.setters.setRecipes(response.data);
         }
       } catch (err) {
@@ -79,7 +79,7 @@ export default function AllRecipes({ ...props }) {
               className="bg-main border border-solid rounded-lg rounded-e-none border-offmain focus:outline-none focus:border-offgold p-3"
               type="search"
               name="search"
-              placeholder="Search for a recipe title"
+              placeholder="Search recipes"
             />
           </label>
 
@@ -92,6 +92,15 @@ export default function AllRecipes({ ...props }) {
         </form>
 
         {noResult || result.length > 0 ? <ClearButton /> : <></>}
+
+        <button
+          className="font-manrope font-bold tracking-tighter text-txt1 bg-offgreen border border-solid border-green rounded-lg flex gap-1 items-center p-2 xl:px-3 xl:py-3 xl:hover:bg-transgreen xl:transition-colors xl:hover:transition-colors"
+          type="button"
+          onClick={() => props.setters.setAddRecipeActive(true)}
+        >
+          <AddIcon className="w-5 h-5 fill-txt1" />
+          {/* {viewport.matches === true ? null : props.addItem} */}
+        </button>
       </section>
 
       {noResult ? (
