@@ -1,6 +1,6 @@
 import axios from "axios";
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp({ ...props }) {
   const navigate = useNavigate();
@@ -71,11 +71,16 @@ export default function SignUp({ ...props }) {
   return (
     <section className="font-manrope xl:mx-44 mx-5">
       <h1 className="font-logo text-3xl">
-        <span className="bg-offgold border border-solid border-gold rounded-lg px-3">
+        <Link
+          to="/"
+          className="bg-offgold border border-solid border-gold xl:transition-colors xl:hover:transition-colors rounded-lg px-3"
+        >
           reciperack
-        </span>
+        </Link>
       </h1>
+
       <h2 className="text-5xl tracking-tighter py-5">Sign up for reciperack</h2>
+
       <p className="text-txt2">Add valid credentials to get started.</p>
 
       <form
