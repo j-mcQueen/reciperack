@@ -71,7 +71,7 @@ export default function Dashboard() {
         {activeNavItem === 0 ? (
           <>
             {addRecipeActive ? (
-              <div className="fixed flex items-center justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll inset-0 xl:inset-auto xl:w-[calc(100vw-10%-3.5rem)] h-screen xl:h-[calc(100vh-2.5rem)] rounded-lg backdrop-brightness-50">
+              <div className="fixed xl:flex xl:items-center xl:justify-center overscroll-contain overflow-y-scroll inset-0 xl:inset-auto w-screen xl:w-[calc(100vw-10%-3.5rem)] h-screen xl:h-[calc(100vh-2.5rem)] rounded-lg backdrop-brightness-50">
                 <CreateRecipe
                   vals={{ addRecipeActive, recipes }}
                   setters={{ setAddRecipeActive, setRecipes }}
