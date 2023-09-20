@@ -1,6 +1,9 @@
 require("dotenv/config");
 const User = require("./models/user");
 const createError = require("http-errors");
+const RateLimit = require("express-rate-limit");
+const compression = require("compression");
+const helmet = require("helmet");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -31,11 +34,29 @@ mongoose.connection.on("error", (err) => {
   console.log(err);
 });
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000,
+  limit: 100,
+  // 100 requests max per minute
+});
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:4173",
+      "https://reciperack.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
+app.use(limiter);
+app.use(helmet());
 app.use(express.static(path.join(__dirname, "public")));
 
 passport.use(
@@ -55,12 +76,10 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  console.log("A");
   done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  console.log("B");
   try {
     const user = await User.findById(id);
     done(null, user);

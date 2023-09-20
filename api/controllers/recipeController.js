@@ -55,7 +55,6 @@ exports.recipe_create_post = [
           },
           { new: true }
         );
-        console.log(user);
 
         // update the user
         res.send(newRecipe);
