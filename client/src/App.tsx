@@ -2,9 +2,5 @@ import "./App.css";
 import Landing from "./components/landing/Landing";
 
 export default function App() {
-  return (
-    <>
-      <Landing />
-    </>
-  );
+  return <Landing />;
 }

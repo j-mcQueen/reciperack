@@ -6,12 +6,13 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Gate from "./components/login/Gate.tsx";
 import Dashboard from "./components/dashboard/Dashboard.tsx";
 import RecipeDetail from "./components/dashboard/recipes/RecipeDetail.tsx";
+import Error from "./components/Error.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    // errorElement: <Error />,
+    errorElement: <Error />,
   },
   {
     path: "/gate",
@@ -22,7 +23,6 @@ const router = createBrowserRouter([
     element: <Dashboard />,
   },
   {
-    // TODO figure out how to pass the url as props to RecipeDetail -> maybe with the useParams() hook?
     path: "/recipes/:id",
     element: <RecipeDetail />,
   },
