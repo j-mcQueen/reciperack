@@ -29,7 +29,7 @@ export default function RecipeDetail() {
             {props.vals.arr.map((item: string, i: number) => (
               // using indexes not ideal as noted by React, but ingredients do not have an associated id, and using the recipe id throws warnings because of multiple list items using the same id. Tried using uuidv4() but for whatever reason it caused errors
               <li
-                className="font-inter text-lg tracking-tight list-disc list-inside py-2"
+                className="text-lg tracking-tight list-disc list-inside py-2 text-txt2"
                 key={i}
               >
                 {item.trimStart()}
@@ -137,10 +137,7 @@ export default function RecipeDetail() {
           {recipe.steps.length > 0 ? (
             <ol className="list-decimal list-inside mt-3 xl:mt-3">
               {recipe.steps.map((step: string, i) => (
-                <li
-                  className="font-inter text-lg tracking-tighter py-2"
-                  key={i}
-                >
+                <li className="text-lg tracking-tighter py-2 text-txt2" key={i}>
                   {step.trimStart()}
                 </li>
               ))}

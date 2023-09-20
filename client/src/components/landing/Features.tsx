@@ -53,8 +53,8 @@ export default function Features() {
 
   return (
     <>
-      <section className="flex flex-col justify-center items-center gap-10 pb-10">
-        <h2 className="font-manrope tracking-tighter text-gold text-center text-3xl border-solid border-b-2 pb-5">
+      <section className="font-manrope flex flex-col justify-center items-center gap-10 pb-10">
+        <h2 className="tracking-tighter text-gold text-center text-3xl border-solid border-b-2 pb-5">
           FEATURES
         </h2>
 

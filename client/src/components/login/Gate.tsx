@@ -6,7 +6,13 @@ export default function Gate() {
   const [form, setForm] = useState(0);
 
   return (
-    <main className="xl:grid xl:grid-cols-2 flex justify-center items-center h-screen">
+    <main
+      className={
+        form === 0
+          ? "xl:grid xl:grid-cols-2 flex justify-center items-center h-screen"
+          : "xl:grid xl:grid-cols-2 my-10"
+      }
+    >
       {form === 0 ? <Login setForm={setForm} /> : <SignUp setForm={setForm} />}
     </main>
   );

@@ -44,7 +44,7 @@ export default function ClearMenu({ ...props }) {
     }
   };
   return (
-    <div className="flex flex-col gap-5 bg-main border-solid border rounded-lg border-offmain p-5 mx-3 xl:mx-0 xl:w-1/4">
+    <div className="flex flex-col gap-5 bg-main border-solid border rounded-lg border-offmain p-5 mx-3 xl:mx-0 xl:w-1/3">
       <div className="flex justify-between items-center w-full">
         <h3 className="font-manrope font-semibold text-2xl tracking-tighter">
           {props.vals.intent === 0
@@ -64,13 +64,13 @@ export default function ClearMenu({ ...props }) {
         </button>
       </div>
 
-      <div className="font-inter flex items-center gap-5 tracking-tighter text-lg">
+      <div className="font-manrope flex items-center gap-5 tracking-tighter">
         <Warning title="Delete warning" className="w-12 h-12 fill-red" />
 
-        <div>
-          <p>
+        <div className="tracking-tighter">
+          <p className="text-lg">
             {props.vals.intent === 0
-              ? `Are you sure you want to clear all recipes from your
+              ? `Are you sure you want to remove all recipes from your
             ${props.vals.activeDay} menu?`
               : `Are you sure you want to reset the entire menu?`}
           </p>

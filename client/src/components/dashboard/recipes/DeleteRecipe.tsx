@@ -105,15 +105,17 @@ export default function DeleteRecipe({ ...props }) {
         </button>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="font-manrope flex items-center gap-3">
         <Warning title="Delete warning" className="w-10 h-10 fill-red" />
 
-        <div className="font-manrope tracking-tighter">
-          <p className="xl:text-lg text-lg">
+        <div className="tracking-tighter">
+          <p className="text-lg">
             Are you sure you want to remove this recipe?
           </p>
 
-          <p className=" text-txt2">This action cannot be undone.</p>
+          <p className=" text-txt2">
+            <strong>This action cannot be undone.</strong>
+          </p>
         </div>
       </div>
 
