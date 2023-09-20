@@ -98,7 +98,11 @@ export default function AllRecipes({ ...props }) {
           type="button"
           onClick={() => props.setters.setAddRecipeActive(true)}
         >
-          <AddIcon className="w-5 h-5 fill-txt1" />
+          <AddIcon
+            title="Add Recipe"
+            needsLabel={true}
+            className="w-5 h-5 fill-txt1"
+          />
           {/* {viewport.matches === true ? null : props.addItem} */}
         </button>
       </section>
@@ -109,7 +113,10 @@ export default function AllRecipes({ ...props }) {
           <p className="font-manrope">
             Hmmm... Your search turned up empty ¯\_(ツ)_/¯
           </p>
-          <p className="font-manrope"> Please clear the search or try again.</p>
+          <p className="font-manrope">
+            {" "}
+            Please clear the search and try again.
+          </p>
         </>
       ) : result.length > 0 ? (
         <section className="grid xl:grid-cols-3 gap-3 xl:gap-5 xl:mr-5">

@@ -34,7 +34,7 @@ export default function RecipeItems({ ...props }) {
             className="p-2 bg-offred border border-solid border-red rounded-lg xl:hover:bg-transred xl:hover:transition-colors transition-colors"
             type="button"
           >
-            <DeleteIcon className="w-5 h-5 fill-txt1" />
+            <DeleteIcon title="Delete Recipe" className="w-5 h-5 fill-txt1" />
           </button>
         </div>
 
