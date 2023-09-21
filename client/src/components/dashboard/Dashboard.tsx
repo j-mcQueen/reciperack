@@ -50,7 +50,6 @@ export default function Dashboard() {
         }
       } catch (err) {
         if (err instanceof Error) {
-          alert(err);
           console.log(err);
         }
       }
