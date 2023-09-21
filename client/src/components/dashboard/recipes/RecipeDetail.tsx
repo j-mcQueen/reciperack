@@ -83,7 +83,7 @@ export default function RecipeDetail() {
   return (
     <main>
       {updateRecipeActive ? (
-        <div className="fixed xl:flex xl:items-center xl:justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll xl:overflow-y-auto inset-0 xl:inset-auto w-screen h-screen rounded-lg backdrop-brightness-50">
+        <div className="fixed xl:flex xl:items-center xl:justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll xl:overflow-y-auto inset-0 xl:inset-auto w-screen h-[100dvh] rounded-lg backdrop-brightness-50">
           <UpdateRecipe
             setUpdateRecipeActive={setUpdateRecipeActive}
             recipe={recipe}
