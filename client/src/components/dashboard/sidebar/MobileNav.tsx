@@ -1,9 +1,23 @@
 import RecipeIcon from "../../../assets/icons/Recipe";
 import MenuIcon from "../../../assets/icons/Menu";
-import SearchIcon from "../../../assets/icons/Search";
 import LogoutIcon from "../../../assets/icons/Logout";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function MobileNav({ ...props }) {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        "https://reciperack-api.vercel.app/logout"
+      );
+      if (response.status === 200) navigate("/gate");
+    } catch (err) {
+      if (err instanceof Error) console.log(err);
+    }
+  };
+
   const Button = ({ ...props }) => {
     return (
       <button
@@ -51,17 +65,8 @@ export default function MobileNav({ ...props }) {
         </li>
 
         <li>
-          <Button
-            icon={<SearchIcon className="w-5 h-5 fill-txt1" />}
-            activeNavItem={props.activeNavItem}
-            setter={props.setActiveNavItem}
-            value={2}
-            text="Browse"
-          />
-        </li>
-
-        <li>
           <button
+            onClick={() => handleLogout()}
             className="flex flex-col items-center border border-solid border-main p-2"
             type="button"
           >
