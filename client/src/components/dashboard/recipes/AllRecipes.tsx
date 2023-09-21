@@ -79,7 +79,7 @@ export default function AllRecipes({ ...props }) {
                 setSearch(e.target.value);
                 if (noResult) setNoResult(false); // allows UI to rerender all recipes if a user types into the field after a search finds no results
               }}
-              className="bg-main border border-solid rounded-lg rounded-e-none border-offmain focus:outline-none focus:border-offgold p-3"
+              className="bg-main border border-solid rounded-l-lg rounded-r-none border-offmain focus:outline-none focus:border-offgold p-3"
               type="search"
               name="search"
               placeholder="Search recipes"
