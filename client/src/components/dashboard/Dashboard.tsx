@@ -49,7 +49,10 @@ export default function Dashboard() {
           setMenu(response.data.menu);
         }
       } catch (err) {
-        if (err instanceof Error) console.log(err);
+        if (err instanceof Error) {
+          alert(err);
+          console.log(err);
+        }
       }
     };
     getMenus();
