@@ -64,7 +64,7 @@ export default function MenuModal({ ...props }) {
       const updatedMenu = { ...props.vals.menu, [day]: updatedDayRecipes };
 
       const response = await axios.put(
-        `http://localhost:3000/user/${props.vals.userId}`,
+        `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
         { updatedMenu, target: "menu" },
         { withCredentials: true }
       );
