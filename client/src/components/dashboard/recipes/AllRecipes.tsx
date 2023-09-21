@@ -14,9 +14,12 @@ export default function AllRecipes({ ...props }) {
     // retrieve recipes from the database on component load and update recipes state accordingly
     const getRecipes = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/recipes", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "https://reciperack-api.vercel.app/recipes",
+          {
+            withCredentials: true,
+          }
+        );
         if (response) {
           props.setters.setRecipes(response.data);
         }

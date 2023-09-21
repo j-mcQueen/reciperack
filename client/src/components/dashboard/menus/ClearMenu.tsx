@@ -25,7 +25,7 @@ export default function ClearMenu({ ...props }) {
       }
 
       const response = await axios.put(
-        `http://localhost:3000/user/${props.vals.userId}`,
+        `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
         { updatedMenu, target: "menu" },
         {
           withCredentials: true,

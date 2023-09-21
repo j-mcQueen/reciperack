@@ -31,7 +31,7 @@ export default function SignUp({ ...props }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/signup",
+        "https://reciperack-api.vercel.app/signup",
         {
           username,
           email,

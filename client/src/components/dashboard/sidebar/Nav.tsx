@@ -9,7 +9,9 @@ export default function Nav({ ...props }) {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/logout");
+      const response = await axios.post(
+        "https://reciperack-api.vercel.app/logout"
+      );
       if (response.status === 200) navigate("/gate");
     } catch (err) {
       if (err instanceof Error) console.log(err);

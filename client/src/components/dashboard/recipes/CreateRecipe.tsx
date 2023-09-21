@@ -13,7 +13,7 @@ export default function CreateRecipe({ ...props }) {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/recipes",
+        "https://reciperack-api.vercel.app/recipes",
         {
           // must use the absolute path to server endpoint
           title,

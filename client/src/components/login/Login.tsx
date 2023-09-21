@@ -19,7 +19,7 @@ export default function Login({ ...props }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/login",
+        "https://reciperack-api.vercel.app//login",
         {
           username,
           password,

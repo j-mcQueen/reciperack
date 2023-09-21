@@ -49,7 +49,7 @@ export default function RecipeDetail() {
       const id = urlArr[urlArr.length - 1];
       try {
         const response = await axios.get(
-          `http://localhost:3000/recipes/${id}`,
+          `https://reciperack-api.vercel.app/recipes/${id}`,
           { withCredentials: true }
         );
 

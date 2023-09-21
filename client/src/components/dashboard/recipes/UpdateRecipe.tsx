@@ -27,7 +27,7 @@ export default function UpdateRecipe({ ...props }) {
   const handleSubmit = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/recipes/${props.recipe._id}`,
+        `https://reciperack-api.vercel.app/recipes/${props.recipe._id}`,
         {
           title,
           ingredients,
