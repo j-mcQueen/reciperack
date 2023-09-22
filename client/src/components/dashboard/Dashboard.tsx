@@ -38,8 +38,7 @@ export default function Dashboard() {
       // TODO change fn name to getUserMenu
       try {
         const response = await axios.get(
-          // "https://reciperack-api.vercel.app/user",
-          "http://localhost:3000/user",
+          "https://reciperack-api.vercel.app/user",
           {
             withCredentials: true,
           }
