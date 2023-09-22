@@ -3,7 +3,7 @@ const User = require("./models/user");
 const createError = require("http-errors");
 const RateLimit = require("express-rate-limit");
 const compression = require("compression");
-// const helmet = require("helmet");
+const helmet = require("helmet");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -56,13 +56,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression());
 app.use(limiter);
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       "script-src": ["'self'", "reciperack.vercel.app"],
-//     },
-//   })
-// );
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "reciperack.vercel.app"],
+    },
+  })
+);
 app.use(express.static(path.join(__dirname, "public")));
 
 passport.use(
