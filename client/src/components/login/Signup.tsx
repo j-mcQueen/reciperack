@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SpinnerIcon from "../../assets/icons/Spinner";
 
 export default function SignUp({ ...props }) {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function SignUp({ ...props }) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    props.setSpinner(true);
 
     // clean up any residual validation or authentication errors
     if (usernameError) setUsernameError(false);
@@ -155,10 +157,14 @@ export default function SignUp({ ...props }) {
         </fieldset>
 
         <button
-          className="bg-offgreen border border-solid border-green py-3 rounded-lg hover:bg-transgreen hover:transition-colors transition-colors"
+          className="flex justify-center items-center bg-offgreen border border-solid border-green py-3 rounded-lg hover:bg-transgreen hover:transition-colors transition-colors"
           type="submit"
         >
-          Sign Up
+          {props.spinner ? (
+            <SpinnerIcon className="w-6 h-6 fill-txt1" />
+          ) : (
+            "Sign Up"
+          )}
         </button>
       </form>
 

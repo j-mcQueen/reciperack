@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SpinnerIcon from "../../assets/icons/Spinner";
 
 export default function Login({ ...props }) {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Login({ ...props }) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    props.setSpinner(true);
 
     if (usernameError) setUsernameError(false);
     if (passwordError) setPasswordError(false);
@@ -41,6 +43,8 @@ export default function Login({ ...props }) {
 
       if (response) console.log(response);
     } catch (err) {
+      props.setSpinner(false);
+
       if (err instanceof AxiosError) {
         if (err.response !== undefined) {
           // above conditional acts as additional type checking for err
@@ -110,10 +114,14 @@ export default function Login({ ...props }) {
         </label>
 
         <button
-          className="bg-offgreen border border-solid border-green py-3 rounded-lg hover:bg-transgreen hover:transition-colors transition-colors"
+          className="flex justify-center items-center bg-offgreen border border-solid border-green py-3 rounded-lg hover:bg-transgreen hover:transition-colors transition-colors"
           type="submit"
         >
-          Login
+          {props.spinner ? (
+            <SpinnerIcon className="w-6 h-6 fill-txt1" />
+          ) : (
+            "Login"
+          )}
         </button>
       </form>
 

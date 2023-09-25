@@ -14,6 +14,8 @@ import UserMenu from "./menus/UserMenu";
 export default function Dashboard() {
   const viewport = window.matchMedia("(max-width: 1080px)");
 
+  const [spinner, setSpinner] = useState(false);
+
   const [mobileLinksActive, setMobileLinksActive] = useState(true);
   const [activeNavItem, setActiveNavItem] = useState(0);
   const [addRecipeActive, setAddRecipeActive] = useState(false);
@@ -61,12 +63,16 @@ export default function Dashboard() {
     <div className="xl:grid xl:grid-cols-dashboard mt-3 mx-3 mb-[calc(84px+1.5rem)] xl:m-5 gap-5">
       {viewport.matches === true ? (
         <MobileNav
+          spinner={spinner}
+          setSpinner={setSpinner}
           mobileLinksActive={mobileLinksActive}
           activeNavItem={activeNavItem}
           setActiveNavItem={setActiveNavItem}
         />
       ) : (
         <Nav
+          spinner={spinner}
+          setSpinner={setSpinner}
           activeNavItem={activeNavItem}
           setActiveNavItem={setActiveNavItem}
         />

@@ -3,17 +3,20 @@ import MenuIcon from "../../../assets/icons/Menu";
 import LogoutIcon from "../../../assets/icons/Logout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SpinnerIcon from "../../../assets/icons/Spinner";
 
 export default function MobileNav({ ...props }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
+    props.setSpinner(true);
     try {
       const response = await axios.post(
         "https://reciperack-api.vercel.app/logout"
       );
       if (response.status === 200) navigate("/gate");
     } catch (err) {
+      props.setSpinner(false);
       if (err instanceof Error) console.log(err);
     }
   };
@@ -70,8 +73,14 @@ export default function MobileNav({ ...props }) {
             className="flex flex-col items-center border border-solid border-main p-2"
             type="button"
           >
-            <LogoutIcon className="w-5 h-5 fill-txt1" />
-            Logout
+            {props.spinner ? (
+              <SpinnerIcon className="w-5 h-5 fill-txt1" />
+            ) : (
+              <>
+                <LogoutIcon className="w-5 h-5 fill-txt1" />
+                Logout
+              </>
+            )}
           </button>
         </li>
       </ul>

@@ -3,17 +3,20 @@ import RecipeIcon from "../../../assets/icons/Recipe";
 import MenuIcon from "../../../assets/icons/Menu";
 import LogoutIcon from "../../../assets/icons/Logout";
 import axios from "axios";
+import SpinnerIcon from "../../../assets/icons/Spinner";
 
 export default function Nav({ ...props }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
+    props.setSpinner(true);
     try {
       const response = await axios.post(
         "https://reciperack-api.vercel.app/logout"
       );
       if (response.status === 200) navigate("/gate");
     } catch (err) {
+      props.setSpinner(false);
       if (err instanceof Error) console.log(err);
     }
   };
@@ -52,10 +55,14 @@ export default function Nav({ ...props }) {
         </ul>
 
         <button onClick={() => handleLogout()} type="button">
-          <LogoutIcon
-            title="Logout"
-            className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors"
-          />
+          {props.spinner ? (
+            <SpinnerIcon className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors" />
+          ) : (
+            <LogoutIcon
+              title="Logout"
+              className="w-10 h-10 p-2 fill-txt2 border-offmain border-solid border rounded-lg hover:border-offgreen hover:transition-colors transition-colors"
+            />
+          )}
         </button>
       </nav>
     </div>
