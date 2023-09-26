@@ -156,6 +156,7 @@ exports.get_user = asyncHandler(async (req, res, next) => {
       menu: req.user.menu,
     });
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });
