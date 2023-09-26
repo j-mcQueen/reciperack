@@ -105,8 +105,11 @@ app.use(
       ttl: 7 * 24 * 60 * 60,
     }),
     cookie: {
+      // support for non-partitioned third party cookies is being phased out mid 2024, so these attributes will break the app
+      // https://developer.chrome.com/docs/privacy-sandbox/third-party-cookie-phase-out/ for more info
       sameSite: "none",
       secure: true,
+      domain: "reciperack.vercel.app",
     },
   })
 );

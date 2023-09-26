@@ -40,8 +40,6 @@ export default function Login({ ...props }) {
           navigate("/dashboard");
         }
       }
-
-      if (response) console.log(response);
     } catch (err) {
       props.setSpinner(false);
 
