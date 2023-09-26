@@ -40,6 +40,7 @@ const limiter = RateLimit({
   // 100 requests max per minute
 });
 
+app.enable("trust proxy");
 app.use(
   cors({
     origin: [
@@ -103,6 +104,10 @@ app.use(
       mongoUrl: process.env.MONGODB_URI,
       ttl: 7 * 24 * 60 * 60,
     }),
+    cookie: {
+      sameSite: "none",
+      secure: true,
+    },
   })
 );
 app.use(passport.initialize());
