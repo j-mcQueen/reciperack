@@ -109,7 +109,6 @@ app.use(
       // https://developer.chrome.com/docs/privacy-sandbox/third-party-cookie-phase-out/ for more info
       sameSite: "none",
       secure: true,
-      domain: "reciperack-api.vercel.app",
     },
   })
 );
