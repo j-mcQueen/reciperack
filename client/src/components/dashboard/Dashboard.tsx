@@ -36,8 +36,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     // the main dashboard component has been displayed, so get the current user data and update menu & recipe state accordingly
-    const getMenus = async () => {
-      // TODO change fn name to getUserMenu
+    const getUserMenu = async () => {
       try {
         const response = await axios.get(
           "https://reciperack-api.vercel.app/user",
@@ -56,7 +55,7 @@ export default function Dashboard() {
         }
       }
     };
-    getMenus();
+    getUserMenu();
   }, []);
 
   return (

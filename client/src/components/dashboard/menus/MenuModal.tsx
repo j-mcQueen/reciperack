@@ -111,16 +111,13 @@ export default function MenuModal({ ...props }) {
       >
         <label>
           <select
+            onChange={(e) => setChosenRecipeId(e.target.value)}
             className="font-manrope text-offmain w-full p-2 my-3 rounded-lg"
             name="recipes"
             required
           >
             {allRecipes.map((recipe: { _id: string; title: string }) => (
-              <option
-                onClick={() => setChosenRecipeId(recipe._id)}
-                key={recipe._id}
-                value={recipe._id}
-              >
+              <option key={recipe._id} value={recipe._id}>
                 {recipe.title}
               </option>
             ))}
