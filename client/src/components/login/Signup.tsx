@@ -33,14 +33,14 @@ export default function SignUp({ ...props }) {
 
     try {
       const response = await axios.post(
-        "https://reciperack-api.vercel.app/signup",
+        // "https://reciperack-api.vercel.app/signup",
+        "http://localhost:3000/signup",
         {
           username,
           email,
           password,
           cpassword,
-        },
-        { withCredentials: true }
+        }
       );
 
       if (response.data.errors) {
@@ -55,15 +55,14 @@ export default function SignUp({ ...props }) {
       }
 
       if (response.data.usernameTaken) {
-        // username authentication error
         setUsernameTakenError(response.data.message);
         return;
       } else if (response.data.emailTaken) {
-        // email authentication error
         setEmailTakenError(response.data.message);
         return;
       } else if (response.status === 200) {
-        navigate("/dashboard");
+        localStorage.setItem("token", response.data);
+        return navigate("/dashboard");
       }
     } catch (err) {
       if (err instanceof Error) console.log(err);

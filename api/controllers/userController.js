@@ -50,28 +50,26 @@ exports.user_create_post = [
 
       if (!errors.isEmpty()) {
         // there are validation errors
-        res.send({ errors: errors.array() });
-        return;
+        return res.send({ errors: errors.array() });
       } else if (existingUsername) {
         // username already exists
-        res.send({
+        return res.send({
           usernameTaken: true,
           message: "Username already in use.",
         });
-        return;
       } else if (existingEmail) {
         // email address already exists
-        res.send({
+        return res.send({
           emailTaken: true,
           message: "Email address already in use.",
         });
-        return;
       } else {
         // add the user to the db
         bcrypt.hash(req.body.password, 10, async (err, hash) => {
           if (err) {
+            // encryption of password failed
             console.log(err);
-            return;
+            return next(err);
           }
 
           const user = new User({
@@ -82,10 +80,17 @@ exports.user_create_post = [
 
           const result = await user.save();
 
-          req.login(result, (err) => {
-            if (err) return next(err);
-            res.sendStatus(200);
-          });
+          const token = jwt.sign(
+            {
+              _id: result._id,
+              menu: result.menu,
+              recipes: result.recipes,
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "2h" }
+          );
+
+          return res.status(200).send(token);
         });
       }
     } catch (err) {
