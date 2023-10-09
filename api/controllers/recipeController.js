@@ -34,8 +34,8 @@ exports.recipe_create_post = [
     .isURL()
     .withMessage("Please enter a valid URL")
     .trim(),
-  // process request, return errors in response if they exist
-  asyncHandler(async (req, res, next) => {
+  (req, res, next) => {
+    // handle validation errors
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -43,7 +43,7 @@ exports.recipe_create_post = [
       return res.send({ errors: errors.array() });
     }
     next();
-  }),
+  },
   (req, res, next) => {
     passport.authenticate("jwt", { session: false }, async (err, data) => {
       if (err || !data) {
@@ -115,10 +115,16 @@ exports.recipe_update = [
     .isURL()
     .withMessage("Please enter a valid URL")
     .trim(),
-  asyncHandler(async (req, res, next) => {
-    try {
-      const errors = validationResult(req);
+  (req, res, next) => {
+    const errors = validationResult(req);
 
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.array() });
+    }
+    next();
+  },
+  (req, res, next) => {
+    passport.authenticate("jwt", { session: false }, async (err, data) => {
       const recipe = new Recipe({
         title: req.body.title,
         ingredients: req.body.ingredients,
@@ -127,21 +133,18 @@ exports.recipe_update = [
         category: req.body.category,
         source: req.body.source,
         _id: req.params.id,
-        createdBy: req.user._id,
+        createdBy: data._id,
       });
 
-      if (!errors.isEmpty()) {
-        res.send({ recipe, errors: errors.array() });
-        return;
-      } else {
+      try {
         const updatedRecipe = await Recipe.findByIdAndUpdate(
           req.params.id,
           recipe,
           { new: true }
         );
 
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: req.user._id, recipes: updatedRecipe._id },
+        await User.findOneAndUpdate(
+          { _id: data._id, recipes: updatedRecipe._id },
           {
             $set: { "recipes.$": updatedRecipe },
           },
@@ -149,11 +152,11 @@ exports.recipe_update = [
         );
 
         res.send(updatedRecipe);
+      } catch (err) {
+        return next(err);
       }
-    } catch (err) {
-      return next(err);
-    }
-  }),
+    })(req, res, next);
+  },
 ];
 
 exports.recipe_delete = asyncHandler(async (req, res, next) => {

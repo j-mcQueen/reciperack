@@ -26,8 +26,10 @@ export default function UpdateRecipe({ ...props }) {
 
   const handleSubmit = async () => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.put(
-        `https://reciperack-api.vercel.app/recipes/${props.recipe._id}`,
+        // `https://reciperack-api.vercel.app/recipes/${props.recipe._id}`,
+        `http://localhost:3000/recipes/${props.recipe._id}`,
         {
           title,
           ingredients,
@@ -36,7 +38,9 @@ export default function UpdateRecipe({ ...props }) {
           category,
           source,
         },
-        { withCredentials: true }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       if (response.status === 200) navigate(0); // refresh page
