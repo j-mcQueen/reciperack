@@ -125,6 +125,11 @@ exports.recipe_update = [
   },
   (req, res, next) => {
     passport.authenticate("jwt", { session: false }, async (err, data) => {
+      if (err || !data) {
+        // auth error
+        return res.sendStatus(401);
+      }
+
       const recipe = new Recipe({
         title: req.body.title,
         ingredients: req.body.ingredients,
@@ -159,30 +164,65 @@ exports.recipe_update = [
   },
 ];
 
-exports.recipe_delete = asyncHandler(async (req, res, next) => {
-  try {
-    const deleted = await Recipe.findByIdAndDelete(req.params.id).exec();
+exports.recipe_delete = (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, async (err, data) => {
+    if (err || !data) {
+      // auth error
+      return res.sendStatus(401);
+    }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      req.user._id,
-      {
-        $pull: {
-          recipes: deleted._id,
-          // remove all occurrences of deleted recipe in user
-          "menu.monday": { recipe: deleted._id },
-          "menu.tuesday": { recipe: deleted._id },
-          "menu.wednesday": { recipe: deleted._id },
-          "menu.thursday": { recipe: deleted._id },
-          "menu.friday": { recipe: deleted._id },
-          "menu.saturday": { recipe: deleted._id },
-          "menu.sunday": { recipe: deleted._id },
+    try {
+      const deleted = await Recipe.findByIdAndDelete(req.params.id).exec();
+
+      await User.findByIdAndUpdate(
+        data._id,
+        {
+          $pull: {
+            recipes: deleted._id,
+            // remove all occurrences of deleted recipe in user
+            "menu.monday": { recipe: deleted._id },
+            "menu.tuesday": { recipe: deleted._id },
+            "menu.wednesday": { recipe: deleted._id },
+            "menu.thursday": { recipe: deleted._id },
+            "menu.friday": { recipe: deleted._id },
+            "menu.saturday": { recipe: deleted._id },
+            "menu.sunday": { recipe: deleted._id },
+          },
         },
-      },
-      { new: true }
-    );
+        { new: true }
+      );
 
-    res.sendStatus(200);
-  } catch (err) {
-    return next(err);
-  }
-});
+      return res.sendStatus(200);
+    } catch (err) {
+      return next(err);
+    }
+  })(req, res, next);
+};
+
+// exports.recipe_delete = asyncHandler(async (req, res, next) => {
+//   try {
+//     const deleted = await Recipe.findByIdAndDelete(req.params.id).exec();
+
+//     const updatedUser = await User.findByIdAndUpdate(
+//       req.user._id,
+//       {
+//         $pull: {
+//           recipes: deleted._id,
+//           // remove all occurrences of deleted recipe in user
+//           "menu.monday": { recipe: deleted._id },
+//           "menu.tuesday": { recipe: deleted._id },
+//           "menu.wednesday": { recipe: deleted._id },
+//           "menu.thursday": { recipe: deleted._id },
+//           "menu.friday": { recipe: deleted._id },
+//           "menu.saturday": { recipe: deleted._id },
+//           "menu.sunday": { recipe: deleted._id },
+//         },
+//       },
+//       { new: true }
+//     );
+
+//     res.sendStatus(200);
+//   } catch (err) {
+//     return next(err);
+//   }
+// });

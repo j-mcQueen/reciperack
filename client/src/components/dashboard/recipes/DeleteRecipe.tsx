@@ -7,12 +7,16 @@ export default function DeleteRecipe({ ...props }) {
   const navigate = useNavigate();
 
   const handleDelete = async () => {
+    const token = localStorage.getItem("token");
     if (props.vals.source === "source") {
       // if user wants to delete the source recipe
       try {
         const response = await axios.delete(
-          `https://reciperack-api.vercel.app/recipes/${props.vals.recipe._id}`,
-          { withCredentials: true }
+          // `https://reciperack-api.vercel.app/recipes/${props.vals.recipe._id}`,
+          `http://localhost:3000/recipes/${props.vals.recipe._id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
 
         if (response.status === 200) {
