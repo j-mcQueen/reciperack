@@ -1,16 +1,25 @@
+const passport = require("passport");
 const Recipe = require("../models/recipe");
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
-exports.recipe_list = asyncHandler(async (req, res, next) => {
-  try {
-    const allRecipes = await Recipe.find({ createdBy: req.user._id }).exec();
-    res.send(allRecipes);
-  } catch (err) {
-    return next(err);
-  }
-});
+exports.recipe_list = (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, async (err, data) => {
+    if (err || !data) {
+      // handle auth error or lack of data
+      return res.sendStatus(401);
+    }
+
+    // handle success
+    try {
+      const allRecipes = await Recipe.find({ createdBy: data._id }).exec();
+      return res.status(200).send(allRecipes);
+    } catch (err) {
+      return next(err);
+    }
+  })(req, res, next);
+};
 
 exports.recipe_create_post = [
   // validate & sanitize

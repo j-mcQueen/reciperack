@@ -14,13 +14,16 @@ export default function AllRecipes({ ...props }) {
     // retrieve recipes from the database on component load and update recipes state accordingly
     const getRecipes = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await axios.get(
-          "https://reciperack-api.vercel.app/recipes",
+          // "https://reciperack-api.vercel.app/recipes",
+          "http://localhost:3000/recipes",
           {
-            withCredentials: true,
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
-        if (response) {
+
+        if (response.status === 200) {
           props.setters.setRecipes(response.data);
         }
       } catch (err) {
