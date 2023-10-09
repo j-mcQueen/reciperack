@@ -153,13 +153,6 @@ exports.user_login_post = [
   },
 ];
 
-exports.user_logout = asyncHandler(async (req, res, next) => {
-  req.logout((err) => {
-    if (err) return next(err);
-    res.sendStatus(200);
-  });
-});
-
 exports.get_user = (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (err, data) => {
     if (err || !data) {
