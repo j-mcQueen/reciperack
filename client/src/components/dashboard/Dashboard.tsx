@@ -10,9 +10,11 @@ import CreateRecipe from "./recipes/CreateRecipe";
 import MenuModal from "./menus/MenuModal";
 import RecipeIcon from "../../assets/icons/Recipe";
 import UserMenu from "./menus/UserMenu";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const viewport = window.matchMedia("(max-width: 1080px)");
+  const navigate = useNavigate();
 
   const [spinner, setSpinner] = useState(false);
 
@@ -38,20 +40,26 @@ export default function Dashboard() {
     // the main dashboard component has been displayed, so get the current user data and update menu & recipe state accordingly
     const getUserMenu = async () => {
       try {
+        const token = localStorage.getItem("token");
+
         const response = await axios.get(
-          "https://reciperack-api.vercel.app/user",
+          // "https://reciperack-api.vercel.app/user",
+          "http://localhost:3000/user",
           {
-            withCredentials: true,
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
 
-        if (response) {
+        if (response.status === 200) {
           setUserId(response.data._id);
           setMenu(response.data.menu);
         }
       } catch (err) {
-        if (err instanceof Error) {
-          console.log(err);
+        if (err instanceof Error && err.message.includes("401")) {
+          localStorage.removeItem("token");
+          // TODO execute an alert which tells the user their access has expired, that they will be redirected in 5s
+          // direct them to log in again to continue using reciperack
+          return navigate("/gate");
         }
       }
     };
@@ -77,7 +85,7 @@ export default function Dashboard() {
         />
       )}
 
-      <div className="xl:col-start-2">
+      {/* <div className="xl:col-start-2">
         {activeNavItem === 0 ? (
           <>
             {addRecipeActive ? (
@@ -172,7 +180,7 @@ export default function Dashboard() {
             </main>
           )
         ) : null}
-      </div>
+      </div> */}
     </div>
   );
 }

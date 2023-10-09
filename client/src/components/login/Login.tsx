@@ -8,37 +8,27 @@ export default function Login({ ...props }) {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const [usernameError, setUsernameError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const [authError, setAuthError] = useState("");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     props.setSpinner(true);
-
-    if (usernameError) setUsernameError(false);
-    if (passwordError) setPasswordError(false);
+    if (authError) setAuthError("");
 
     try {
       const response = await axios.post(
-        "https://reciperack-api.vercel.app/login",
+        // "https://reciperack-api.vercel.app/login",
+        "http://localhost:3000/login",
         {
           username,
           password,
-        },
-        { withCredentials: true }
+        }
       );
 
-      if (response.data.errors) {
-        for (const error of response.data.errors) {
-          if (error.path === "username") setUsernameError(error.msg);
-          if (error.path === "password") setPasswordError(error.msg);
-        }
-        return;
-      } else {
-        if (response.status === 200) {
-          navigate("/dashboard");
-        }
+      if (response.status === 200) {
+        // no sensitive user data is stored in token, therefore tradeoff of storing tokens in localStorage is permissible
+        localStorage.setItem("token", response.data);
+        return navigate("/dashboard");
       }
     } catch (err) {
       props.setSpinner(false);
@@ -46,15 +36,9 @@ export default function Login({ ...props }) {
       if (err instanceof AxiosError) {
         if (err.response !== undefined) {
           // above conditional acts as additional type checking for err
-          // err.response.data should only contain 1 item (deliberately tested with both username and password errors)
-          // these nested conditionals ensure that only one error message is visible at a time
-
-          const errorMessage = err.response.data[0];
-          if (errorMessage.includes("username")) {
-            setUsernameError(errorMessage);
-          } else if (errorMessage.includes("password")) {
-            setPasswordError(errorMessage);
-          }
+          setAuthError(
+            "Incorrect username or password. Please check your credentials and try again."
+          );
         }
       }
     }
@@ -91,9 +75,6 @@ export default function Login({ ...props }) {
             placeholder="Enter your username"
             required
           />
-          {usernameError ? (
-            <span className="text-red">{usernameError}</span>
-          ) : null}
         </label>
 
         <label className="text-green">
@@ -106,10 +87,11 @@ export default function Login({ ...props }) {
             placeholder="Enter your password"
             required
           />
-          {passwordError ? (
-            <span className="text-red">{passwordError}</span>
-          ) : null}
         </label>
+
+        {authError !== "" ? (
+          <span className="text-red">{authError}</span>
+        ) : null}
 
         <button
           className="flex justify-center items-center bg-offgreen border border-solid border-green py-3 rounded-lg hover:bg-transgreen hover:transition-colors transition-colors"

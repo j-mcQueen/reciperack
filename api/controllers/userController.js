@@ -1,8 +1,10 @@
+require("dotenv/config");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 exports.user_create_post = [
   body("username")
@@ -127,16 +129,22 @@ exports.user_login_post = [
   passport.authenticate("local", {
     // authentication
     failWithError: true,
-    failureMessage: true,
+    session: false,
   }),
   (err, req, res, next) => {
     // handle error
-    res.send(req.session.messages);
-    return;
+    return res.sendStatus(401);
   },
   (req, res, next) => {
     // handle success
-    res.sendStatus(200);
+    const token = jwt.sign(
+      { _id: req.user._id, menu: req.user.menu, recipes: req.user.recipes },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "2h",
+      }
+    );
+    return res.status(200).send(token);
   },
 ];
 
@@ -147,19 +155,19 @@ exports.user_logout = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.get_user = asyncHandler(async (req, res, next) => {
-  try {
-    res.send({
-      _id: req.user._id,
-      username: req.user.username,
-      recipes: req.user.recipes,
-      menu: req.user.menu,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-});
+exports.get_user = (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, (err, data) => {
+    if (err || !data) {
+      // handle error
+      return res.sendStatus(401);
+    }
+
+    // handle success
+    return res
+      .status(200)
+      .send({ _id: data._id, recipes: data.recipes, menu: data.menu });
+  })(req, res, next);
+};
 
 exports.user_update = asyncHandler(async (req, res, next) => {
   try {
