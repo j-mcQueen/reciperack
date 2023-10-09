@@ -34,10 +34,23 @@ exports.recipe_create_post = [
     .isURL()
     .withMessage("Please enter a valid URL")
     .trim(),
-  // process request, return errors in response if they exist or a success message (for now)
+  // process request, return errors in response if they exist
   asyncHandler(async (req, res, next) => {
-    try {
-      const errors = validationResult(req);
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // there are validation errors
+      return res.send({ errors: errors.array() });
+    }
+    next();
+  }),
+  (req, res, next) => {
+    passport.authenticate("jwt", { session: false }, async (err, data) => {
+      if (err || !data) {
+        // handle auth error
+        // TODO send a 401 error in the response and display the failed auth modal on client
+        return res.sendStatus(401);
+      }
 
       const recipe = new Recipe({
         title: req.body.title,
@@ -46,32 +59,27 @@ exports.recipe_create_post = [
         notes: req.body.notes,
         category: req.body.category,
         source: req.body.source,
-        createdBy: req.user._id,
+        createdBy: data._id,
       });
 
-      if (!errors.isEmpty()) {
-        // There are validation errors - send them in the response and return
-        res.send({ recipe, errors: errors.array() });
-        return;
-      } else {
-        // save the recipe to the database and send the response
+      try {
         const newRecipe = await recipe.save();
-
-        const user = await User.findByIdAndUpdate(
-          req.user._id,
+        await User.findByIdAndUpdate(
+          data._id,
           {
-            $set: { recipes: [...req.user.recipes, newRecipe] },
+            $set: { recipes: [...data.recipes, newRecipe] },
           },
           { new: true }
         );
 
-        // update the user
-        res.send(newRecipe);
+        return res.status(200).send(newRecipe);
+      } catch (err) {
+        // error on recipe save, user update, or otherwise
+        // TODO send generic error to client
+        return next(err);
       }
-    } catch (err) {
-      return next(err);
-    }
-  }),
+    })(req, res, next);
+  },
 ];
 
 exports.recipe_detail = asyncHandler(async (req, res, next) => {

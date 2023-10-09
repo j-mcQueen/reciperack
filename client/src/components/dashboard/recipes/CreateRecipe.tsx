@@ -12,10 +12,11 @@ export default function CreateRecipe({ ...props }) {
 
   const handleSubmit = async () => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://reciperack-api.vercel.app/recipes",
+        // "https://reciperack-api.vercel.app/recipes",
+        "http://localhost:3000/recipes",
         {
-          // must use the absolute path to server endpoint
           title,
           ingredients,
           steps,
@@ -23,13 +24,12 @@ export default function CreateRecipe({ ...props }) {
           category,
           source,
         },
-        { withCredentials: true }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
-      if (response) {
-        console.log(response);
-        // if there is indeed a response, we should update state
-        // in order to update state, we need to pass the data returned from the response to the state setter
+      if (response.status === 200) {
         props.setters.setRecipes([...props.vals.recipes, response.data]);
       }
     } catch (err) {
