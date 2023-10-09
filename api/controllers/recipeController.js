@@ -82,18 +82,25 @@ exports.recipe_create_post = [
   },
 ];
 
-exports.recipe_detail = asyncHandler(async (req, res, next) => {
-  try {
-    const recipe = await Recipe.findOne({
-      _id: req.params.id,
-      createdBy: req.user._id,
-    }).exec();
+exports.recipe_detail = (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, async (err, data) => {
+    if (err || !data) {
+      // auth error
+      return res.sendStatus(401);
+    }
 
-    res.send(recipe);
-  } catch (err) {
-    return next(err);
-  }
-});
+    try {
+      const recipe = await Recipe.findOne({
+        _id: req.params.id,
+        createdBy: data._id,
+      }).exec();
+
+      return res.send(recipe);
+    } catch (err) {
+      return next(err);
+    }
+  })(req, res, next);
+};
 
 exports.recipe_update = [
   // validate & sanitize
