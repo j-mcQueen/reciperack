@@ -167,31 +167,23 @@ exports.get_user = (req, res, next) => {
   })(req, res, next);
 };
 
-exports.user_update = asyncHandler(async (req, res, next) => {
-  try {
-    if (req.body.target === "menu") {
-      const updateUserMenus = await User.findByIdAndUpdate(
+exports.user_update = (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, async (err, data) => {
+    if (err || !data) {
+      // auth error
+      return res.sendStatus(401);
+    }
+
+    try {
+      const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
         { $set: { menu: req.body.updatedMenu } },
         { new: true }
       );
-      res.send({
-        menu: updateUserMenus.menu,
-      });
-    } else if (req.body.target === "recipes") {
-      const updateUserRecipes = await User.findByIdAndUpdate(
-        req.params.id,
-        { $set: { recipes: req.body.recipes } },
-        { new: true }
-      );
-      res.send({
-        _id: updateUserRecipes._id,
-        username: updateUserRecipes.username,
-        recipes: updateUserRecipes.recipes,
-        menu: updateUserRecipes.menu,
-      });
+
+      res.status(200).send(updatedUser.menu);
+    } catch (err) {
+      return next(err);
     }
-  } catch (err) {
-    return next(err);
-  }
-});
+  })(req, res, next);
+};

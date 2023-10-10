@@ -5,6 +5,7 @@ import Warning from "../../../assets/icons/Warning";
 export default function ClearMenu({ ...props }) {
   const handleRemove = async () => {
     try {
+      const token = localStorage.getItem("token");
       const day: string = props.vals.activeDay.toLowerCase();
       let updatedMenu;
 
@@ -25,15 +26,16 @@ export default function ClearMenu({ ...props }) {
       }
 
       const response = await axios.put(
-        `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
-        { updatedMenu, target: "menu" },
+        // `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
+        `http://localhost:3000/user/${props.vals.userId}`,
+        { updatedMenu },
         {
-          withCredentials: true,
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
       if (response.status === 200) {
-        props.setters.setMenu(response.data.menu);
+        props.setters.setMenu(response.data);
         props.setters.setBreakfast({});
         props.setters.setLunch({});
         props.setters.setDinner({});

@@ -11,11 +11,13 @@ export default function MenuModal({ ...props }) {
   useEffect(() => {
     // on mount, perform a get request which retrieves all the recipes in the given category
     const getRecipes = async () => {
+      const token = localStorage.getItem("token");
       try {
         const response = await axios.get(
-          "https://reciperack-api.vercel.app/recipes",
+          // "https://reciperack-api.vercel.app/recipes",
+          `http://localhost:3000/recipes`,
           {
-            withCredentials: true,
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
 
@@ -33,6 +35,7 @@ export default function MenuModal({ ...props }) {
   }, []);
 
   const handleSubmit = async () => {
+    const token = localStorage.getItem("token");
     try {
       const day: string = props.vals.activeDay.toLowerCase();
       const updatedDayRecipes = props.vals.menu[day];
@@ -64,13 +67,16 @@ export default function MenuModal({ ...props }) {
       const updatedMenu = { ...props.vals.menu, [day]: updatedDayRecipes };
 
       const response = await axios.put(
-        `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
-        { updatedMenu, target: "menu" },
-        { withCredentials: true }
+        // `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
+        `http://localhost:3000/user/${props.vals.userId}`,
+        { updatedMenu },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       if (response) {
-        props.setters.setMenu(response.data.menu);
+        props.setters.setMenu(response.data);
         props.setters.setMenuModal(false);
       }
     } catch (err) {

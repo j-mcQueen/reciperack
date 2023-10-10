@@ -8,6 +8,7 @@ export default function DeleteRecipe({ ...props }) {
 
   const handleDelete = async () => {
     const token = localStorage.getItem("token");
+
     if (props.vals.source === "source") {
       // if user wants to delete the source recipe
       try {
@@ -59,13 +60,16 @@ export default function DeleteRecipe({ ...props }) {
 
         const updatedMenu = { ...props.vals.menu, [day]: dayRecipes };
         const response = await axios.put(
-          `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
-          { updatedMenu, target: "menu" },
-          { withCredentials: true }
+          // `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
+          `http://localhost:3000/user/${props.vals.userId}`,
+          { updatedMenu },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
 
         if (response) {
-          props.setters.setMenu(response.data.menu);
+          props.setters.setMenu(response.data);
           props.setters.setDeleteMenuRecipeActive(false);
         }
       } catch (err) {
