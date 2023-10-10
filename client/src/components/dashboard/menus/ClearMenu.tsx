@@ -1,8 +1,11 @@
 import axios from "axios";
 import CloseIcon from "../../../assets/icons/Close";
 import Warning from "../../../assets/icons/Warning";
+import { useNavigate } from "react-router-dom";
 
 export default function ClearMenu({ ...props }) {
+  const navigate = useNavigate();
+
   const handleRemove = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -42,7 +45,14 @@ export default function ClearMenu({ ...props }) {
         props.setters.setClearModalActive(false);
       }
     } catch (err) {
-      if (err instanceof Error) console.log(err);
+      if (err instanceof Error && err.message.includes("401")) {
+        props.setters.setUnauthorized(true);
+        localStorage.removeItem("token");
+
+        setTimeout(() => {
+          return navigate("/gate");
+        }, 100000);
+      }
     }
   };
   return (

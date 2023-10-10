@@ -4,8 +4,11 @@ import SearchIcon from "../../../assets/icons/Search";
 import CloseIcon from "../../../assets/icons/Close";
 import RecipeItems from "./RecipeItems";
 import AddIcon from "../../../assets/icons/Add";
+import { useNavigate } from "react-router-dom";
 
 export default function AllRecipes({ ...props }) {
+  const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
   const [noResult, setNoResult] = useState(false);
   const [result, setResult] = useState([]);
@@ -27,8 +30,13 @@ export default function AllRecipes({ ...props }) {
           props.setters.setRecipes(response.data);
         }
       } catch (err) {
-        if (err instanceof Error) {
-          console.log(err);
+        if (err instanceof Error && err.message.includes("401")) {
+          props.setters.setUnauthorized(true);
+          localStorage.removeItem("token");
+
+          setTimeout(() => {
+            return navigate("/gate");
+          }, 5000);
         }
       }
     };

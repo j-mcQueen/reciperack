@@ -11,12 +11,14 @@ import MenuModal from "./menus/MenuModal";
 import RecipeIcon from "../../assets/icons/Recipe";
 import UserMenu from "./menus/UserMenu";
 import { useNavigate } from "react-router-dom";
+import Unauthorized from "./Unauthorized";
 
 export default function Dashboard() {
   const viewport = window.matchMedia("(max-width: 1080px)");
   const navigate = useNavigate();
 
   const [spinner, setSpinner] = useState(false);
+  const [unauthorized, setUnauthorized] = useState(false);
 
   const [mobileLinksActive, setMobileLinksActive] = useState(true);
   const [activeNavItem, setActiveNavItem] = useState(0);
@@ -41,7 +43,6 @@ export default function Dashboard() {
     const getUserMenu = async () => {
       try {
         const token = localStorage.getItem("token");
-
         const response = await axios.get(
           // "https://reciperack-api.vercel.app/user",
           "http://localhost:3000/user",
@@ -56,10 +57,12 @@ export default function Dashboard() {
         }
       } catch (err) {
         if (err instanceof Error && err.message.includes("401")) {
+          setUnauthorized(true);
           localStorage.removeItem("token");
-          // TODO execute an alert which tells the user their access has expired, that they will be redirected in 5s
-          // direct them to log in again to continue using reciperack
-          return navigate("/gate");
+
+          setTimeout(() => {
+            return navigate("/gate");
+          }, 5000);
         }
       }
     };
@@ -85,14 +88,20 @@ export default function Dashboard() {
         />
       )}
 
-      {/* <div className="xl:col-start-2">
+      {unauthorized ? (
+        <div className="fixed flex items-center justify-center w-[calc(100dvw-1.5rem)] xl:w-[calc(100dvw-2.5rem)] h-[calc(100dvh-1.5rem)]  xl:h-[calc(100dvh-2.5rem)] backdrop-brightness-50 rounded-lg">
+          <Unauthorized />
+        </div>
+      ) : null}
+
+      <div className="xl:col-start-2">
         {activeNavItem === 0 ? (
           <>
             {addRecipeActive ? (
               <div className="fixed xl:flex xl:items-center xl:justify-center overscroll-contain overflow-y-scroll inset-0 xl:inset-auto w-screen xl:w-[calc(100vw-10%-3.5rem)] h-[100dvh] xl:h-[calc(100vh-2.5rem)] rounded-lg backdrop-brightness-50">
                 <CreateRecipe
                   vals={{ addRecipeActive, recipes }}
-                  setters={{ setAddRecipeActive, setRecipes }}
+                  setters={{ setAddRecipeActive, setRecipes, setUnauthorized }}
                 />
               </div>
             ) : null}
@@ -104,6 +113,7 @@ export default function Dashboard() {
                   setters={{
                     setDeleteRecipeActive: setDeleteActive,
                     setTargetRecipe,
+                    setUnauthorized,
                   }}
                 />
               </div>
@@ -123,6 +133,7 @@ export default function Dashboard() {
                 setRecipes,
                 setDeleteActive,
                 setTargetRecipe,
+                setUnauthorized,
               }}
             />
           </>
@@ -133,7 +144,12 @@ export default function Dashboard() {
                 <div className="fixed flex items-center justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll xl:overflow-y-auto inset-0 xl:inset-auto w-screen xl:w-[calc(100vw-10%-3.5rem)] h-screen xl:h-[calc(100vh-2.5rem)] rounded-lg backdrop-brightness-50">
                   <MenuModal
                     vals={{ activeMeal, activeDay, modalAction, menu, userId }}
-                    setters={{ setMenu, setMenuModal, setModalAction }}
+                    setters={{
+                      setMenu,
+                      setMenuModal,
+                      setModalAction,
+                      setUnauthorized,
+                    }}
                   />
                 </div>
               ) : null}
@@ -159,6 +175,7 @@ export default function Dashboard() {
                   setMenuModal,
                   setModalAction,
                   setActiveMeal,
+                  setUnauthorized,
                 }}
               />
             </>
@@ -180,7 +197,7 @@ export default function Dashboard() {
             </main>
           )
         ) : null}
-      </div> */}
+      </div>
     </div>
   );
 }

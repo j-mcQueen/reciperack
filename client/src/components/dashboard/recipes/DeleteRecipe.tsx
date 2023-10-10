@@ -26,7 +26,14 @@ export default function DeleteRecipe({ ...props }) {
           else navigate(0);
         }
       } catch (err) {
-        if (err instanceof Error) console.log(err);
+        if (err instanceof Error && err.message.includes("401")) {
+          props.setters.setUnauthorized(true);
+          localStorage.removeItem("token");
+
+          setTimeout(() => {
+            return navigate("/gate");
+          }, 5000);
+        }
       }
     } else {
       // if user wants to delete a menu recipe
@@ -73,7 +80,14 @@ export default function DeleteRecipe({ ...props }) {
           props.setters.setDeleteMenuRecipeActive(false);
         }
       } catch (err) {
-        if (err instanceof Error) console.log(err);
+        if (err instanceof Error && err.message.includes("401")) {
+          props.setters.setUnauthorized(true);
+          localStorage.removeItem("token");
+
+          setTimeout(() => {
+            return navigate("/gate");
+          }, 5000);
+        }
       }
     }
   };

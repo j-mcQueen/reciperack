@@ -62,6 +62,7 @@ export default function UserMenu({ ...props }) {
             }}
             setters={{
               setMenu: props.setters.setMenu,
+              setUnauthorized: props.setters.setUnauthorized,
               setBreakfast,
               setLunch,
               setDinner,
@@ -86,6 +87,7 @@ export default function UserMenu({ ...props }) {
               setDinner,
               setClearModalActive,
               setMenu: props.setters.setMenu,
+              setUnauthorized: props.setters.setUnauthorized,
             }}
           />
         </div>
@@ -149,6 +151,7 @@ export default function UserMenu({ ...props }) {
               setMenuModal: props.setters.setMenuModal,
               setModalAction: props.setters.setModalAction,
               setActiveMeal: props.setters.setActiveMeal,
+              setUnauthorized: props.setters.setUnauthorized,
             }}
           />
 
@@ -163,6 +166,7 @@ export default function UserMenu({ ...props }) {
               setMenuModal: props.setters.setMenuModal,
               setModalAction: props.setters.setModalAction,
               setActiveMeal: props.setters.setActiveMeal,
+              setUnauthorized: props.setters.setUnauthorized,
             }}
           />
 
@@ -177,6 +181,7 @@ export default function UserMenu({ ...props }) {
               setMenuModal: props.setters.setMenuModal,
               setModalAction: props.setters.setModalAction,
               setActiveMeal: props.setters.setActiveMeal,
+              setUnauthorized: props.setters.setUnauthorized,
             }}
           />
         </section>

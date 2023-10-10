@@ -45,6 +45,7 @@ export default function SignUp({ ...props }) {
 
       if (response.data.errors) {
         // validation errors
+        props.setSpinner(false);
         for (const item of response.data.errors) {
           if (item.path === "username") setUsernameError(item.msg);
           if (item.path === "email") setEmailError(item.msg);
@@ -55,9 +56,11 @@ export default function SignUp({ ...props }) {
       }
 
       if (response.data.usernameTaken) {
+        props.setSpinner(false);
         setUsernameTakenError(response.data.message);
         return;
       } else if (response.data.emailTaken) {
+        props.setSpinner(false);
         setEmailTakenError(response.data.message);
         return;
       } else if (response.status === 200) {

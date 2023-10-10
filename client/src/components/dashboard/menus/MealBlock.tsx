@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EditIcon from "../../../assets/icons/Edit";
 import DeleteIcon from "../../../assets/icons/Delete";
@@ -7,6 +7,8 @@ import BlockButton from "./BlockButton";
 import axios from "axios";
 
 export default function MealBlock({ ...props }) {
+  const navigate = useNavigate();
+
   const [blockRecipe, setBlockRecipe] = useState({ _id: "", title: "" });
 
   useEffect(() => {
@@ -29,7 +31,14 @@ export default function MealBlock({ ...props }) {
           setBlockRecipe(response.data);
         }
       } catch (err) {
-        if (err instanceof Error) console.log(err);
+        if (err instanceof Error && err.message.includes("401")) {
+          props.setters.setUnauthorized(true);
+          localStorage.removeItem("token");
+
+          setTimeout(() => {
+            return navigate("/gate");
+          }, 100000);
+        }
       }
     };
     if (props.vals.mealRecipe.recipe !== undefined) renderRecipe();

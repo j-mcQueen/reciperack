@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import CloseIcon from "../../../assets/icons/Close";
 import AddIcon from "../../../assets/icons/Add";
 import EditIcon from "../../../assets/icons/Edit";
+import { useNavigate } from "react-router-dom";
 
 export default function MenuModal({ ...props }) {
+  const navigate = useNavigate();
+
   const [allRecipes, setAllRecipes] = useState([]);
   const [chosenRecipeId, setChosenRecipeId] = useState("");
 
@@ -26,8 +29,13 @@ export default function MenuModal({ ...props }) {
           setChosenRecipeId(response.data[0]._id); // set the default chosen recipe to the first item in all recipes
         }
       } catch (err) {
-        if (err instanceof Error) {
-          console.log(err);
+        if (err instanceof Error && err.message.includes("401")) {
+          props.setters.setUnauthorized(true);
+          localStorage.removeItem("token");
+
+          setTimeout(() => {
+            return navigate("/gate");
+          }, 100000);
         }
       }
     };
@@ -80,7 +88,14 @@ export default function MenuModal({ ...props }) {
         props.setters.setMenuModal(false);
       }
     } catch (err) {
-      if (err instanceof Error) console.log(err);
+      if (err instanceof Error && err.message.includes("401")) {
+        props.setters.setUnauthorized(true);
+        localStorage.removeItem("token");
+
+        setTimeout(() => {
+          return navigate("/gate");
+        }, 100000);
+      }
     }
     props.setters.setMenuModal(false);
   };

@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import CloseIcon from "../../../assets/icons/Close";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateRecipe({ ...props }) {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [steps, setSteps] = useState("");
@@ -33,9 +36,13 @@ export default function CreateRecipe({ ...props }) {
         props.setters.setRecipes([...props.vals.recipes, response.data]);
       }
     } catch (err) {
-      if (err instanceof Error) {
-        // comply with strict type checking for errors in a catch block
-        console.log(err);
+      if (err instanceof Error && err.message.includes("401")) {
+        props.setterssetUnauthorized(true);
+        localStorage.removeItem("token");
+
+        setTimeout(() => {
+          return navigate("/gate");
+        }, 5000);
       }
     }
   };
