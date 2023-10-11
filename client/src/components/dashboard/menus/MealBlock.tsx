@@ -8,7 +8,6 @@ import axios from "axios";
 
 export default function MealBlock({ ...props }) {
   const navigate = useNavigate();
-
   const [blockRecipe, setBlockRecipe] = useState({ _id: "", title: "" });
 
   useEffect(() => {

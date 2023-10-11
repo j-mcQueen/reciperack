@@ -1,7 +1,6 @@
 const passport = require("passport");
 const Recipe = require("../models/recipe");
 const User = require("../models/user");
-const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.recipe_list = (req, res, next) => {

@@ -56,7 +56,7 @@ export default function MenuModal({ ...props }) {
 
       if (props.vals.modalAction === "add") {
         if (props.vals.activeMeal === "Breakfast") {
-          // meal numbers represent their actual position in the menu - that way if other recipes get removed, their position in the table is not affected
+          // meal numbers represent their actual position in the menu - that way if other recipes get removed, their order is unaffected
           updatedDayRecipes.push({ meal: 0, recipe: chosenRecipeId });
         } else if (props.vals.activeMeal === "Lunch") {
           updatedDayRecipes.push({ meal: 1, recipe: chosenRecipeId });

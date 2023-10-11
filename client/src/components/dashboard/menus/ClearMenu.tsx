@@ -55,6 +55,7 @@ export default function ClearMenu({ ...props }) {
       }
     }
   };
+
   return (
     <div className="flex flex-col gap-5 bg-main border-solid border rounded-lg border-offmain p-5 mx-3 xl:mx-0 xl:w-1/3">
       <div className="flex justify-between items-center w-full">

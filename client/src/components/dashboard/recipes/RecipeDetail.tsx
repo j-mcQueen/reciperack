@@ -48,6 +48,7 @@ export default function RecipeDetail() {
       const token = localStorage.getItem("token");
       const urlArr = window.location.href.split("/recipes/");
       const id = urlArr[urlArr.length - 1];
+
       try {
         const response = await axios.get(
           // `https://reciperack-api.vercel.app/recipes/${id}`,

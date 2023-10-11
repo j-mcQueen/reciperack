@@ -37,7 +37,7 @@ export default function CreateRecipe({ ...props }) {
       }
     } catch (err) {
       if (err instanceof Error && err.message.includes("401")) {
-        props.setterssetUnauthorized(true);
+        props.setters.setUnauthorized(true);
         localStorage.removeItem("token");
 
         setTimeout(() => {

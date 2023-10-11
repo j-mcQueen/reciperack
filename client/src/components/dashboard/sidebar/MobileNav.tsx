@@ -7,7 +7,7 @@ import SpinnerIcon from "../../../assets/icons/Spinner";
 export default function MobileNav({ ...props }) {
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     props.setSpinner(true);
     localStorage.removeItem("token");
     return navigate("/gate");
