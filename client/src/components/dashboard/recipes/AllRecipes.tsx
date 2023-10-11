@@ -19,8 +19,7 @@ export default function AllRecipes({ ...props }) {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          // "https://reciperack-api.vercel.app/recipes",
-          "http://localhost:3000/recipes",
+          "https://reciperack-api.vercel.app/recipes",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -41,7 +40,7 @@ export default function AllRecipes({ ...props }) {
       }
     };
     getRecipes();
-  }, []);
+  }, [navigate]);
 
   const onSearch = (e: FormEvent) => {
     // filter all recipes for recipe objects which contain titles that include the search state value

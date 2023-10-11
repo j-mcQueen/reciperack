@@ -17,8 +17,7 @@ export default function CreateRecipe({ ...props }) {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        // "https://reciperack-api.vercel.app/recipes",
-        "http://localhost:3000/recipes",
+        "https://reciperack-api.vercel.app/recipes",
         {
           title,
           ingredients,

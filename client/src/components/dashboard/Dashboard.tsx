@@ -67,7 +67,7 @@ export default function Dashboard() {
       }
     };
     getUserMenu();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="xl:grid xl:grid-cols-dashboard mt-3 mx-3 mb-[calc(84px+1.5rem)] xl:m-5 gap-5">

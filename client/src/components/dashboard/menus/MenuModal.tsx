@@ -17,8 +17,7 @@ export default function MenuModal({ ...props }) {
       const token = localStorage.getItem("token");
       try {
         const response = await axios.get(
-          // "https://reciperack-api.vercel.app/recipes",
-          `http://localhost:3000/recipes`,
+          "https://reciperack-api.vercel.app/recipes",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -75,8 +74,7 @@ export default function MenuModal({ ...props }) {
       const updatedMenu = { ...props.vals.menu, [day]: updatedDayRecipes };
 
       const response = await axios.put(
-        // `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
-        `http://localhost:3000/user/${props.vals.userId}`,
+        `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
         { updatedMenu },
         {
           headers: { Authorization: `Bearer ${token}` },

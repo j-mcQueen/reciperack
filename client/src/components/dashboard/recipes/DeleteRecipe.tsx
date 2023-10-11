@@ -13,8 +13,7 @@ export default function DeleteRecipe({ ...props }) {
       // if user wants to delete the source recipe
       try {
         const response = await axios.delete(
-          // `https://reciperack-api.vercel.app/recipes/${props.vals.recipe._id}`,
-          `http://localhost:3000/recipes/${props.vals.recipe._id}`,
+          `https://reciperack-api.vercel.app/recipes/${props.vals.recipe._id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

@@ -19,8 +19,7 @@ export default function MealBlock({ ...props }) {
       const token = localStorage.getItem("token");
       try {
         const response = await axios.get(
-          // `https://reciperack-api.vercel.app/recipes/${props.vals.mealRecipe.recipe}`,
-          `http://localhost:3000/recipes/${props.vals.mealRecipe.recipe}`,
+          `https://reciperack-api.vercel.app/recipes/${props.vals.mealRecipe.recipe}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
