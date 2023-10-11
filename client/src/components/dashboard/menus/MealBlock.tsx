@@ -35,7 +35,7 @@ export default function MealBlock({ ...props }) {
 
           setTimeout(() => {
             return navigate("/gate");
-          }, 100000);
+          }, 5000);
         }
       }
     };

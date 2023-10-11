@@ -44,7 +44,14 @@ export default function UpdateRecipe({ ...props }) {
 
       if (response.status === 200) navigate(0); // refresh page
     } catch (err) {
-      if (err instanceof Error) console.log(err);
+      if (err instanceof Error && err.message.includes("401")) {
+        props.setUnauthorized(true);
+        localStorage.removeItem("token");
+
+        setTimeout(() => {
+          return navigate("/gate");
+        }, 5000);
+      }
     }
   };
 

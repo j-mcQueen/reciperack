@@ -34,7 +34,7 @@ export default function MenuModal({ ...props }) {
 
           setTimeout(() => {
             return navigate("/gate");
-          }, 100000);
+          }, 5000);
         }
       }
     };
@@ -92,7 +92,7 @@ export default function MenuModal({ ...props }) {
 
         setTimeout(() => {
           return navigate("/gate");
-        }, 100000);
+        }, 5000);
       }
     }
     props.setters.setMenuModal(false);

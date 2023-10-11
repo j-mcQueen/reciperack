@@ -50,7 +50,7 @@ export default function ClearMenu({ ...props }) {
 
         setTimeout(() => {
           return navigate("/gate");
-        }, 100000);
+        }, 5000);
       }
     }
   };

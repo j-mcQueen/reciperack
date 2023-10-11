@@ -4,8 +4,13 @@ import UpdateRecipe from "./UpdateRecipe";
 import DeleteRecipe from "./DeleteRecipe";
 import DetailHeader from "../DetailHeader";
 import MobileDetailHeader from "../MobileDetailHeader";
+import { useNavigate } from "react-router-dom";
+import Unauthorized from "../Unauthorized";
 
 export default function RecipeDetail() {
+  const navigate = useNavigate();
+
+  const [unauthorized, setUnauthorized] = useState(false);
   const [updateRecipeActive, setUpdateRecipeActive] = useState(false);
   const [deleteRecipeActive, setDeleteRecipeActive] = useState(false);
   const [recipe, setRecipe] = useState({
@@ -75,14 +80,19 @@ export default function RecipeDetail() {
             createdBy: response.data.createdBy,
           });
         }
-      } catch (error) {
-        if (error instanceof Error) {
-          console.log(error);
+      } catch (err) {
+        if (err instanceof Error && err.message.includes("401")) {
+          setUnauthorized(true);
+          localStorage.removeItem("token");
+
+          setTimeout(() => {
+            return navigate("/gate");
+          }, 5000);
         }
       }
     };
     getRecipeDetail();
-  }, []);
+  }, [navigate]);
 
   return (
     <main>
@@ -90,6 +100,7 @@ export default function RecipeDetail() {
         <div className="fixed xl:flex xl:items-center xl:justify-center overscroll-contain xl:overscroll-auto overflow-y-scroll xl:overflow-y-auto inset-0 xl:inset-auto w-screen h-[100dvh] rounded-lg backdrop-brightness-50">
           <UpdateRecipe
             setUpdateRecipeActive={setUpdateRecipeActive}
+            setUnauthorized={setUnauthorized}
             recipe={recipe}
           />
         </div>
@@ -99,7 +110,7 @@ export default function RecipeDetail() {
         <div className="fixed flex items-center justify-center w-screen h-screen backdrop-brightness-50">
           <DeleteRecipe
             vals={{ source: "source", detail: true, recipe }}
-            setters={{ setDeleteRecipeActive }}
+            setters={{ setDeleteRecipeActive, setUnauthorized }}
           />
         </div>
       ) : null}
@@ -117,6 +128,12 @@ export default function RecipeDetail() {
           setDeleteItemActive={setDeleteRecipeActive}
         />
       )}
+
+      {unauthorized ? (
+        <div className="fixed flex items-center justify-center w-[calc(100dvw-1.5rem)] xl:w-[100dvw] h-[calc(100dvh-1.5rem)]  xl:h-[100dvh] backdrop-brightness-50 rounded-lg">
+          <Unauthorized />
+        </div>
+      ) : null}
 
       <div className="grid grid-cols-recipeDetails justify-center items-center gap-5 xl:gap-10 my-10 mx-3 xl:m-10">
         <section className="font-manrope flex self-start flex-col border border-solid border-gold rounded-lg p-5 xl:p-10">
