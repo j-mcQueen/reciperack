@@ -44,8 +44,7 @@ export default function Dashboard() {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          // "https://reciperack-api.vercel.app/user",
-          "http://localhost:3000/user",
+          "https://reciperack-api.vercel.app/user",
           {
             headers: { Authorization: `Bearer ${token}` },
           }

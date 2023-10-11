@@ -51,8 +51,7 @@ export default function RecipeDetail() {
 
       try {
         const response = await axios.get(
-          // `https://reciperack-api.vercel.app/recipes/${id}`,
-          `http://localhost:3000/recipes/${id}`,
+          `https://reciperack-api.vercel.app/recipes/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

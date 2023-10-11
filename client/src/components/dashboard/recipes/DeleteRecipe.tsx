@@ -66,8 +66,7 @@ export default function DeleteRecipe({ ...props }) {
 
         const updatedMenu = { ...props.vals.menu, [day]: dayRecipes };
         const response = await axios.put(
-          // `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
-          `http://localhost:3000/user/${props.vals.userId}`,
+          `https://reciperack-api.vercel.app/user/${props.vals.userId}`,
           { updatedMenu },
           {
             headers: { Authorization: `Bearer ${token}` },
