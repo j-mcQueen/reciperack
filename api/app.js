@@ -1,4 +1,4 @@
-require("dotenv/config");
+require("dotenv").config();
 const User = require("./models/user");
 const createError = require("http-errors");
 const RateLimit = require("express-rate-limit");

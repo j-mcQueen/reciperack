@@ -1,4 +1,4 @@
-require("dotenv/config");
+require("dotenv").config();
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
