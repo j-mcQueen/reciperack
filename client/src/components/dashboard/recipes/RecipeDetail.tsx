@@ -9,8 +9,10 @@ import Unauthorized from "../Unauthorized";
 
 export default function RecipeDetail() {
   const navigate = useNavigate();
+  const viewport = window.matchMedia("(max-width: 1080px)");
 
   const [unauthorized, setUnauthorized] = useState(false);
+
   const [updateRecipeActive, setUpdateRecipeActive] = useState(false);
   const [deleteRecipeActive, setDeleteRecipeActive] = useState(false);
   const [recipe, setRecipe] = useState({
@@ -24,9 +26,20 @@ export default function RecipeDetail() {
     createdBy: "",
   });
 
-  const viewport = window.matchMedia("(max-width: 1080px)");
-
   const UList = ({ ...props }) => {
+    interface Complete {
+      [key: number]: number;
+    }
+    const [complete, setComplete] = useState<Complete>({});
+
+    const handleIngClick = (index: number) => {
+      if (complete[index]) {
+        setComplete({ ...complete, [index]: 0 });
+      } else {
+        setComplete({ ...complete, [index]: 1 });
+      }
+    };
+
     return (
       <>
         {props.vals.arr.length > 0 ? (
@@ -34,10 +47,30 @@ export default function RecipeDetail() {
             {props.vals.arr.map((item: string, i: number) => (
               // using indexes not ideal as noted by React, but ingredients do not have an associated id, and using the recipe id throws warnings because of multiple list items using the same id. Tried using uuidv4() but for whatever reason it caused errors
               <li
-                className="text-lg tracking-tight list-disc list-inside py-2 text-txt2"
+                onClick={() => (!props.vals.notes ? handleIngClick(i) : null)}
+                className={`text-lg tracking-tight list-none mb-3 ${
+                  !props.vals.notes
+                    ? "xl:hover:translate-x-2 xl:transition-transform"
+                    : "border border-solid border-blue rounded-lg bg-offblue text-left py-4 pl-5 w-full"
+                }`}
                 key={i}
               >
-                {item.trimStart()}
+                {!props.vals.notes ? (
+                  <button
+                    type="button"
+                    className={`${
+                      complete[i] === 1
+                        ? "border-logoBg bg-offmain xl:hover:bg-main line-through"
+                        : "border-gold bg-offgold xl:hover:bg-transgold"
+                    } ${
+                      props.vals.notes ? "xl:hover:" : ""
+                    } text-left py-4 w-full border border-solid rounded-lg pl-5 xl:transition-colors`}
+                  >
+                    {item.trimStart()}
+                  </button>
+                ) : (
+                  item.trimStart()
+                )}
               </li>
             ))}
           </ul>
@@ -136,8 +169,8 @@ export default function RecipeDetail() {
       ) : null}
 
       <div className="grid grid-cols-recipeDetails justify-center items-center gap-5 xl:gap-10 my-10 mx-3 xl:m-10">
-        <section className="font-manrope flex self-start flex-col border border-solid border-gold rounded-lg p-5 xl:p-10">
-          <h2 className="font-bold tracking-tighter text-4xl py-3 xl:py-0">
+        <section className="font-manrope flex self-start flex-col p-5 xl:p-10">
+          <h2 className="font-bold tracking-tighter text-4xl text-center py-5 border border-solid border-gold rounded-lg">
             Ingredients
           </h2>
 
@@ -150,8 +183,8 @@ export default function RecipeDetail() {
           />
         </section>
 
-        <section className="font-manrope flex self-start flex-col rounded-lg border border-solid border-green p-5 xl:p-10">
-          <h2 className="font-bold tracking-tight text-4xl py-3 xl:py-0">
+        <section className="font-manrope flex self-start flex-col p-5 xl:p-10">
+          <h2 className="font-bold tracking-tight text-4xl text-center py-5 border border-solid border-green rounded-lg">
             Instructions
           </h2>
 
@@ -170,12 +203,15 @@ export default function RecipeDetail() {
           )}
         </section>
 
-        <section className="font-manrope flex self-start flex-col rounded-lg border border-solid border-blue p-5 xl:p-10">
-          <h2 className="font-bold tracking-tighter text-4xl">Notes</h2>
+        <section className="font-manrope flex self-start flex-col p-5 xl:p-10">
+          <h2 className="font-bold tracking-tighter text-4xl text-center py-5 rounded-lg border border-solid border-blue ">
+            Notes
+          </h2>
 
           <UList
             vals={{
               arr: recipe.notes,
+              notes: true,
               emptyText:
                 "Any tips or tricks that you have for this recipe will appear here.",
             }}
